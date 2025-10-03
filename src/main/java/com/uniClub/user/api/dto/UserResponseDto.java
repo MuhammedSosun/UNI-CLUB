@@ -1,4 +1,4 @@
-package com.uniClub.user.api;
+package com.uniClub.user.api.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserResponse {
+public class UserResponseDto {
 
     private String accessToken;
 

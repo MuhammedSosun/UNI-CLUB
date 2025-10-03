@@ -1,4 +1,4 @@
-package com.uniClub.user.api;
+package com.uniClub.user.api.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -16,4 +16,6 @@ public class UserRequestDto {
     private String username;
     @NotEmpty
     private String password;
+
+
 }

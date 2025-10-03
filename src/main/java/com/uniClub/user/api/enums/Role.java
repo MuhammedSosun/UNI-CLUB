@@ -1,4 +1,4 @@
-package com.uniClub.user.api;
+package com.uniClub.user.api.enums;
 
 import lombok.Getter;
 

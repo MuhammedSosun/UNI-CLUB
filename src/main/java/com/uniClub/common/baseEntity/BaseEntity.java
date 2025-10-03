@@ -1,4 +1,4 @@
-package com.uniClub.common;
+package com.uniClub.common.baseEntity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

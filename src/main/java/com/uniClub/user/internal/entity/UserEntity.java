@@ -1,7 +1,7 @@
-package com.uniClub.user.internal;
+package com.uniClub.user.internal.entity;
 
-import com.uniClub.common.BaseEntity;
-import com.uniClub.user.api.Role;
+import com.uniClub.common.baseEntity.BaseEntity;
+import com.uniClub.user.api.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,8 +37,29 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @Column(name = "role")
     private Role role;
 
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return UserDetails.super.isAccountNonExpired();
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return UserDetails.super.isAccountNonLocked();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return UserDetails.super.isCredentialsNonExpired();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return UserDetails.super.isEnabled();
     }
 }
