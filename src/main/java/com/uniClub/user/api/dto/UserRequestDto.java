@@ -1,6 +1,6 @@
 package com.uniClub.user.api.dto;
 
-import jakarta.validation.constraints.NotEmpty;
+import com.uniClub.user.api.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,10 +12,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserRequestDto {
 
-    @NotEmpty
     private String username;
-    @NotEmpty
+
     private String password;
 
-
+    private Role role;
 }
