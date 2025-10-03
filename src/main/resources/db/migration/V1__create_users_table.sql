@@ -1,6 +1,8 @@
 --SQUENCE YOK ÇÜNKÜ UUID İLE ÜRETİLMİŞ BİR MİGRATİON
 
-CREATE TABLE users (    --gen_random_uuid otomatik id olusturmamızı sağlar
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+
+CREATE TABLE uniclub.users (    --gen_random_uuid otomatik id olusturmamızı sağlar
                        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
                         --TIMESTAMP WITH TIME ZONE tarih ve saat bilgisini timezone olarakta tutmamızı sağlar örn:2025-10-03 12:00+03

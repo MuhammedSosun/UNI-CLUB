@@ -35,4 +35,6 @@ public abstract class BaseEntity {
     @Version
     @Column(name = "version")
     private Integer version;
+
+
 }
