@@ -1,6 +1,6 @@
 package com.uniClub.security;
 
-import com.uniClub.common.exceptions.exception.AuthEntryPoint;
+import com.uniClub.common.exceptions.handle.AuthEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
