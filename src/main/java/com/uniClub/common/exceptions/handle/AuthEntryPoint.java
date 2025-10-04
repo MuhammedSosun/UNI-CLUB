@@ -1,4 +1,4 @@
-package com.uniClub.common.exceptions.exception;
+package com.uniClub.common.exceptions.handle;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
