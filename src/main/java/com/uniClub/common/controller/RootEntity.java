@@ -11,7 +11,6 @@ public class RootEntity<T> {
 
     private Integer status;
     private T payload;
-
     private String errorMessage;
 
     public static <T> RootEntity<T> ok(T payload) {

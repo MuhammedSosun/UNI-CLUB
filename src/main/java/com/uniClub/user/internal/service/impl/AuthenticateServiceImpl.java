@@ -47,7 +47,6 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
     public UserDto register(UserDto userDto) {
         UserEntity user = UserMapper.toEntity(userDto,bCryptPasswordEncoder);
         UserEntity savedUser = userRepository.save(user);
-
         return UserMapper.toDto(savedUser);
     }
 
@@ -83,6 +82,6 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
         return new AuthResponse(accessToken,newRefreshToken.getRefreshToken());
     }
     private boolean isValid(Date expiredDate){
-        return expiredDate.before(new Date());
+        return expiredDate.after(new Date());
     }
 }
