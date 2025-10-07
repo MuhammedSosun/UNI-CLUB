@@ -1,5 +1,7 @@
 package com.uniClub.user.internal.service.impl;
 
+import com.uniClub.common.logging.LoggableOperation;
+import com.uniClub.common.utils.OperationType;
 import com.uniClub.security.JwtService;
 import com.uniClub.user.api.dto.*;
 import com.uniClub.user.internal.entity.RefreshToken;
@@ -33,8 +35,6 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
         this.jwtService = jwtService;
         this.refreshTokenRepository = refreshTokenRepository;
     }
-
-
     private RefreshToken createRefreshToken(UserEntity user) {
         RefreshToken refreshToken = new RefreshToken();
         refreshToken.setUser(user);
@@ -43,13 +43,14 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
 
         return refreshToken;
     }
+    @LoggableOperation(OperationType.REGISTER)
     @Override
     public UserDto register(UserDto userDto) {
         UserEntity user = UserMapper.toEntity(userDto,bCryptPasswordEncoder);
         UserEntity savedUser = userRepository.save(user);
         return UserMapper.toDto(savedUser);
     }
-
+    @LoggableOperation(OperationType.LOGIN)
     @Override
     public AuthResponse authenticate(AuthRequest authRequest) {
 
@@ -67,7 +68,7 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
         }
 
     }
-
+    @LoggableOperation(OperationType.REFRESH_TOKEN)
     @Override
     public AuthResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
         RefreshToken refreshToken = refreshTokenRepository.findByRefreshToken(refreshTokenRequest.getRefreshToken())

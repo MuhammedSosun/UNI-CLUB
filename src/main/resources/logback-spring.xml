@@ -1,43 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="30 seconds">
 
-
+    <!-- ========== Genel Ayarlar ========== -->
     <springProperty scope="context" name="APP_NAME" source="spring.application.name" defaultValue="uniClub"/>
     <property name="LOG_PATH" value="logs"/>
+    <property name="LOGSTASH_HOST" value="logstash"/>
+    <property name="LOGSTASH_PORT" value="5000"/>
 
-
+    <!-- ========== Console Log (Geliştirme Ortamı) ========== -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>
-                %d{yyyy-MM-dd HH:mm:ss.SSS} [%-15X{traceId}] [%-10X{username}] %-5level %logger{36}.%M:%L - %msg%n
+                %d{yyyy-MM-dd HH:mm:ss.SSS} [trace:%X{trace_id}] [user:%X{username}] [role:%X{role}] [op:%X{operation}] %-5level %logger{36} - %msg%n
             </pattern>
+            <charset>UTF-8</charset>
         </encoder>
     </appender>
 
-
+    <!-- ========== Logstash (ELK için JSON formatında) ========== -->
     <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <!-- ⚙️ Docker ortamında çalışıyorsa 'logstash:5000' -->
         <destination>localhost:5000</destination>
-
         <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
             <providers>
+
+                <!-- Timestamp -->
                 <timestamp>
                     <fieldName>@timestamp</fieldName>
                 </timestamp>
 
+                <!-- Sabit servis bilgisi -->
+                <globalCustomFields>{"service":"${APP_NAME}"}</globalCustomFields>
+
+                <!-- JSON format -->
                 <pattern>
                     <pattern>
                         {
-                        "service":"${APP_NAME}",
-                        "level":"%level",
-                        "logger":"%logger{36}",
-                        "thread":"%thread",
-                        "trace_id":"%X{traceId}",
-                        "username":"%X{username}",
-                        "message":"%message"
+                        "level": "%level",
+                        "logger": "%logger{36}",
+                        "thread": "%thread",
+                        "trace_id": "%X{trace_id}",
+                        "username": "%X{username}",
+                        "role": "%X{role}",
+                        "method": "%X{method}",
+                        "path": "%X{path}",
+                        "operation": "%X{operation}",
+                        "message": "%message"
                         }
                     </pattern>
                 </pattern>
 
+                <!-- Exception stacktrace -->
                 <stackTrace>
                     <fieldName>exception</fieldName>
                 </stackTrace>
@@ -45,16 +58,30 @@
         </encoder>
     </appender>
 
+    <!-- ========== File Appender (Opsiyonel / Dev + Prod için) ========== -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/${APP_NAME}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/archive/${APP_NAME}-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>14</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [trace:%X{trace_id}] [user:%X{username}] [role:%X{role}] [op:%X{operation}] %-5level %logger{36} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
 
+    <!-- ========== Logger Seviyeleri ========== -->
     <logger name="org.springframework" level="WARN"/>
     <logger name="org.hibernate.SQL" level="DEBUG"/>
     <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE"/>
     <logger name="com.uniClub" level="DEBUG"/>
 
-
+    <!-- ========== Root Log ========== -->
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="LOGSTASH"/>
+        <appender-ref ref="FILE"/>
     </root>
 
 </configuration>

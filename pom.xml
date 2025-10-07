@@ -19,10 +19,13 @@
 	<description>JWT + Flyway + PostgreSQL + Swagger (Spring Boot 3.5.6)</description>
 
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>21</java.version>
 		<jjwt.version>0.11.5</jjwt.version>
 		<springdoc.version>2.6.0</springdoc.version>
 	</properties>
+
 
 	<dependencyManagement>
 		<dependencies>
@@ -142,6 +145,8 @@
 					<source>${java.version}</source>
 					<target>${java.version}</target>
 					<encoding>UTF-8</encoding>
+
+					<!-- Lombok annotation processor -->
 					<annotationProcessorPaths>
 						<path>
 							<groupId>org.projectlombok</groupId>
@@ -149,7 +154,6 @@
 							<version>1.18.34</version>
 						</path>
 					</annotationProcessorPaths>
-
 				</configuration>
 			</plugin>
 
