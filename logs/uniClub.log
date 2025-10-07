@@ -325,3 +325,6 @@ body=(empty)
 traceId=6c9aee90-dac5-4192-a898-5cb80738a38d | status=200 | duration=611ms
 body={"status":200,"payload":{"accessToken":"eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJhZG1pbiIsImlhdCI6MTc1OTgzODA5NSwiZXhwIjoxNzU5ODQ1Mjk1fQ.f9UmAE9XjQ0-QHnC89obhhkyPXT0E8j6clc01EBoPQc","refreshToken":"cb49b6e9-639b-4267-9916-95e949392f59"}}
 
+2025-10-07 18:23:03.105 [trace:] [user:] [role:] [op:] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3h1m14s477ms452µs100ns).
+2025-10-07 18:51:00.486 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-10-07 18:51:00.510 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
