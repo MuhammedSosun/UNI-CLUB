@@ -24,5 +24,4 @@ public class EventResponse extends BaseEntity {
 
     private String location;
 
-    private String createdByUserName;
 }

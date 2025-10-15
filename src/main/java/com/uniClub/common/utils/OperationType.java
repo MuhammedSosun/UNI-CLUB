@@ -19,6 +19,8 @@ public enum OperationType {
 
     // 🔹 Business Domain Operasyonları (Kulüp sistemi için)
     CREATE_EVENT("Yeni etkinlik oluşturma"),
+    FIND_ALL_EVENTS("Tüm Etkinlikler listelendi"),
+    FIND_EVENT("Etkinlik bulma"),
     UPDATE_EVENT("Etkinlik güncelleme"),
     DELETE_EVENT("Etkinlik silme"),
     JOIN_EVENT("Etkinliğe katılma"),

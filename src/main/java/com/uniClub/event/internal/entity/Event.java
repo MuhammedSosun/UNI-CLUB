@@ -34,10 +34,6 @@ public class Event extends BaseEntity {
     private String location;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "created_by_user")
-    private UserEntity createdBy;
-
 
 // burda club servisi ile bir ilişkisi olacak club servisi yazıldıktan sonra eklenecek
 }

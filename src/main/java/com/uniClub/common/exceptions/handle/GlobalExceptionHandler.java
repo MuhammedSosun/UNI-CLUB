@@ -9,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import com.uniClub.common.exceptions.exception.ErrorMessage;
 
 import java.net.Inet4Address;
 import java.net.UnknownHostException;

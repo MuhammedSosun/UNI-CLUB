@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class EventRequest extends DtoBase {
+public class EventRequest{
 
     @NotBlank(message = "Etkinlik başlığı boş olamaz.")
     @Size(max = 255, message = "Etkinlik başlığı en fazla 255 karakter olabilir.")
@@ -33,6 +33,5 @@ public class EventRequest extends DtoBase {
     @Size(max = 255, message = "Konum en fazla 255 karakter olabilir.")
     private String location;
 
-    @NotNull(message = "Etkinliği oluşturan kullanıcı belirtilmelidir.")
-    private Long createdByUserId;
+
 }
