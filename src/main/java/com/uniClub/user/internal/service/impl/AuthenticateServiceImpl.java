@@ -1,5 +1,8 @@
 package com.uniClub.user.internal.service.impl;
 
+import com.uniClub.common.exceptions.exception.BaseException;
+import com.uniClub.common.exceptions.exception.ErrorMessage;
+import com.uniClub.common.exceptions.exception.MessageType;
 import com.uniClub.common.logging.LoggableOperation;
 import com.uniClub.common.utils.OperationType;
 import com.uniClub.security.JwtService;
@@ -13,9 +16,11 @@ import com.uniClub.user.internal.repository.UserRepository;
 import com.uniClub.user.internal.service.IAuthenticateService;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.UUID;
@@ -43,6 +48,7 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
 
         return refreshToken;
     }
+    @Transactional
     @LoggableOperation(OperationType.REGISTER)
     @Override
     public UserDto register(UserDto userDto) {
@@ -50,6 +56,7 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
         UserEntity savedUser = userRepository.save(user);
         return UserMapper.toDto(savedUser);
     }
+    @Transactional
     @LoggableOperation(OperationType.LOGIN)
     @Override
     public AuthResponse authenticate(AuthRequest authRequest) {
@@ -68,6 +75,7 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
         }
 
     }
+    @Transactional
     @LoggableOperation(OperationType.REFRESH_TOKEN)
     @Override
     public AuthResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
@@ -82,6 +90,15 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
 
         return new AuthResponse(accessToken,newRefreshToken.getRefreshToken());
     }
+    @Transactional
+    @Override
+    public void logout() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        UserEntity user = userRepository.findByUsername(username).orElseThrow(
+                ()-> new BaseException(new ErrorMessage(MessageType.USERNAME_NOT_FOUND, username)));
+        refreshTokenRepository.deleteAllByUserId(user.getId());
+    }
+
     private boolean isValid(Date expiredDate){
         return expiredDate.after(new Date());
     }

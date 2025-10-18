@@ -9,11 +9,12 @@ import com.uniClub.user.api.dto.UserDto;
 import com.uniClub.user.internal.controller.IRestAuthenticationController;
 import com.uniClub.user.internal.service.IAuthenticateService;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api/auth")
+
 public class RestAuthenticationControllerImpl extends RestBaseController implements IRestAuthenticationController {
 
     private final IAuthenticateService authenticateService;
@@ -29,7 +30,7 @@ public class RestAuthenticationControllerImpl extends RestBaseController impleme
     }
     @PostMapping("/authenticate")
     @Override
-    public RootEntity<AuthResponse> authenticate(AuthRequest request) {
+    public RootEntity<AuthResponse> authenticate(@RequestBody AuthRequest request) {
         return ok(authenticateService.authenticate(request));
     }
 
@@ -37,5 +38,12 @@ public class RestAuthenticationControllerImpl extends RestBaseController impleme
     @Override
     public RootEntity<AuthResponse> refreshToken(RefreshTokenRequest refreshTokenRequest) {
         return ok(authenticateService.refreshToken(refreshTokenRequest));
+    }
+    @PostMapping("/logout")
+    @Override
+    public ResponseEntity<Void> logout() {
+        authenticateService.logout();
+        return ResponseEntity.ok().build();
+
     }
 }

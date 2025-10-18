@@ -12,7 +12,6 @@ import com.uniClub.event.internal.mapper.EventMapper;
 import com.uniClub.event.internal.repository.EventRepository;
 import com.uniClub.event.internal.service.IEventService;
 import com.uniClub.user.api.UserPublicService;
-import com.uniClub.user.internal.entity.UserEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

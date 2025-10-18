@@ -6,4 +6,5 @@ public interface IAuthenticateService {
     UserDto register(UserDto userDto);
     AuthResponse authenticate(AuthRequest authRequest);
     AuthResponse refreshToken(RefreshTokenRequest refreshTokenRequest);
+    void logout();
 }

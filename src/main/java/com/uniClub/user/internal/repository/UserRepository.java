@@ -1,5 +1,6 @@
 package com.uniClub.user.internal.repository;
 
+import com.uniClub.user.internal.entity.RefreshToken;
 import com.uniClub.user.internal.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -11,4 +12,5 @@ import java.util.UUID;
 public interface UserRepository extends JpaRepository<UserEntity, UUID> {
 
     Optional<UserEntity> findByUsername(String username);
+
 }
