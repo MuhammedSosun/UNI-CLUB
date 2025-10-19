@@ -1,6 +1,8 @@
 package com.uniClub.notification.internal.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.uniClub.common.baseEntity.MongoBaseEntity;
+import com.uniClub.common.enums.StatusEnum;
 import com.uniClub.notification.api.enums.NotificationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -22,12 +24,13 @@ public class Notification extends MongoBaseEntity {
     private String title;
 
     private String message;
+    @JsonFormat(shape =  JsonFormat.Shape.STRING)
+    private NotificationType type;
 
-
-    private NotificationType notificationType;
+    private StatusEnum status;
 
     private boolean isRead = false;
 
-    private String targetUsername;
+
 
 }
