@@ -31,6 +31,7 @@ public class AppConfig {
                 UserEntity admin = new UserEntity();
                 admin.setUsername("admin");
                 admin.setPassword(passwordEncoder().encode("admin123"));
+                admin.setEmail("admin@yalova.edu.tr");
                 admin.setRole(Role.ADMIN);
                 admin.setCreatedAt(LocalDateTime.now());
                 userRepository.save(admin);
