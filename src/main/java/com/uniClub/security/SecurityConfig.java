@@ -23,6 +23,11 @@ public class SecurityConfig {
     public static final String AUTHENTICATE = "/api/auth/authenticate";
     public static final String REFRESH_TOKEN = "/api/auth/refreshToken";
     public static final String LOGOUT = "/api/auth/logout";
+    public static final String allUsersApi = "/api/auth/**";
+
+
+    public static final String GET_ALL_USERS = "/api/auth/all/users";
+
 
     private final AuthenticationProvider authenticationProvider;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -52,7 +57,15 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())) // ✅ CORS aktif edildi
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(AUTHENTICATE, REGISTER, REFRESH_TOKEN, LOGOUT).permitAll()
+                        .requestMatchers(allUsersApi).permitAll()
+                        .requestMatchers(
+                                "/api/auth/**",
+                                "/api/event/list",
+                                "/api/event/get/**",
+                                "/api/event/filter",
+                                "/api/event/*/join",
+                                "/api/event/*/leave"
+                        ).permitAll()
                         .requestMatchers(SWAGGER_PATHS).permitAll()
                         .anyRequest().authenticated()
                 )
