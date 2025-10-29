@@ -12,5 +12,6 @@ public interface IAuthenticateService {
     AuthResponse refreshToken(RefreshTokenRequest refreshTokenRequest);
     UserDto updateUserRole(UUID userId, Role newRole);
     List<UserDto> allUsers();
+    List<UserDto> searchUsers(String filter);
     void logout();
 }

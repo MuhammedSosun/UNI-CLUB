@@ -127,6 +127,20 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
         return users.stream().map(UserMapper::toDto).toList();
     }
 
+    @Override
+    public List<UserDto> searchUsers(String filter) {
+        if (filter == null || filter.isBlank()) {
+            return userRepository.findAll()
+                    .stream()
+                    .map(UserMapper::toDto)
+                    .toList();
+        }
+        List<UserEntity> users = userRepository.searchUsers(filter);
+        return users.stream()
+                .map(UserMapper::toDto)
+                .toList();
+    }
+
     @Transactional
     @Override
     public void logout() {

@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -55,7 +56,7 @@ public class EventServiceImpl implements IEventService {
     @LoggableOperation(OperationType.FIND_ALL_EVENTS)
     @Override
     public List<EventResponse> findAllEvents() {
-        List<Event> events = eventRepository.findAll();
+        List<Event> events = eventRepository.findAllByOrderByEventDateAsc();
         if (events.isEmpty()) {
             log.warn("[EVENT_LIST_EMPTY]");
             throw new BaseException(new ErrorMessage(MessageType.NO_RECORD_EXIST,"No events found"));
@@ -63,6 +64,12 @@ public class EventServiceImpl implements IEventService {
         log.info("[EVENT_LISTED] total={}", events.size());
         return events.stream().map(eventMapper::toEventResponse).toList();
     }
+
+    public List<EventResponse> searchEvents(String filter) {
+        List<Event> events = eventRepository.findByTitleContainingIgnoreCaseOrderByEventDateAsc(filter);
+        return events.stream().map(eventMapper::toEventResponse).toList();
+    }
+
     @LoggableOperation(OperationType.FIND_EVENT)
     @Override
     public EventResponse findEventById(Long id) {
@@ -97,6 +104,38 @@ public class EventServiceImpl implements IEventService {
         eventRepository.save(existingEvent);
         log.info("[EVENT_UPDATED] id={} user='{}'", id, username);
         return eventMapper.toEventResponse(existingEvent);
+    }
+    @LoggableOperation(OperationType.JOIN_EVENT)
+    @Override
+    public EventResponse joinEvent(Long eventId) {
+        String  username = getUsername();
+        UUID userId = userPublicService.getUserIdByUsername(username);
+        Event event = getEventById(eventId);
+
+        if (event.getParticipantIds().contains(userId)) {
+            throw new BaseException(new ErrorMessage(MessageType.ALREADY_JOINED, "User already joined this event"));
+        }
+        event.getParticipantIds().add(userId);
+        event.setParticipantCount(event.getParticipantCount() + 1);
+        eventRepository.save(event);
+        log.info("[EVENT_JOINED] user='{}' event='{}'", username, event.getTitle());
+        EventResponse eventResponse = eventMapper.toEventResponse(event);
+
+        return eventResponse;
+    }
+    @LoggableOperation(OperationType.LEAVE_EVENT)
+    @Override
+    public EventResponse leaveEvent(Long eventId) {
+        String username = getUsername();
+        UUID userId = userPublicService.getUserIdByUsername(username);
+        Event event = getEventById(eventId);
+        if (!event.getParticipantIds().remove(userId)) {
+            throw new BaseException(new ErrorMessage(MessageType.NOT_PARTICIPANT, "User not registered in this event"));
+        }
+        event.setParticipantCount(event.getParticipantCount() - 1);
+        eventRepository.save(event);
+        log.info("[EVENT_LEFT] user='{}' event='{}'", username, event.getTitle());
+        return eventMapper.toEventResponse(event);
     }
 
     @LoggableOperation(OperationType.DELETE_EVENT)

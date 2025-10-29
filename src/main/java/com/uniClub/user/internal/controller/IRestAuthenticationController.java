@@ -15,5 +15,6 @@ public interface IRestAuthenticationController {
     RootEntity<AuthResponse> refreshToken(RefreshTokenRequest refreshTokenRequest);
     RootEntity<UserDto> updateUserRole(UUID userId, Role newRole);
     RootEntity<List<UserDto>> allUsers();
+    RootEntity<List<UserDto>> searchUsers(String filter);
     ResponseEntity<Void> logout();
 }

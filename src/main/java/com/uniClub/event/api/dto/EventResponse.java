@@ -24,4 +24,5 @@ public class EventResponse extends BaseEntity {
 
     private String location;
 
+    private int participantCount;
 }

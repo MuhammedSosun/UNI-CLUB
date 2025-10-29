@@ -7,6 +7,7 @@ import com.uniClub.user.api.enums.Role;
 import com.uniClub.user.internal.controller.IRestAuthenticationController;
 import com.uniClub.user.internal.service.IAuthenticateService;
 import jakarta.validation.Valid;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -50,6 +51,11 @@ public class RestAuthenticationControllerImpl extends RestBaseController impleme
     @Override
     public RootEntity<List<UserDto>> allUsers() {
         return ok(authenticateService.allUsers());
+    }
+    @GetMapping("/filter/users")
+    @Override
+    public RootEntity<List<UserDto>> searchUsers(@RequestParam(required = false) String filter) {
+        return ok(authenticateService.searchUsers(filter));
     }
 
     @PostMapping("/logout")
