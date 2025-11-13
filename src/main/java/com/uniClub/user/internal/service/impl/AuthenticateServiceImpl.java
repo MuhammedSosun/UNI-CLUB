@@ -7,6 +7,7 @@ import com.uniClub.common.logging.LoggableOperation;
 import com.uniClub.common.utils.OperationType;
 import com.uniClub.security.JwtService;
 import com.uniClub.user.api.dto.*;
+import com.uniClub.user.api.enums.Role;
 import com.uniClub.user.internal.entity.RefreshToken;
 import com.uniClub.user.internal.entity.UserEntity;
 import com.uniClub.user.internal.mapper.RefreshTokenMapper;
@@ -14,6 +15,7 @@ import com.uniClub.user.internal.mapper.UserMapper;
 import com.uniClub.user.internal.repository.RefreshTokenRepository;
 import com.uniClub.user.internal.repository.UserRepository;
 import com.uniClub.user.internal.service.IAuthenticateService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,8 +25,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class AuthenticateServiceImpl implements IAuthenticateService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -51,11 +55,26 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
     @Transactional
     @LoggableOperation(OperationType.REGISTER)
     @Override
-    public UserDto register(UserDto userDto) {
-        UserEntity user = UserMapper.toEntity(userDto,bCryptPasswordEncoder);
+    public AuthResponse register(RegisterRequest request) {
+        String email = request.getEmail().trim();
+        String username = email.split("@")[0];
+
+        UserDto userDto = new UserDto();
+        userDto.setEmail(email);
+        userDto.setUsername(username);
+        userDto.setPassword(request.getPassword());
+        userDto.setRole(Role.USER);
+
+        log.info("REGISTER REQUEST -> " + request.getEmail() + " / " + request.getPassword());
+        UserEntity user = UserMapper.toEntity(userDto, bCryptPasswordEncoder);
         UserEntity savedUser = userRepository.save(user);
-        return UserMapper.toDto(savedUser);
+
+        String accessToken = jwtService.generateToken(savedUser);
+        RefreshToken refreshToken = refreshTokenRepository.save(RefreshTokenMapper.generate(savedUser));
+
+        return new AuthResponse(accessToken, refreshToken.getRefreshToken());
     }
+
     @Transactional
     @LoggableOperation(OperationType.LOGIN)
     @Override
@@ -90,6 +109,38 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
 
         return new AuthResponse(accessToken,newRefreshToken.getRefreshToken());
     }
+
+    @Transactional
+    @Override
+    public UserDto updateUserRole(UUID userId, Role newRole) {
+        UserEntity user = userRepository.findById(userId).orElseThrow(
+                () -> new BaseException(new ErrorMessage(MessageType.USERNAME_NOT_FOUND, "Username not found"))
+        );
+        user.setRole(newRole);
+        userRepository.save(user);
+        return UserMapper.toDto(user);
+    }
+
+    @Override
+    public List<UserDto> allUsers() {
+        List<UserEntity> users = userRepository.findAll();
+        return users.stream().map(UserMapper::toDto).toList();
+    }
+
+    @Override
+    public List<UserDto> searchUsers(String filter) {
+        if (filter == null || filter.isBlank()) {
+            return userRepository.findAll()
+                    .stream()
+                    .map(UserMapper::toDto)
+                    .toList();
+        }
+        List<UserEntity> users = userRepository.searchUsers(filter);
+        return users.stream()
+                .map(UserMapper::toDto)
+                .toList();
+    }
+
     @Transactional
     @Override
     public void logout() {

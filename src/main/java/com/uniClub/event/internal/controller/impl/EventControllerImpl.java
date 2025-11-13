@@ -12,7 +12,7 @@ import java.util.List;
 import static com.uniClub.common.controller.RootEntity.ok;
 
 @RestController
-@RequestMapping("/rest/api/event")
+@RequestMapping("/api/event")
 public class EventControllerImpl implements IEventController {
     private final IEventService eventService;
 
@@ -36,6 +36,21 @@ public class EventControllerImpl implements IEventController {
     public RootEntity<EventResponse> findEventById(@PathVariable Long id) {
         return ok(eventService.findEventById(id));
     }
+    @GetMapping("/filter")
+    @Override
+    public RootEntity<List<EventResponse>> searchEvents(@RequestParam String filter) {
+        return ok(eventService.searchEvents(filter));
+    }
+    @PostMapping("/{id}/join")
+    public RootEntity<EventResponse> joinEvent(@PathVariable Long id) {
+        return ok(eventService.joinEvent(id));
+    }
+
+    @PostMapping("/{id}/leave")
+    public RootEntity<EventResponse> leaveEvent(@PathVariable Long id) {
+        return ok(eventService.leaveEvent(id));
+    }
+
     @PutMapping("/update/{id}")
     @Override
     public RootEntity<EventResponse> updateEvent(@RequestBody EventRequest eventRequest,@PathVariable Long id) {

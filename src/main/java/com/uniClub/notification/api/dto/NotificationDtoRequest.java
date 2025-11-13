@@ -1,5 +1,6 @@
 package com.uniClub.notification.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.uniClub.notification.api.enums.NotificationType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,9 +16,8 @@ public class NotificationDtoRequest {
     private String title;
 
     private String message;
-
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private NotificationType type;
 
-    private String targetUsername;
 
 }

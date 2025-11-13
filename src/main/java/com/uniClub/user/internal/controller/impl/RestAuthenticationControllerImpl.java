@@ -2,15 +2,18 @@ package com.uniClub.user.internal.controller.impl;
 
 import com.uniClub.common.controller.RestBaseController;
 import com.uniClub.common.controller.RootEntity;
-import com.uniClub.user.api.dto.AuthRequest;
-import com.uniClub.user.api.dto.AuthResponse;
-import com.uniClub.user.api.dto.RefreshTokenRequest;
-import com.uniClub.user.api.dto.UserDto;
+import com.uniClub.user.api.dto.*;
+import com.uniClub.user.api.enums.Role;
 import com.uniClub.user.internal.controller.IRestAuthenticationController;
 import com.uniClub.user.internal.service.IAuthenticateService;
 import jakarta.validation.Valid;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -25,8 +28,8 @@ public class RestAuthenticationControllerImpl extends RestBaseController impleme
 
     @PostMapping("/register")
     @Override
-    public RootEntity<UserDto> register(@Valid @RequestBody UserDto userDto) {
-        return ok(authenticateService.register(userDto));
+    public RootEntity<?> register(@Valid @RequestBody RegisterRequest request) {
+        return ok(authenticateService.register(request));
     }
     @PostMapping("/authenticate")
     @Override
@@ -39,6 +42,22 @@ public class RestAuthenticationControllerImpl extends RestBaseController impleme
     public RootEntity<AuthResponse> refreshToken(RefreshTokenRequest refreshTokenRequest) {
         return ok(authenticateService.refreshToken(refreshTokenRequest));
     }
+    @PutMapping("/users/{userId}/role")
+    @Override
+    public RootEntity<UserDto> updateUserRole(@PathVariable UUID userId,@RequestParam Role newRole) {
+        return ok(authenticateService.updateUserRole(userId, newRole));
+    }
+    @GetMapping("/all/users")
+    @Override
+    public RootEntity<List<UserDto>> allUsers() {
+        return ok(authenticateService.allUsers());
+    }
+    @GetMapping("/filter/users")
+    @Override
+    public RootEntity<List<UserDto>> searchUsers(@RequestParam(required = false) String filter) {
+        return ok(authenticateService.searchUsers(filter));
+    }
+
     @PostMapping("/logout")
     @Override
     public ResponseEntity<Void> logout() {
