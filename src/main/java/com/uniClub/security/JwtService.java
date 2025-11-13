@@ -1,6 +1,6 @@
 package com.uniClub.security;
 
-import com.uniClub.user.internal.entity.UserEntity;
+import com.uniClub.entity.userEntity.UserEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
