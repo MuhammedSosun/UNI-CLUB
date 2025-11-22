@@ -10,7 +10,6 @@ public class UserMapper {
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(request.getUsername());
         userEntity.setEmail(request.getEmail());
-        userEntity.setPassword(passwordEncoder.encode(request.getPassword()));
         userEntity.setRole(request.getRole());
         userEntity.setCreatedBy(request.getCreatedBy());
         userEntity.setUpdatedBy(request.getUpdatedBy());
@@ -24,7 +23,6 @@ public class UserMapper {
         userDto.setUsername(entity.getUsername());
         userDto.setEmail(entity.getEmail());
         userDto.setRole(entity.getRole());
-        userDto.setPassword(entity.getPassword());
         userDto.setCreatedBy(entity.getCreatedBy());
         userDto.setUpdatedBy(entity.getUpdatedBy());
         userDto.setCreatedAt(entity.getCreatedAt());

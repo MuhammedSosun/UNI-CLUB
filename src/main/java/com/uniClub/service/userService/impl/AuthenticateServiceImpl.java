@@ -62,7 +62,6 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
         UserDto userDto = new UserDto();
         userDto.setEmail(email);
         userDto.setUsername(username);
-        userDto.setPassword(request.getPassword());
         userDto.setRole(Role.USER);
 
         log.info("REGISTER REQUEST -> " + request.getEmail() + " / " + request.getPassword());

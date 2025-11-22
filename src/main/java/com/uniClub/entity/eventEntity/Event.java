@@ -1,6 +1,7 @@
 package com.uniClub.entity.eventEntity;
 
 import com.uniClub.entity.baseEntity.BaseEntity;
+import com.uniClub.entity.clubEntity.ClubEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -43,7 +44,15 @@ public class Event extends BaseEntity {
     private int participantCount = 0;
 
 
+    @ManyToMany
+    @JoinTable(
+            name = "event_clubs",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "club_id")
+    )
+    private Set<ClubEntity> clubs = new HashSet<>();
 
 
-// burda club servisi ile bir ilişkisi olacak club servisi yazıldıktan sonra eklenecek
+
+
 }
