@@ -33,7 +33,7 @@ public class ClubRequestDto {
     private LocalDate foundationDate;
     @Email(message = "Geçerli bir email giriniz")
     private String email;
-    @Pattern(regexp = "^[0-9]{10,15}$", message = "Telefon numarası 10-15 haneli olmalıdır")
+    @Pattern(regexp = "^\\+?[0-9]{10,15}$", message = "Telefon numarası 10-15 haneli olmalıdır")
     private String phone;
     @Pattern(
             regexp = "^(https?://)?(www\\.)?instagram\\.com/.*$",
