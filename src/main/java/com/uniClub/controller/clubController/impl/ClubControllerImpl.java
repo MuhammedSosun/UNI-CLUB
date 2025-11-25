@@ -14,6 +14,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/clubs")
 public class ClubControllerImpl extends RestBaseController implements IClubController {
@@ -54,4 +57,36 @@ public class ClubControllerImpl extends RestBaseController implements IClubContr
         clubService.deleteClubById(id);
         return ok(null);
     }
+
+    @PatchMapping("/{id}/assign-president/{userId}")
+    @Override
+    public RootEntity<ClubResponseDTO> assignPresident( @PathVariable Long id,
+                                                        @PathVariable UUID userId) {
+        return ok(clubService.assignPresident(id,userId));
+    }
+
+    @GetMapping("/active")
+    public RootEntity<List<ClubResponseDTO>> getActiveClubs() {
+        return ok(clubService.getActiveClubs());
+    }
+
+    @GetMapping("/active/page")
+    public RootEntity<PageableEntity<ClubResponseDTO>> getActiveClubsPaged(PageableRequest pageableRequest) {
+        Pageable pageable = PageUtil.toPageable(pageableRequest);
+        Page<ClubResponseDTO> page = clubService.getActiveClubsPaged(pageable);
+
+        return ok(PageUtil.toPageableResponse(page, page.getContent()));
+    }
+
+    @PatchMapping("/{id}/deactivate")
+    public RootEntity<Void> deactivateClub(@PathVariable Long id) {
+        clubService.deactivateClub(id);
+        return ok(null);
+    }
+
+    @PatchMapping("/{id}/activate")
+    public RootEntity<ClubResponseDTO> activateClub(@PathVariable Long id) {
+        return ok(clubService.activateClub(id));
+    }
+
 }

@@ -57,6 +57,9 @@ public enum OperationType {
     DELETE_CLUB("Kulüp silme"),
     APPROVE_CLUB("Kulüp onaylama"),
     REJECT_CLUB("Kulüp reddetme"),
+    FIND_ACTIVE_CLUB("Aktif Kulüp"),
+    DEACTIVATE_CLUB("Kulüp Deactive"),
+    ACTIVATE_CLUB("KULÜP AKTİF ETME"),
 
     // Başkan atama / kaldırma
     ASSIGN_PRESIDENT("Kulübe başkan atama"),
