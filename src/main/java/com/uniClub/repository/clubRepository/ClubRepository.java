@@ -5,6 +5,8 @@ import com.uniClub.enums.StatusEnum;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -15,6 +17,14 @@ public interface ClubRepository extends JpaRepository<ClubEntity, Long> {
     Page<ClubEntity> findAllByStatus(StatusEnum status, Pageable pageable);
 
     boolean existsByIdAndStatus(Long id, StatusEnum status);
+    @Query("""
+    SELECT c FROM ClubEntity c 
+    WHERE LOWER(c.clubName) LIKE LOWER(CONCAT('%', :filter, '%'))
+       OR LOWER(c.shortName) LIKE LOWER(CONCAT('%', :filter, '%'))
+""")
+    Page<ClubEntity> searchByClubNameOrShortName(
+            @Param("filter") String filter,
+            Pageable pageable);
 
 
 }

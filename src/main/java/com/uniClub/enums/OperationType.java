@@ -27,6 +27,7 @@ public enum OperationType {
     LEAVE_EVENT("Etkinlikten ayrılma"),
     APPROVE_EVENT("Etkinlik onaylama"),
     REJECT_EVENT("Etkinlik reddetme"),
+    GET_UPCOMING_EVENTS_PAGED("Yaklaşan etkinlikler"),
 
     // 🔹 Kullanıcı İşlemleri
     UPDATE_PROFILE("Profil güncelleme"),

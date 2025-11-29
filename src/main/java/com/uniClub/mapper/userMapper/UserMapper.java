@@ -15,8 +15,13 @@ public class UserMapper {
         userEntity.setUpdatedBy(request.getUpdatedBy());
         userEntity.setCreatedAt(request.getCreatedAt());
         userEntity.setUpdatedAt(request.getUpdatedAt());
+
+
+        userEntity.setPassword(passwordEncoder.encode(request.getPassword()));
+
         return userEntity;
     }
+
     public static UserDto toDto(UserEntity entity) {
         UserDto userDto = new UserDto();
         userDto.setId(entity.getId());

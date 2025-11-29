@@ -14,4 +14,7 @@ public class PageableRequest {
     private String columnName;
 
     private boolean asc = true;
+
+    private String filter;
+
 }

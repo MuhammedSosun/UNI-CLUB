@@ -1,5 +1,6 @@
 package com.uniClub.service.clubService.impl;
 
+import com.uniClub.dto.clubDto.ClubMemberStatsResponse;
 import com.uniClub.dto.clubDto.ClubRequestDto;
 import com.uniClub.dto.clubDto.ClubResponseDTO;
 import com.uniClub.entity.clubEntity.ClubEntity;
@@ -145,6 +146,39 @@ public class ClubServiceImpl implements IClubService {
         ClubEntity updated = clubRepository.save(club);
         return clubMapper.toResponseDTO(updated);
     }
+
+    @Override
+    public Long totalClubs() {
+        return clubRepository.count();
+    }
+
+    @Override
+    public Page<ClubResponseDTO> getAllPaged(Pageable pageable, String filter) {
+
+        Page<ClubEntity> page;
+        if (filter == null || filter.isBlank()) {
+            page = clubRepository.findAll(pageable);
+        }else{
+            page = clubRepository.searchByClubNameOrShortName(filter, pageable);
+        }
+        return page.map(clubMapper::toResponseDTO);
+    }
+
+    @Override
+    public List<ClubMemberStatsResponse> getTopClubsByMemberCount() {
+        List<ClubEntity> clubs = clubRepository.findAll();
+
+        return clubs.stream()
+                .map(c -> new ClubMemberStatsResponse(
+                        c.getId(),
+                        c.getClubName(),
+                        c.getMembers() != null ? c.getMembers().size() : 0
+                ))
+                .sorted((a,b) -> Integer.compare(b.getMemberCount(), a.getMemberCount()))
+                .limit(5)
+                .toList();
+    }
+
 
     private ClubEntity getClubWithId(Long id) {
         return clubRepository.findById(id)

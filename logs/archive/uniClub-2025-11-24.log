@@ -1,0 +1,4 @@
+2025-11-24 16:02:38.760 [trace:] [user:] [role:] [op:] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1d4h58m2s187ms389µs699ns).
+2025-11-24 16:02:45.534 [trace:] [user:] [role:] [op:] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2025-11-24 16:02:45.566 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-11-24 16:02:45.574 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

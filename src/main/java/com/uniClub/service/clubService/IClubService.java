@@ -1,7 +1,9 @@
 package com.uniClub.service.clubService;
 
+import com.uniClub.dto.clubDto.ClubMemberStatsResponse;
 import com.uniClub.dto.clubDto.ClubRequestDto;
 import com.uniClub.dto.clubDto.ClubResponseDTO;
+import com.uniClub.entity.clubEntity.ClubEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -21,4 +23,7 @@ public interface IClubService {
     ClubResponseDTO activateClub(Long id);
     void deleteClubById(Long id);
     public ClubResponseDTO assignPresident(Long clubId, UUID userId);
+    Long totalClubs();
+    Page<ClubResponseDTO> getAllPaged(Pageable pageable, String filter);
+    List<ClubMemberStatsResponse> getTopClubsByMemberCount();
 }
