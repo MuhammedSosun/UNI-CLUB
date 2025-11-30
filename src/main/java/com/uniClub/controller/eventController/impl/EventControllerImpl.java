@@ -1,10 +1,16 @@
 package com.uniClub.controller.eventController.impl;
 
 import com.uniClub.controller.controller.RootEntity;
+import com.uniClub.dto.clubDto.ActiveClubDTO;
 import com.uniClub.dto.eventDto.EventRequest;
 import com.uniClub.dto.eventDto.EventResponse;
 import com.uniClub.controller.eventController.IEventController;
 import com.uniClub.service.eventService.IEventService;
+import com.uniClub.util.pageable.PageUtil;
+import com.uniClub.util.pageable.PageableEntity;
+import com.uniClub.util.pageable.PageableRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -62,4 +68,28 @@ public class EventControllerImpl implements IEventController {
         ok(eventService.deleteEvent(id));
         return ok("Event deleted successfully");
     }
+    @GetMapping("/total")
+    @Override
+    public RootEntity<Long> totalEvents() {
+        return ok(eventService.totalEvents());
+    }
+    @GetMapping("/upcoming/paged")
+    @Override
+    public RootEntity<PageableEntity<EventResponse>> getUpcomingEventsPaged(PageableRequest request) {
+        Pageable pageable = PageUtil.toPageable(request);
+        Page<EventResponse> page = eventService.getUpcomingEventsPaged(pageable);
+        return ok(PageUtil.toPageableResponse(page, page.getContent()));
+    }
+    @GetMapping("/stats/top-active-clubs")
+    public RootEntity<List<ActiveClubDTO>> getTopActiveClubsLast3Months() {
+        return ok(eventService.getTopActiveClubsLast3Months());
+    }
+
+    @Override
+    @GetMapping("/top/month")
+    public RootEntity<List<EventResponse>> getTopEventsThisMonth() {
+        return ok(eventService.getTopEventsThisMonth());
+    }
+
+
 }

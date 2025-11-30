@@ -1,6 +1,7 @@
 package com.uniClub.entity.userEntity;
 
 import com.uniClub.entity.baseEntity.BaseEntity;
+import com.uniClub.entity.clubEntity.ClubEntity;
 import com.uniClub.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -39,6 +40,10 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
+
+
+    @OneToOne(mappedBy = "president")
+    private ClubEntity club;
 
 
     @Override

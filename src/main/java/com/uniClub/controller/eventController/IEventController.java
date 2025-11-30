@@ -1,8 +1,11 @@
 package com.uniClub.controller.eventController;
 
 import com.uniClub.controller.controller.RootEntity;
+import com.uniClub.dto.clubDto.ActiveClubDTO;
 import com.uniClub.dto.eventDto.EventRequest;
 import com.uniClub.dto.eventDto.EventResponse;
+import com.uniClub.util.pageable.PageableEntity;
+import com.uniClub.util.pageable.PageableRequest;
 
 
 import java.util.List;
@@ -16,4 +19,8 @@ public interface IEventController {
     RootEntity<EventResponse> leaveEvent(Long id);
     RootEntity<EventResponse> updateEvent(EventRequest eventRequest, Long id);
     RootEntity<String> deleteEvent(Long id);
+    RootEntity<Long> totalEvents();
+    RootEntity<PageableEntity<EventResponse>> getUpcomingEventsPaged(PageableRequest request);
+    RootEntity<List<ActiveClubDTO>> getTopActiveClubsLast3Months();
+    RootEntity<List<EventResponse>> getTopEventsThisMonth();
 }

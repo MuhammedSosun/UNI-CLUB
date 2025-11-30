@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -25,4 +27,7 @@ public class EventResponse extends BaseEntity {
     private String location;
 
     private int participantCount;
+
+    private Set<UUID> participantIds;
+    private Set<Long> clubIds;
 }

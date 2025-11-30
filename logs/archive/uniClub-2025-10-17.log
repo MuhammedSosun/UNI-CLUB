@@ -1,3 +1,0 @@
-2025-10-17 11:30:17.179 [trace:] [user:] [role:] [op:] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17h29m592ms8µs).
-2025-10-17 11:38:37.806 [trace:] [user:] [role:] [op:] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=5m18s925ms318µs400ns).
-2025-10-17 14:29:47.520 [trace:] [user:] [role:] [op:] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2h36m9s456ms629µs100ns).

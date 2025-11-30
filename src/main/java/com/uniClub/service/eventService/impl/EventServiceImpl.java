@@ -1,5 +1,7 @@
 package com.uniClub.service.eventService.impl;
 
+import com.uniClub.dto.clubDto.ActiveClubDTO;
+import com.uniClub.entity.clubEntity.ClubEntity;
 import com.uniClub.exceptions.exception.BaseException;
 import com.uniClub.exceptions.exception.ErrorMessage;
 import com.uniClub.exceptions.exception.MessageType;
@@ -10,17 +12,25 @@ import com.uniClub.dto.eventDto.EventResponse;
 import com.uniClub.entity.eventEntity.Event;
 import com.uniClub.entity.userEntity.UserEntity;
 import com.uniClub.mapper.eventMapper.EventMapper;
+import com.uniClub.repository.clubRepository.ClubRepository;
 import com.uniClub.repository.eventRepository.EventRepository;
 import com.uniClub.repository.userRepository.UserRepository;
 import com.uniClub.service.eventService.IEventService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -28,11 +38,13 @@ public class EventServiceImpl implements IEventService {
     private final EventMapper eventMapper;
     private final EventRepository eventRepository;
     private final UserRepository userRepository;
+    private final ClubRepository clubRepository;
 
-    public EventServiceImpl(EventMapper eventMapper, EventRepository eventRepository, UserRepository userRepository) {
+    public EventServiceImpl(EventMapper eventMapper, EventRepository eventRepository, UserRepository userRepository, ClubRepository clubRepository) {
         this.eventMapper = eventMapper;
         this.eventRepository = eventRepository;
         this.userRepository = userRepository;
+        this.clubRepository = clubRepository;
     }
     @LoggableOperation(OperationType.CREATE_EVENT)
     @Override
@@ -40,20 +52,40 @@ public class EventServiceImpl implements IEventService {
         String username = getUsername();
 
         validateEventRequest(eventRequest);
+
         Event event = eventMapper.toEventEntity(eventRequest);
         event.setCreatedBy(username);
         event.setUpdatedBy(username);
         event.setCreatedAt(LocalDateTime.now());
         event.setUpdatedAt(LocalDateTime.now());
+
+        // 🔥 participantCount düzeltme
+        if (eventRequest.getParticipantIds() != null) {
+            event.setParticipantIds(eventRequest.getParticipantIds());
+            event.setParticipantCount(eventRequest.getParticipantIds().size());
+        }
+
+        // 🔥 clubIds -> clubs eşlemesi
+        if (eventRequest.getClubIds() != null && !eventRequest.getClubIds().isEmpty()) {
+            Set<ClubEntity> clubs = eventRequest.getClubIds().stream()
+                    .map(id -> clubRepository.findById(id)
+                            .orElseThrow(() -> new RuntimeException("Club not found: " + id)))
+                    .collect(Collectors.toSet());
+            event.setClubs(clubs);
+        }
+
         try {
             eventRepository.save(event);
             log.info("[EVENT_CREATED] user='{}' title='{}'", username, event.getTitle());
-        }catch (Exception e) {
-            log.error("[EVENT_CREATE_ERROR] user='{}' event='{}' msg='{}'",username, event.getTitle(), e.getMessage());
+        } catch (Exception e) {
+            log.error("[EVENT_CREATE_ERROR] user='{}' event='{}' msg='{}'",
+                    username, event.getTitle(), e.getMessage());
             throw new BaseException(new ErrorMessage(MessageType.EVENT_SAVE_DATABASE_ERROR, e.getMessage()));
         }
+
         return eventMapper.toEventResponse(event);
     }
+
     @LoggableOperation(OperationType.FIND_ALL_EVENTS)
     @Override
     public List<EventResponse> findAllEvents() {
@@ -167,6 +199,53 @@ public class EventServiceImpl implements IEventService {
         }
 
     }
+
+    @Override
+    public Long totalEvents() {
+        return eventRepository.count();
+    }
+    @Transactional
+    @LoggableOperation(OperationType.GET_UPCOMING_EVENTS_PAGED)
+    @Override
+    public Page<EventResponse> getUpcomingEventsPaged(Pageable pageable) {
+        LocalDateTime now = LocalDateTime.now();
+        Page<Event> events = eventRepository.findUpcomingEventsPaged(now, pageable);
+        return events.map(eventMapper::toEventResponse);
+    }
+
+    @Override
+    public List<ActiveClubDTO> getTopActiveClubsLast3Months() {
+
+        LocalDateTime threeMonthsAgo = LocalDateTime.now().minusMonths(3);
+
+        List<Object[]> rows = eventRepository.findTopActiveClubsLast3Months(threeMonthsAgo);
+
+        return rows.stream()
+                .map(r -> {
+                    ClubEntity club = (ClubEntity) r[0];
+                    Long eventCount = (Long) r[1];
+                    return new ActiveClubDTO(club.getClubName(), eventCount);
+                })
+                .limit(5)
+                .toList();
+    }
+
+    @Override
+    public List<EventResponse> getTopEventsThisMonth() {
+
+        LocalDateTime start = LocalDate.now().withDayOfMonth(1).atStartOfDay();
+        LocalDateTime end = start.plusMonths(1);
+
+        List<Event> events = eventRepository.findTopEventsThisMonth(start, end);
+
+        return events.stream()
+                .limit(5)
+                .map(eventMapper::toEventResponse)
+                .collect(Collectors.toList());
+    }
+
+
+
     public Event getEventById(Long id) {
         return eventRepository.findById(id).orElseThrow(
                 () -> new BaseException(new ErrorMessage(MessageType.EVENT_NOT_FOUND,id.toString())));

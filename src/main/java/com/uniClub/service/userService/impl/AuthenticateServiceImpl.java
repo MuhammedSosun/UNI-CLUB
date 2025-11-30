@@ -62,8 +62,8 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
         UserDto userDto = new UserDto();
         userDto.setEmail(email);
         userDto.setUsername(username);
-        userDto.setPassword(request.getPassword());
         userDto.setRole(Role.USER);
+        userDto.setPassword(request.getPassword());
 
         log.info("REGISTER REQUEST -> " + request.getEmail() + " / " + request.getPassword());
         UserEntity user = UserMapper.toEntity(userDto, bCryptPasswordEncoder);

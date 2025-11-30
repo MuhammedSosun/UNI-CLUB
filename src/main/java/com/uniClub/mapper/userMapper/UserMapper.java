@@ -10,21 +10,24 @@ public class UserMapper {
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(request.getUsername());
         userEntity.setEmail(request.getEmail());
-        userEntity.setPassword(passwordEncoder.encode(request.getPassword()));
         userEntity.setRole(request.getRole());
         userEntity.setCreatedBy(request.getCreatedBy());
         userEntity.setUpdatedBy(request.getUpdatedBy());
         userEntity.setCreatedAt(request.getCreatedAt());
         userEntity.setUpdatedAt(request.getUpdatedAt());
+
+
+        userEntity.setPassword(passwordEncoder.encode(request.getPassword()));
+
         return userEntity;
     }
+
     public static UserDto toDto(UserEntity entity) {
         UserDto userDto = new UserDto();
         userDto.setId(entity.getId());
         userDto.setUsername(entity.getUsername());
         userDto.setEmail(entity.getEmail());
         userDto.setRole(entity.getRole());
-        userDto.setPassword(entity.getPassword());
         userDto.setCreatedBy(entity.getCreatedBy());
         userDto.setUpdatedBy(entity.getUpdatedBy());
         userDto.setCreatedAt(entity.getCreatedAt());

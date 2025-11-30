@@ -1,0 +1,1150 @@
+2025-11-21 15:45:54.445 [trace:] [user:] [role:] [op:] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-11-21 15:45:54.485 [trace:] [user:] [role:] [op:] INFO  com.uniClub.UniClubApplication - Starting UniClubApplication using Java 21.0.8 with PID 9908 (C:\Users\VivaVeste\OneDrive\Desktop\uniClub\target\classes started by VivaVeste in C:\Users\VivaVeste\OneDrive\Desktop\uniClub)
+2025-11-21 15:45:54.486 [trace:] [user:] [role:] [op:] DEBUG com.uniClub.UniClubApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-11-21 15:45:54.486 [trace:] [user:] [role:] [op:] INFO  com.uniClub.UniClubApplication - No active profile set, falling back to 1 default profile: "default"
+2025-11-21 15:45:56.215 [trace:] [user:] [role:] [op:] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-11-21 15:45:56.218 [trace:] [user:] [role:] [op:] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-21 15:45:56.218 [trace:] [user:] [role:] [op:] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-11-21 15:45:56.273 [trace:] [user:] [role:] [op:] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-11-21 15:45:56.481 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-11-21 15:45:56.646 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@19e2db7c
+2025-11-21 15:45:56.647 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-11-21 15:45:56.666 [trace:] [user:] [role:] [op:] INFO  o.f.c.i.r.ResourceNameValidator - 1 SQL migrations were detected but not run because they did not follow the filename convention.
+2025-11-21 15:45:56.666 [trace:] [user:] [role:] [op:] INFO  o.f.c.i.r.ResourceNameValidator - Set 'validateMigrationNaming' to true to fail fast and see a list of the invalid file names.
+2025-11-21 15:45:56.671 [trace:] [user:] [role:] [op:] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 15.12)
+2025-11-21 15:45:56.734 [trace:] [user:] [role:] [op:] INFO  o.f.core.internal.command.DbValidate - Successfully validated 6 migrations (execution time 00:00.047s)
+2025-11-21 15:45:56.802 [trace:] [user:] [role:] [op:] INFO  o.f.core.internal.command.DbMigrate - Current version of schema "uniclub": 6
+2025-11-21 15:45:56.807 [trace:] [user:] [role:] [op:] INFO  o.f.core.internal.command.DbMigrate - Schema "uniclub" is up to date. No migration necessary.
+2025-11-21 15:45:56.915 [trace:] [user:] [role:] [op:] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-21 15:45:57.004 [trace:] [user:] [role:] [op:] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-11-21 15:45:57.042 [trace:] [user:] [role:] [op:] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-11-21 15:45:58.446 [trace:] [user:] [role:] [op:] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-21 15:45:59.153 [trace:] [user:] [role:] [op:] DEBUG c.u.security.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-11-21 15:45:59.153 [trace:] [user:] [role:] [op:] DEBUG c.uniClub.logging.MDCLoggingFilter - Filter 'MDCLoggingFilter' configured for use
+2025-11-21 15:45:59.338 [trace:] [user:] [role:] [op:] INFO  org.mongodb.driver.cluster - Exception in monitor thread while connecting to server localhost:27017
+com.mongodb.MongoSocketOpenException: Exception opening socket
+	at com.mongodb.internal.connection.SocketStream.lambda$open$0(SocketStream.java:86)
+	at java.base/java.util.Optional.orElseThrow(Optional.java:403)
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:86)
+	at com.mongodb.internal.connection.InternalStreamConnection.open(InternalStreamConnection.java:201)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.lookupServerDescription(DefaultServerMonitor.java:193)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:153)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.net.ConnectException: Connection refused: getsockopt
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:682)
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:542)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:592)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:751)
+	at com.mongodb.internal.connection.SocketStreamHelper.initialize(SocketStreamHelper.java:76)
+	at com.mongodb.internal.connection.SocketStream.initializeSocket(SocketStream.java:105)
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:80)
+	... 4 common frames omitted
+2025-11-21 15:45:59.348 [trace:] [user:] [role:] [op:] INFO  org.mongodb.driver.client - MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "5.0.1"}, "os": {"type": "Windows", "name": "Windows 11", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Eclipse Adoptium/21.0.8+9-LTS"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=MongoCredential{mechanism=null, userName='root', source='admin', password=<hidden>, mechanismProperties=<hidden>}, transportSettings=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@4e88dd32, com.mongodb.Jep395RecordCodecProvider@b70ad7a, com.mongodb.KotlinCodecProvider@6a151f1a]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='15 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, dnsClient=null, inetAddressResolver=null, contextProvider=null}
+2025-11-21 15:45:59.688 [trace:] [user:] [role:] [op:] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2025-11-21 15:45:59.780 [trace:] [user:] [role:] [op:] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-11-21 15:46:00.380 [trace:] [user:] [role:] [op:] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-11-21 15:46:00.410 [trace:] [user:] [role:] [op:] INFO  com.uniClub.UniClubApplication - Started UniClubApplication in 6.812 seconds (process running for 8.912)
+2025-11-21 15:46:00.525 [trace:] [user:] [role:] [op:] DEBUG org.hibernate.SQL - 
+    select
+        ue1_0.id,
+        ue1_0.created_at,
+        ue1_0.created_by,
+        ue1_0.email,
+        ue1_0.password,
+        ue1_0.role,
+        ue1_0.updated_at,
+        ue1_0.updated_by,
+        ue1_0.username,
+        ue1_0.version 
+    from
+        uniclub.users ue1_0 
+    where
+        ue1_0.username=?
+2025-11-21 15:46:00.537 [trace:] [user:] [role:] [op:] DEBUG org.hibernate.SQL - 
+    select
+        ce1_0.id,
+        ce1_0.approved,
+        ce1_0.club_name,
+        ce1_0.created_at,
+        ce1_0.created_by,
+        ce1_0.description,
+        ce1_0.email,
+        ce1_0.foundation_date,
+        ce1_0.instagram,
+        ce1_0.logo_url,
+        ce1_0.phone,
+        p1_0.id,
+        p1_0.created_at,
+        p1_0.created_by,
+        p1_0.email,
+        p1_0.password,
+        p1_0.role,
+        p1_0.updated_at,
+        p1_0.updated_by,
+        p1_0.username,
+        p1_0.version,
+        ce1_0.short_name,
+        ce1_0.updated_at,
+        ce1_0.updated_by,
+        ce1_0.version 
+    from
+        uniclub.clubs ce1_0 
+    left join
+        uniclub.users p1_0 
+            on p1_0.id=ce1_0.president_id 
+    where
+        ce1_0.president_id=?
+2025-11-21 15:46:00.547 [trace:] [user:] [role:] [op:] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 0, SQLState: 42P01
+2025-11-21 15:46:00.547 [trace:] [user:] [role:] [op:] ERROR o.h.e.jdbc.spi.SqlExceptionHelper - ERROR: relation "uniclub.clubs" does not exist
+  Position: 381
+2025-11-21 15:46:00.570 [trace:] [user:] [role:] [op:] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.dao.InvalidDataAccessResourceUsageException: JDBC exception executing SQL [select ce1_0.id,ce1_0.approved,ce1_0.club_name,ce1_0.created_at,ce1_0.created_by,ce1_0.description,ce1_0.email,ce1_0.foundation_date,ce1_0.instagram,ce1_0.logo_url,ce1_0.phone,p1_0.id,p1_0.created_at,p1_0.created_by,p1_0.email,p1_0.password,p1_0.role,p1_0.updated_at,p1_0.updated_by,p1_0.username,p1_0.version,ce1_0.short_name,ce1_0.updated_at,ce1_0.updated_by,ce1_0.version from uniclub.clubs ce1_0 left join uniclub.users p1_0 on p1_0.id=ce1_0.president_id where ce1_0.president_id=?] [ERROR: relation "uniclub.clubs" does not exist
+  Position: 381] [n/a]; SQL [n/a]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:277)
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:241)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:550)
+	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61)
+	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:335)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:160)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:136)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:223)
+	at jdk.proxy2/jdk.proxy2.$Proxy174.findByUsername(Unknown Source)
+	at com.uniClub.config.AppConfig.lambda$init$0(AppConfig.java:30)
+	at org.springframework.boot.SpringApplication.lambda$callRunner$5(SpringApplication.java:790)
+	at org.springframework.util.function.ThrowingConsumer$1.acceptWithException(ThrowingConsumer.java:83)
+	at org.springframework.util.function.ThrowingConsumer.accept(ThrowingConsumer.java:60)
+	at org.springframework.util.function.ThrowingConsumer$1.accept(ThrowingConsumer.java:88)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:798)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:789)
+	at org.springframework.boot.SpringApplication.lambda$callRunners$3(SpringApplication.java:774)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.base/java.util.stream.SortedOps$SizedRefSortingSink.end(SortedOps.java:357)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:510)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:774)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:342)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at com.uniClub.UniClubApplication.main(UniClubApplication.java:16)
+Caused by: org.hibernate.exception.SQLGrammarException: JDBC exception executing SQL [select ce1_0.id,ce1_0.approved,ce1_0.club_name,ce1_0.created_at,ce1_0.created_by,ce1_0.description,ce1_0.email,ce1_0.foundation_date,ce1_0.instagram,ce1_0.logo_url,ce1_0.phone,p1_0.id,p1_0.created_at,p1_0.created_by,p1_0.email,p1_0.password,p1_0.role,p1_0.updated_at,p1_0.updated_by,p1_0.username,p1_0.version,ce1_0.short_name,ce1_0.updated_at,ce1_0.updated_by,ce1_0.version from uniclub.clubs ce1_0 left join uniclub.users p1_0 on p1_0.id=ce1_0.president_id where ce1_0.president_id=?] [ERROR: relation "uniclub.clubs" does not exist
+  Position: 381] [n/a]
+	at org.hibernate.exception.internal.SQLStateConversionDelegate.convert(SQLStateConversionDelegate.java:91)
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:58)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:108)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:94)
+	at org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.executeQuery(DeferredResultSetAccess.java:264)
+	at org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.getResultSet(DeferredResultSetAccess.java:167)
+	at org.hibernate.sql.results.jdbc.internal.JdbcValuesResultSetImpl.advanceNext(JdbcValuesResultSetImpl.java:265)
+	at org.hibernate.sql.results.jdbc.internal.JdbcValuesResultSetImpl.processNext(JdbcValuesResultSetImpl.java:145)
+	at org.hibernate.sql.results.jdbc.internal.AbstractJdbcValues.next(AbstractJdbcValues.java:19)
+	at org.hibernate.sql.results.internal.RowProcessingStateStandardImpl.next(RowProcessingStateStandardImpl.java:67)
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:182)
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:33)
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.doExecuteQuery(JdbcSelectExecutorStandardImpl.java:211)
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.executeQuery(JdbcSelectExecutorStandardImpl.java:83)
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:76)
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:65)
+	at org.hibernate.loader.ast.internal.SingleUniqueKeyEntityLoaderStandard.load(SingleUniqueKeyEntityLoaderStandard.java:127)
+	at org.hibernate.persister.entity.AbstractEntityPersister.loadByUniqueKey(AbstractEntityPersister.java:2655)
+	at org.hibernate.persister.entity.AbstractEntityPersister.loadByUniqueKey(AbstractEntityPersister.java:2647)
+	at org.hibernate.sql.results.graph.entity.internal.EntitySelectFetchByUniqueKeyInitializer.initializeInstance(EntitySelectFetchByUniqueKeyInitializer.java:96)
+	at org.hibernate.sql.results.internal.InitializersList.initializeInstance(InitializersList.java:73)
+	at org.hibernate.sql.results.internal.StandardRowReader.coordinateInitializers(StandardRowReader.java:113)
+	at org.hibernate.sql.results.internal.StandardRowReader.readRow(StandardRowReader.java:87)
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:205)
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:33)
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.doExecuteQuery(JdbcSelectExecutorStandardImpl.java:211)
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.executeQuery(JdbcSelectExecutorStandardImpl.java:83)
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:76)
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:65)
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.lambda$new$2(ConcreteSqmSelectQueryPlan.java:139)
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.withCacheableSqmInterpretation(ConcreteSqmSelectQueryPlan.java:382)
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.performList(ConcreteSqmSelectQueryPlan.java:302)
+	at org.hibernate.query.sqm.internal.QuerySqmImpl.doList(QuerySqmImpl.java:526)
+	at org.hibernate.query.spi.AbstractSelectionQuery.list(AbstractSelectionQuery.java:423)
+	at org.hibernate.query.spi.AbstractSelectionQuery.getSingleResult(AbstractSelectionQuery.java:555)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.orm.jpa.SharedEntityManagerCreator$DeferredQueryInvocationHandler.invoke(SharedEntityManagerCreator.java:418)
+	at jdk.proxy2/jdk.proxy2.$Proxy204.getSingleResult(Unknown Source)
+	at org.springframework.data.jpa.repository.query.JpaQueryExecution$SingleEntityExecution.doExecute(JpaQueryExecution.java:223)
+	at org.springframework.data.jpa.repository.query.JpaQueryExecution.execute(JpaQueryExecution.java:92)
+	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.doExecute(AbstractJpaQuery.java:152)
+	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.execute(AbstractJpaQuery.java:140)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:170)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:169)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:148)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:70)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:379)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
+	... 28 common frames omitted
+Caused by: org.postgresql.util.PSQLException: ERROR: relation "uniclub.clubs" does not exist
+  Position: 381
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2733)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2420)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:372)
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:517)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:434)
+	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:194)
+	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:137)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeQuery(ProxyPreparedStatement.java:52)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java)
+	at org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.executeQuery(DeferredResultSetAccess.java:246)
+	... 77 common frames omitted
+2025-11-21 15:46:00.584 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-11-21 15:46:00.591 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-11-21 15:47:10.291 [trace:] [user:] [role:] [op:] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-11-21 15:47:10.331 [trace:] [user:] [role:] [op:] INFO  com.uniClub.UniClubApplication - Starting UniClubApplication using Java 21.0.8 with PID 24756 (C:\Users\VivaVeste\OneDrive\Desktop\uniClub\target\classes started by VivaVeste in C:\Users\VivaVeste\OneDrive\Desktop\uniClub)
+2025-11-21 15:47:10.331 [trace:] [user:] [role:] [op:] DEBUG com.uniClub.UniClubApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-11-21 15:47:10.332 [trace:] [user:] [role:] [op:] INFO  com.uniClub.UniClubApplication - No active profile set, falling back to 1 default profile: "default"
+2025-11-21 15:47:11.811 [trace:] [user:] [role:] [op:] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-11-21 15:47:11.813 [trace:] [user:] [role:] [op:] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-21 15:47:11.814 [trace:] [user:] [role:] [op:] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-11-21 15:47:11.864 [trace:] [user:] [role:] [op:] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-11-21 15:47:12.060 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-11-21 15:47:12.191 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3a69014e
+2025-11-21 15:47:12.193 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-11-21 15:47:12.213 [trace:] [user:] [role:] [op:] INFO  o.f.c.i.r.ResourceNameValidator - 1 SQL migrations were detected but not run because they did not follow the filename convention.
+2025-11-21 15:47:12.213 [trace:] [user:] [role:] [op:] INFO  o.f.c.i.r.ResourceNameValidator - Set 'validateMigrationNaming' to true to fail fast and see a list of the invalid file names.
+2025-11-21 15:47:12.217 [trace:] [user:] [role:] [op:] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 15.12)
+2025-11-21 15:47:12.257 [trace:] [user:] [role:] [op:] INFO  o.f.core.internal.command.DbValidate - Successfully validated 6 migrations (execution time 00:00.026s)
+2025-11-21 15:47:12.331 [trace:] [user:] [role:] [op:] INFO  o.f.core.internal.command.DbMigrate - Current version of schema "uniclub": 6
+2025-11-21 15:47:12.336 [trace:] [user:] [role:] [op:] INFO  o.f.core.internal.command.DbMigrate - Schema "uniclub" is up to date. No migration necessary.
+2025-11-21 15:47:12.425 [trace:] [user:] [role:] [op:] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-21 15:47:12.470 [trace:] [user:] [role:] [op:] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-11-21 15:47:12.501 [trace:] [user:] [role:] [op:] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-11-21 15:47:13.790 [trace:] [user:] [role:] [op:] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-21 15:47:14.423 [trace:] [user:] [role:] [op:] DEBUG c.u.security.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-11-21 15:47:14.423 [trace:] [user:] [role:] [op:] DEBUG c.uniClub.logging.MDCLoggingFilter - Filter 'MDCLoggingFilter' configured for use
+2025-11-21 15:47:14.586 [trace:] [user:] [role:] [op:] INFO  org.mongodb.driver.cluster - Exception in monitor thread while connecting to server localhost:27017
+com.mongodb.MongoSocketOpenException: Exception opening socket
+	at com.mongodb.internal.connection.SocketStream.lambda$open$0(SocketStream.java:86)
+	at java.base/java.util.Optional.orElseThrow(Optional.java:403)
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:86)
+	at com.mongodb.internal.connection.InternalStreamConnection.open(InternalStreamConnection.java:201)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.lookupServerDescription(DefaultServerMonitor.java:193)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:153)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.net.ConnectException: Connection refused: getsockopt
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:682)
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:542)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:592)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:751)
+	at com.mongodb.internal.connection.SocketStreamHelper.initialize(SocketStreamHelper.java:76)
+	at com.mongodb.internal.connection.SocketStream.initializeSocket(SocketStream.java:105)
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:80)
+	... 4 common frames omitted
+2025-11-21 15:47:14.594 [trace:] [user:] [role:] [op:] INFO  org.mongodb.driver.client - MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "5.0.1"}, "os": {"type": "Windows", "name": "Windows 11", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Eclipse Adoptium/21.0.8+9-LTS"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=MongoCredential{mechanism=null, userName='root', source='admin', password=<hidden>, mechanismProperties=<hidden>}, transportSettings=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@389d371a, com.mongodb.Jep395RecordCodecProvider@554a76fd, com.mongodb.KotlinCodecProvider@1ee1c0cc]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='15 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, dnsClient=null, inetAddressResolver=null, contextProvider=null}
+2025-11-21 15:47:14.889 [trace:] [user:] [role:] [op:] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2025-11-21 15:47:14.977 [trace:] [user:] [role:] [op:] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-11-21 15:47:15.551 [trace:] [user:] [role:] [op:] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-11-21 15:47:15.581 [trace:] [user:] [role:] [op:] INFO  com.uniClub.UniClubApplication - Started UniClubApplication in 5.942 seconds (process running for 6.88)
+2025-11-21 15:47:15.671 [trace:] [user:] [role:] [op:] DEBUG org.hibernate.SQL - 
+    select
+        ue1_0.id,
+        ue1_0.created_at,
+        ue1_0.created_by,
+        ue1_0.email,
+        ue1_0.password,
+        ue1_0.role,
+        ue1_0.updated_at,
+        ue1_0.updated_by,
+        ue1_0.username,
+        ue1_0.version 
+    from
+        uniclub.users ue1_0 
+    where
+        ue1_0.username=?
+2025-11-21 15:47:15.681 [trace:] [user:] [role:] [op:] DEBUG org.hibernate.SQL - 
+    select
+        ce1_0.id,
+        ce1_0.approved,
+        ce1_0.club_name,
+        ce1_0.created_at,
+        ce1_0.created_by,
+        ce1_0.description,
+        ce1_0.email,
+        ce1_0.foundation_date,
+        ce1_0.instagram,
+        ce1_0.logo_url,
+        ce1_0.phone,
+        p1_0.id,
+        p1_0.created_at,
+        p1_0.created_by,
+        p1_0.email,
+        p1_0.password,
+        p1_0.role,
+        p1_0.updated_at,
+        p1_0.updated_by,
+        p1_0.username,
+        p1_0.version,
+        ce1_0.short_name,
+        ce1_0.updated_at,
+        ce1_0.updated_by,
+        ce1_0.version 
+    from
+        uniclub.clubs ce1_0 
+    left join
+        uniclub.users p1_0 
+            on p1_0.id=ce1_0.president_id 
+    where
+        ce1_0.president_id=?
+2025-11-21 15:47:15.691 [trace:] [user:] [role:] [op:] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 0, SQLState: 42P01
+2025-11-21 15:47:15.692 [trace:] [user:] [role:] [op:] ERROR o.h.e.jdbc.spi.SqlExceptionHelper - ERROR: relation "uniclub.clubs" does not exist
+  Position: 381
+2025-11-21 15:47:15.711 [trace:] [user:] [role:] [op:] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.dao.InvalidDataAccessResourceUsageException: JDBC exception executing SQL [select ce1_0.id,ce1_0.approved,ce1_0.club_name,ce1_0.created_at,ce1_0.created_by,ce1_0.description,ce1_0.email,ce1_0.foundation_date,ce1_0.instagram,ce1_0.logo_url,ce1_0.phone,p1_0.id,p1_0.created_at,p1_0.created_by,p1_0.email,p1_0.password,p1_0.role,p1_0.updated_at,p1_0.updated_by,p1_0.username,p1_0.version,ce1_0.short_name,ce1_0.updated_at,ce1_0.updated_by,ce1_0.version from uniclub.clubs ce1_0 left join uniclub.users p1_0 on p1_0.id=ce1_0.president_id where ce1_0.president_id=?] [ERROR: relation "uniclub.clubs" does not exist
+  Position: 381] [n/a]; SQL [n/a]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:277)
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:241)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:550)
+	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61)
+	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:335)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:160)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:136)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:223)
+	at jdk.proxy2/jdk.proxy2.$Proxy174.findByUsername(Unknown Source)
+	at com.uniClub.config.AppConfig.lambda$init$0(AppConfig.java:30)
+	at org.springframework.boot.SpringApplication.lambda$callRunner$5(SpringApplication.java:790)
+	at org.springframework.util.function.ThrowingConsumer$1.acceptWithException(ThrowingConsumer.java:83)
+	at org.springframework.util.function.ThrowingConsumer.accept(ThrowingConsumer.java:60)
+	at org.springframework.util.function.ThrowingConsumer$1.accept(ThrowingConsumer.java:88)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:798)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:789)
+	at org.springframework.boot.SpringApplication.lambda$callRunners$3(SpringApplication.java:774)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.base/java.util.stream.SortedOps$SizedRefSortingSink.end(SortedOps.java:357)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:510)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:774)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:342)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at com.uniClub.UniClubApplication.main(UniClubApplication.java:16)
+Caused by: org.hibernate.exception.SQLGrammarException: JDBC exception executing SQL [select ce1_0.id,ce1_0.approved,ce1_0.club_name,ce1_0.created_at,ce1_0.created_by,ce1_0.description,ce1_0.email,ce1_0.foundation_date,ce1_0.instagram,ce1_0.logo_url,ce1_0.phone,p1_0.id,p1_0.created_at,p1_0.created_by,p1_0.email,p1_0.password,p1_0.role,p1_0.updated_at,p1_0.updated_by,p1_0.username,p1_0.version,ce1_0.short_name,ce1_0.updated_at,ce1_0.updated_by,ce1_0.version from uniclub.clubs ce1_0 left join uniclub.users p1_0 on p1_0.id=ce1_0.president_id where ce1_0.president_id=?] [ERROR: relation "uniclub.clubs" does not exist
+  Position: 381] [n/a]
+	at org.hibernate.exception.internal.SQLStateConversionDelegate.convert(SQLStateConversionDelegate.java:91)
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:58)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:108)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:94)
+	at org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.executeQuery(DeferredResultSetAccess.java:264)
+	at org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.getResultSet(DeferredResultSetAccess.java:167)
+	at org.hibernate.sql.results.jdbc.internal.JdbcValuesResultSetImpl.advanceNext(JdbcValuesResultSetImpl.java:265)
+	at org.hibernate.sql.results.jdbc.internal.JdbcValuesResultSetImpl.processNext(JdbcValuesResultSetImpl.java:145)
+	at org.hibernate.sql.results.jdbc.internal.AbstractJdbcValues.next(AbstractJdbcValues.java:19)
+	at org.hibernate.sql.results.internal.RowProcessingStateStandardImpl.next(RowProcessingStateStandardImpl.java:67)
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:182)
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:33)
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.doExecuteQuery(JdbcSelectExecutorStandardImpl.java:211)
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.executeQuery(JdbcSelectExecutorStandardImpl.java:83)
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:76)
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:65)
+	at org.hibernate.loader.ast.internal.SingleUniqueKeyEntityLoaderStandard.load(SingleUniqueKeyEntityLoaderStandard.java:127)
+	at org.hibernate.persister.entity.AbstractEntityPersister.loadByUniqueKey(AbstractEntityPersister.java:2655)
+	at org.hibernate.persister.entity.AbstractEntityPersister.loadByUniqueKey(AbstractEntityPersister.java:2647)
+	at org.hibernate.sql.results.graph.entity.internal.EntitySelectFetchByUniqueKeyInitializer.initializeInstance(EntitySelectFetchByUniqueKeyInitializer.java:96)
+	at org.hibernate.sql.results.internal.InitializersList.initializeInstance(InitializersList.java:73)
+	at org.hibernate.sql.results.internal.StandardRowReader.coordinateInitializers(StandardRowReader.java:113)
+	at org.hibernate.sql.results.internal.StandardRowReader.readRow(StandardRowReader.java:87)
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:205)
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:33)
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.doExecuteQuery(JdbcSelectExecutorStandardImpl.java:211)
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.executeQuery(JdbcSelectExecutorStandardImpl.java:83)
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:76)
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:65)
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.lambda$new$2(ConcreteSqmSelectQueryPlan.java:139)
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.withCacheableSqmInterpretation(ConcreteSqmSelectQueryPlan.java:382)
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.performList(ConcreteSqmSelectQueryPlan.java:302)
+	at org.hibernate.query.sqm.internal.QuerySqmImpl.doList(QuerySqmImpl.java:526)
+	at org.hibernate.query.spi.AbstractSelectionQuery.list(AbstractSelectionQuery.java:423)
+	at org.hibernate.query.spi.AbstractSelectionQuery.getSingleResult(AbstractSelectionQuery.java:555)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.orm.jpa.SharedEntityManagerCreator$DeferredQueryInvocationHandler.invoke(SharedEntityManagerCreator.java:418)
+	at jdk.proxy2/jdk.proxy2.$Proxy204.getSingleResult(Unknown Source)
+	at org.springframework.data.jpa.repository.query.JpaQueryExecution$SingleEntityExecution.doExecute(JpaQueryExecution.java:223)
+	at org.springframework.data.jpa.repository.query.JpaQueryExecution.execute(JpaQueryExecution.java:92)
+	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.doExecute(AbstractJpaQuery.java:152)
+	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.execute(AbstractJpaQuery.java:140)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:170)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:169)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:148)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:70)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:379)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
+	... 28 common frames omitted
+Caused by: org.postgresql.util.PSQLException: ERROR: relation "uniclub.clubs" does not exist
+  Position: 381
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2733)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2420)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:372)
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:517)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:434)
+	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:194)
+	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:137)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeQuery(ProxyPreparedStatement.java:52)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java)
+	at org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.executeQuery(DeferredResultSetAccess.java:246)
+	... 77 common frames omitted
+2025-11-21 15:47:15.724 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-11-21 15:47:15.726 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-11-21 15:53:35.620 [trace:] [user:] [role:] [op:] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-11-21 15:53:35.654 [trace:] [user:] [role:] [op:] INFO  com.uniClub.UniClubApplication - Starting UniClubApplication using Java 21.0.8 with PID 22540 (C:\Users\VivaVeste\OneDrive\Desktop\uniClub\target\classes started by VivaVeste in C:\Users\VivaVeste\OneDrive\Desktop\uniClub)
+2025-11-21 15:53:35.655 [trace:] [user:] [role:] [op:] DEBUG com.uniClub.UniClubApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-11-21 15:53:35.655 [trace:] [user:] [role:] [op:] INFO  com.uniClub.UniClubApplication - No active profile set, falling back to 1 default profile: "default"
+2025-11-21 15:53:37.009 [trace:] [user:] [role:] [op:] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-11-21 15:53:37.012 [trace:] [user:] [role:] [op:] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-21 15:53:37.012 [trace:] [user:] [role:] [op:] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-11-21 15:53:37.065 [trace:] [user:] [role:] [op:] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-11-21 15:53:37.294 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-11-21 15:53:37.428 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@27746c5e
+2025-11-21 15:53:37.430 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-11-21 15:53:37.449 [trace:] [user:] [role:] [op:] INFO  o.f.c.i.r.ResourceNameValidator - 1 SQL migrations were detected but not run because they did not follow the filename convention.
+2025-11-21 15:53:37.449 [trace:] [user:] [role:] [op:] INFO  o.f.c.i.r.ResourceNameValidator - Set 'validateMigrationNaming' to true to fail fast and see a list of the invalid file names.
+2025-11-21 15:53:37.454 [trace:] [user:] [role:] [op:] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 15.12)
+2025-11-21 15:53:37.493 [trace:] [user:] [role:] [op:] INFO  o.f.core.internal.command.DbValidate - Successfully validated 6 migrations (execution time 00:00.025s)
+2025-11-21 15:53:37.558 [trace:] [user:] [role:] [op:] INFO  o.f.core.internal.command.DbMigrate - Current version of schema "uniclub": 6
+2025-11-21 15:53:37.561 [trace:] [user:] [role:] [op:] INFO  o.f.core.internal.command.DbMigrate - Schema "uniclub" is up to date. No migration necessary.
+2025-11-21 15:53:37.642 [trace:] [user:] [role:] [op:] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-21 15:53:37.684 [trace:] [user:] [role:] [op:] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-11-21 15:53:37.712 [trace:] [user:] [role:] [op:] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-11-21 15:53:38.952 [trace:] [user:] [role:] [op:] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-21 15:53:39.591 [trace:] [user:] [role:] [op:] DEBUG c.u.security.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-11-21 15:53:39.592 [trace:] [user:] [role:] [op:] DEBUG c.uniClub.logging.MDCLoggingFilter - Filter 'MDCLoggingFilter' configured for use
+2025-11-21 15:53:39.753 [trace:] [user:] [role:] [op:] INFO  org.mongodb.driver.cluster - Exception in monitor thread while connecting to server localhost:27017
+com.mongodb.MongoSocketOpenException: Exception opening socket
+	at com.mongodb.internal.connection.SocketStream.lambda$open$0(SocketStream.java:86)
+	at java.base/java.util.Optional.orElseThrow(Optional.java:403)
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:86)
+	at com.mongodb.internal.connection.InternalStreamConnection.open(InternalStreamConnection.java:201)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.lookupServerDescription(DefaultServerMonitor.java:193)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:153)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.net.ConnectException: Connection refused: getsockopt
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:682)
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:542)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:592)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:751)
+	at com.mongodb.internal.connection.SocketStreamHelper.initialize(SocketStreamHelper.java:76)
+	at com.mongodb.internal.connection.SocketStream.initializeSocket(SocketStream.java:105)
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:80)
+	... 4 common frames omitted
+2025-11-21 15:53:39.760 [trace:] [user:] [role:] [op:] INFO  org.mongodb.driver.client - MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "5.0.1"}, "os": {"type": "Windows", "name": "Windows 11", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Eclipse Adoptium/21.0.8+9-LTS"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=MongoCredential{mechanism=null, userName='root', source='admin', password=<hidden>, mechanismProperties=<hidden>}, transportSettings=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@7b313fdf, com.mongodb.Jep395RecordCodecProvider@55781d31, com.mongodb.KotlinCodecProvider@6d02c23f]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='15 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, dnsClient=null, inetAddressResolver=null, contextProvider=null}
+2025-11-21 15:53:40.028 [trace:] [user:] [role:] [op:] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2025-11-21 15:53:40.109 [trace:] [user:] [role:] [op:] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-11-21 15:53:40.636 [trace:] [user:] [role:] [op:] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-11-21 15:53:40.663 [trace:] [user:] [role:] [op:] INFO  com.uniClub.UniClubApplication - Started UniClubApplication in 5.748 seconds (process running for 6.592)
+2025-11-21 15:53:40.760 [trace:] [user:] [role:] [op:] DEBUG org.hibernate.SQL - 
+    select
+        ue1_0.id,
+        ue1_0.created_at,
+        ue1_0.created_by,
+        ue1_0.email,
+        ue1_0.password,
+        ue1_0.role,
+        ue1_0.updated_at,
+        ue1_0.updated_by,
+        ue1_0.username,
+        ue1_0.version 
+    from
+        uniclub.users ue1_0 
+    where
+        ue1_0.username=?
+2025-11-21 15:53:40.770 [trace:] [user:] [role:] [op:] DEBUG org.hibernate.SQL - 
+    select
+        ce1_0.id,
+        ce1_0.approved,
+        ce1_0.club_name,
+        ce1_0.created_at,
+        ce1_0.created_by,
+        ce1_0.description,
+        ce1_0.email,
+        ce1_0.foundation_date,
+        ce1_0.instagram,
+        ce1_0.logo_url,
+        ce1_0.phone,
+        p1_0.id,
+        p1_0.created_at,
+        p1_0.created_by,
+        p1_0.email,
+        p1_0.password,
+        p1_0.role,
+        p1_0.updated_at,
+        p1_0.updated_by,
+        p1_0.username,
+        p1_0.version,
+        ce1_0.short_name,
+        ce1_0.updated_at,
+        ce1_0.updated_by,
+        ce1_0.version 
+    from
+        uniclub.clubs ce1_0 
+    left join
+        uniclub.users p1_0 
+            on p1_0.id=ce1_0.president_id 
+    where
+        ce1_0.president_id=?
+2025-11-21 15:53:40.775 [trace:] [user:] [role:] [op:] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 0, SQLState: 42P01
+2025-11-21 15:53:40.776 [trace:] [user:] [role:] [op:] ERROR o.h.e.jdbc.spi.SqlExceptionHelper - ERROR: relation "uniclub.clubs" does not exist
+  Position: 381
+2025-11-21 15:53:40.796 [trace:] [user:] [role:] [op:] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.dao.InvalidDataAccessResourceUsageException: JDBC exception executing SQL [select ce1_0.id,ce1_0.approved,ce1_0.club_name,ce1_0.created_at,ce1_0.created_by,ce1_0.description,ce1_0.email,ce1_0.foundation_date,ce1_0.instagram,ce1_0.logo_url,ce1_0.phone,p1_0.id,p1_0.created_at,p1_0.created_by,p1_0.email,p1_0.password,p1_0.role,p1_0.updated_at,p1_0.updated_by,p1_0.username,p1_0.version,ce1_0.short_name,ce1_0.updated_at,ce1_0.updated_by,ce1_0.version from uniclub.clubs ce1_0 left join uniclub.users p1_0 on p1_0.id=ce1_0.president_id where ce1_0.president_id=?] [ERROR: relation "uniclub.clubs" does not exist
+  Position: 381] [n/a]; SQL [n/a]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:277)
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:241)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:550)
+	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61)
+	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:335)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:160)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:136)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:223)
+	at jdk.proxy2/jdk.proxy2.$Proxy174.findByUsername(Unknown Source)
+	at com.uniClub.config.AppConfig.lambda$init$0(AppConfig.java:30)
+	at org.springframework.boot.SpringApplication.lambda$callRunner$5(SpringApplication.java:790)
+	at org.springframework.util.function.ThrowingConsumer$1.acceptWithException(ThrowingConsumer.java:83)
+	at org.springframework.util.function.ThrowingConsumer.accept(ThrowingConsumer.java:60)
+	at org.springframework.util.function.ThrowingConsumer$1.accept(ThrowingConsumer.java:88)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:798)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:789)
+	at org.springframework.boot.SpringApplication.lambda$callRunners$3(SpringApplication.java:774)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.base/java.util.stream.SortedOps$SizedRefSortingSink.end(SortedOps.java:357)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:510)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:774)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:342)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at com.uniClub.UniClubApplication.main(UniClubApplication.java:16)
+Caused by: org.hibernate.exception.SQLGrammarException: JDBC exception executing SQL [select ce1_0.id,ce1_0.approved,ce1_0.club_name,ce1_0.created_at,ce1_0.created_by,ce1_0.description,ce1_0.email,ce1_0.foundation_date,ce1_0.instagram,ce1_0.logo_url,ce1_0.phone,p1_0.id,p1_0.created_at,p1_0.created_by,p1_0.email,p1_0.password,p1_0.role,p1_0.updated_at,p1_0.updated_by,p1_0.username,p1_0.version,ce1_0.short_name,ce1_0.updated_at,ce1_0.updated_by,ce1_0.version from uniclub.clubs ce1_0 left join uniclub.users p1_0 on p1_0.id=ce1_0.president_id where ce1_0.president_id=?] [ERROR: relation "uniclub.clubs" does not exist
+  Position: 381] [n/a]
+	at org.hibernate.exception.internal.SQLStateConversionDelegate.convert(SQLStateConversionDelegate.java:91)
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:58)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:108)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:94)
+	at org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.executeQuery(DeferredResultSetAccess.java:264)
+	at org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.getResultSet(DeferredResultSetAccess.java:167)
+	at org.hibernate.sql.results.jdbc.internal.JdbcValuesResultSetImpl.advanceNext(JdbcValuesResultSetImpl.java:265)
+	at org.hibernate.sql.results.jdbc.internal.JdbcValuesResultSetImpl.processNext(JdbcValuesResultSetImpl.java:145)
+	at org.hibernate.sql.results.jdbc.internal.AbstractJdbcValues.next(AbstractJdbcValues.java:19)
+	at org.hibernate.sql.results.internal.RowProcessingStateStandardImpl.next(RowProcessingStateStandardImpl.java:67)
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:182)
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:33)
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.doExecuteQuery(JdbcSelectExecutorStandardImpl.java:211)
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.executeQuery(JdbcSelectExecutorStandardImpl.java:83)
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:76)
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:65)
+	at org.hibernate.loader.ast.internal.SingleUniqueKeyEntityLoaderStandard.load(SingleUniqueKeyEntityLoaderStandard.java:127)
+	at org.hibernate.persister.entity.AbstractEntityPersister.loadByUniqueKey(AbstractEntityPersister.java:2655)
+	at org.hibernate.persister.entity.AbstractEntityPersister.loadByUniqueKey(AbstractEntityPersister.java:2647)
+	at org.hibernate.sql.results.graph.entity.internal.EntitySelectFetchByUniqueKeyInitializer.initializeInstance(EntitySelectFetchByUniqueKeyInitializer.java:96)
+	at org.hibernate.sql.results.internal.InitializersList.initializeInstance(InitializersList.java:73)
+	at org.hibernate.sql.results.internal.StandardRowReader.coordinateInitializers(StandardRowReader.java:113)
+	at org.hibernate.sql.results.internal.StandardRowReader.readRow(StandardRowReader.java:87)
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:205)
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:33)
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.doExecuteQuery(JdbcSelectExecutorStandardImpl.java:211)
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.executeQuery(JdbcSelectExecutorStandardImpl.java:83)
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:76)
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:65)
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.lambda$new$2(ConcreteSqmSelectQueryPlan.java:139)
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.withCacheableSqmInterpretation(ConcreteSqmSelectQueryPlan.java:382)
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.performList(ConcreteSqmSelectQueryPlan.java:302)
+	at org.hibernate.query.sqm.internal.QuerySqmImpl.doList(QuerySqmImpl.java:526)
+	at org.hibernate.query.spi.AbstractSelectionQuery.list(AbstractSelectionQuery.java:423)
+	at org.hibernate.query.spi.AbstractSelectionQuery.getSingleResult(AbstractSelectionQuery.java:555)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.orm.jpa.SharedEntityManagerCreator$DeferredQueryInvocationHandler.invoke(SharedEntityManagerCreator.java:418)
+	at jdk.proxy2/jdk.proxy2.$Proxy204.getSingleResult(Unknown Source)
+	at org.springframework.data.jpa.repository.query.JpaQueryExecution$SingleEntityExecution.doExecute(JpaQueryExecution.java:223)
+	at org.springframework.data.jpa.repository.query.JpaQueryExecution.execute(JpaQueryExecution.java:92)
+	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.doExecute(AbstractJpaQuery.java:152)
+	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.execute(AbstractJpaQuery.java:140)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:170)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:169)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:148)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:70)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:379)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
+	... 28 common frames omitted
+Caused by: org.postgresql.util.PSQLException: ERROR: relation "uniclub.clubs" does not exist
+  Position: 381
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2733)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2420)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:372)
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:517)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:434)
+	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:194)
+	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:137)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeQuery(ProxyPreparedStatement.java:52)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java)
+	at org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.executeQuery(DeferredResultSetAccess.java:246)
+	... 77 common frames omitted
+2025-11-21 15:53:40.810 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-11-21 15:53:40.812 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-11-21 15:57:11.341 [trace:] [user:] [role:] [op:] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-11-21 15:57:11.375 [trace:] [user:] [role:] [op:] INFO  com.uniClub.UniClubApplication - Starting UniClubApplication using Java 21.0.8 with PID 20384 (C:\Users\VivaVeste\OneDrive\Desktop\uniClub\target\classes started by VivaVeste in C:\Users\VivaVeste\OneDrive\Desktop\uniClub)
+2025-11-21 15:57:11.376 [trace:] [user:] [role:] [op:] DEBUG com.uniClub.UniClubApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-11-21 15:57:11.376 [trace:] [user:] [role:] [op:] INFO  com.uniClub.UniClubApplication - No active profile set, falling back to 1 default profile: "default"
+2025-11-21 15:57:12.778 [trace:] [user:] [role:] [op:] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-11-21 15:57:12.781 [trace:] [user:] [role:] [op:] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-21 15:57:12.782 [trace:] [user:] [role:] [op:] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-11-21 15:57:12.833 [trace:] [user:] [role:] [op:] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-11-21 15:57:13.055 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-11-21 15:57:13.307 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@c6c84fa
+2025-11-21 15:57:13.309 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-11-21 15:57:13.329 [trace:] [user:] [role:] [op:] INFO  o.f.c.i.r.ResourceNameValidator - 1 SQL migrations were detected but not run because they did not follow the filename convention.
+2025-11-21 15:57:13.329 [trace:] [user:] [role:] [op:] INFO  o.f.c.i.r.ResourceNameValidator - Set 'validateMigrationNaming' to true to fail fast and see a list of the invalid file names.
+2025-11-21 15:57:13.335 [trace:] [user:] [role:] [op:] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 15.12)
+2025-11-21 15:57:13.376 [trace:] [user:] [role:] [op:] INFO  o.f.core.internal.command.DbValidate - Successfully validated 6 migrations (execution time 00:00.026s)
+2025-11-21 15:57:13.433 [trace:] [user:] [role:] [op:] INFO  o.f.core.internal.command.DbMigrate - Current version of schema "uniclub": 6
+2025-11-21 15:57:13.435 [trace:] [user:] [role:] [op:] INFO  o.f.core.internal.command.DbMigrate - Schema "uniclub" is up to date. No migration necessary.
+2025-11-21 15:57:13.504 [trace:] [user:] [role:] [op:] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-21 15:57:13.552 [trace:] [user:] [role:] [op:] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-11-21 15:57:13.583 [trace:] [user:] [role:] [op:] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-11-21 15:57:14.992 [trace:] [user:] [role:] [op:] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-21 15:57:15.625 [trace:] [user:] [role:] [op:] DEBUG c.u.security.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-11-21 15:57:15.625 [trace:] [user:] [role:] [op:] DEBUG c.uniClub.logging.MDCLoggingFilter - Filter 'MDCLoggingFilter' configured for use
+2025-11-21 15:57:15.793 [trace:] [user:] [role:] [op:] INFO  org.mongodb.driver.cluster - Exception in monitor thread while connecting to server localhost:27017
+com.mongodb.MongoSocketOpenException: Exception opening socket
+	at com.mongodb.internal.connection.SocketStream.lambda$open$0(SocketStream.java:86)
+	at java.base/java.util.Optional.orElseThrow(Optional.java:403)
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:86)
+	at com.mongodb.internal.connection.InternalStreamConnection.open(InternalStreamConnection.java:201)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.lookupServerDescription(DefaultServerMonitor.java:193)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:153)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.net.ConnectException: Connection refused: getsockopt
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:682)
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:542)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:592)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:751)
+	at com.mongodb.internal.connection.SocketStreamHelper.initialize(SocketStreamHelper.java:76)
+	at com.mongodb.internal.connection.SocketStream.initializeSocket(SocketStream.java:105)
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:80)
+	... 4 common frames omitted
+2025-11-21 15:57:15.801 [trace:] [user:] [role:] [op:] INFO  org.mongodb.driver.client - MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "5.0.1"}, "os": {"type": "Windows", "name": "Windows 11", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Eclipse Adoptium/21.0.8+9-LTS"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=MongoCredential{mechanism=null, userName='root', source='admin', password=<hidden>, mechanismProperties=<hidden>}, transportSettings=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@1a787480, com.mongodb.Jep395RecordCodecProvider@5b3847f5, com.mongodb.KotlinCodecProvider@385abc08]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='15 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, dnsClient=null, inetAddressResolver=null, contextProvider=null}
+2025-11-21 15:57:16.107 [trace:] [user:] [role:] [op:] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2025-11-21 15:57:16.197 [trace:] [user:] [role:] [op:] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-11-21 15:57:16.927 [trace:] [user:] [role:] [op:] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-11-21 15:57:16.954 [trace:] [user:] [role:] [op:] INFO  com.uniClub.UniClubApplication - Started UniClubApplication in 6.323 seconds (process running for 7.023)
+2025-11-21 15:57:17.043 [trace:] [user:] [role:] [op:] DEBUG org.hibernate.SQL - 
+    select
+        ue1_0.id,
+        ue1_0.created_at,
+        ue1_0.created_by,
+        ue1_0.email,
+        ue1_0.password,
+        ue1_0.role,
+        ue1_0.updated_at,
+        ue1_0.updated_by,
+        ue1_0.username,
+        ue1_0.version 
+    from
+        uniclub.users ue1_0 
+    where
+        ue1_0.username=?
+2025-11-21 15:57:17.053 [trace:] [user:] [role:] [op:] DEBUG org.hibernate.SQL - 
+    select
+        ce1_0.id,
+        ce1_0.approved,
+        ce1_0.club_name,
+        ce1_0.created_at,
+        ce1_0.created_by,
+        ce1_0.description,
+        ce1_0.email,
+        ce1_0.foundation_date,
+        ce1_0.instagram,
+        ce1_0.logo_url,
+        ce1_0.phone,
+        p1_0.id,
+        p1_0.created_at,
+        p1_0.created_by,
+        p1_0.email,
+        p1_0.password,
+        p1_0.role,
+        p1_0.updated_at,
+        p1_0.updated_by,
+        p1_0.username,
+        p1_0.version,
+        ce1_0.short_name,
+        ce1_0.updated_at,
+        ce1_0.updated_by,
+        ce1_0.version 
+    from
+        uniclub.clubs ce1_0 
+    left join
+        uniclub.users p1_0 
+            on p1_0.id=ce1_0.president_id 
+    where
+        ce1_0.president_id=?
+2025-11-21 15:57:17.059 [trace:] [user:] [role:] [op:] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 0, SQLState: 42P01
+2025-11-21 15:57:17.059 [trace:] [user:] [role:] [op:] ERROR o.h.e.jdbc.spi.SqlExceptionHelper - ERROR: relation "uniclub.clubs" does not exist
+  Position: 381
+2025-11-21 15:57:17.080 [trace:] [user:] [role:] [op:] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.dao.InvalidDataAccessResourceUsageException: JDBC exception executing SQL [select ce1_0.id,ce1_0.approved,ce1_0.club_name,ce1_0.created_at,ce1_0.created_by,ce1_0.description,ce1_0.email,ce1_0.foundation_date,ce1_0.instagram,ce1_0.logo_url,ce1_0.phone,p1_0.id,p1_0.created_at,p1_0.created_by,p1_0.email,p1_0.password,p1_0.role,p1_0.updated_at,p1_0.updated_by,p1_0.username,p1_0.version,ce1_0.short_name,ce1_0.updated_at,ce1_0.updated_by,ce1_0.version from uniclub.clubs ce1_0 left join uniclub.users p1_0 on p1_0.id=ce1_0.president_id where ce1_0.president_id=?] [ERROR: relation "uniclub.clubs" does not exist
+  Position: 381] [n/a]; SQL [n/a]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:277)
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:241)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:550)
+	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61)
+	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:335)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:160)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:136)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:223)
+	at jdk.proxy2/jdk.proxy2.$Proxy174.findByUsername(Unknown Source)
+	at com.uniClub.config.AppConfig.lambda$init$0(AppConfig.java:30)
+	at org.springframework.boot.SpringApplication.lambda$callRunner$5(SpringApplication.java:790)
+	at org.springframework.util.function.ThrowingConsumer$1.acceptWithException(ThrowingConsumer.java:83)
+	at org.springframework.util.function.ThrowingConsumer.accept(ThrowingConsumer.java:60)
+	at org.springframework.util.function.ThrowingConsumer$1.accept(ThrowingConsumer.java:88)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:798)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:789)
+	at org.springframework.boot.SpringApplication.lambda$callRunners$3(SpringApplication.java:774)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.base/java.util.stream.SortedOps$SizedRefSortingSink.end(SortedOps.java:357)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:510)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:774)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:342)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at com.uniClub.UniClubApplication.main(UniClubApplication.java:16)
+Caused by: org.hibernate.exception.SQLGrammarException: JDBC exception executing SQL [select ce1_0.id,ce1_0.approved,ce1_0.club_name,ce1_0.created_at,ce1_0.created_by,ce1_0.description,ce1_0.email,ce1_0.foundation_date,ce1_0.instagram,ce1_0.logo_url,ce1_0.phone,p1_0.id,p1_0.created_at,p1_0.created_by,p1_0.email,p1_0.password,p1_0.role,p1_0.updated_at,p1_0.updated_by,p1_0.username,p1_0.version,ce1_0.short_name,ce1_0.updated_at,ce1_0.updated_by,ce1_0.version from uniclub.clubs ce1_0 left join uniclub.users p1_0 on p1_0.id=ce1_0.president_id where ce1_0.president_id=?] [ERROR: relation "uniclub.clubs" does not exist
+  Position: 381] [n/a]
+	at org.hibernate.exception.internal.SQLStateConversionDelegate.convert(SQLStateConversionDelegate.java:91)
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:58)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:108)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:94)
+	at org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.executeQuery(DeferredResultSetAccess.java:264)
+	at org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.getResultSet(DeferredResultSetAccess.java:167)
+	at org.hibernate.sql.results.jdbc.internal.JdbcValuesResultSetImpl.advanceNext(JdbcValuesResultSetImpl.java:265)
+	at org.hibernate.sql.results.jdbc.internal.JdbcValuesResultSetImpl.processNext(JdbcValuesResultSetImpl.java:145)
+	at org.hibernate.sql.results.jdbc.internal.AbstractJdbcValues.next(AbstractJdbcValues.java:19)
+	at org.hibernate.sql.results.internal.RowProcessingStateStandardImpl.next(RowProcessingStateStandardImpl.java:67)
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:182)
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:33)
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.doExecuteQuery(JdbcSelectExecutorStandardImpl.java:211)
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.executeQuery(JdbcSelectExecutorStandardImpl.java:83)
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:76)
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:65)
+	at org.hibernate.loader.ast.internal.SingleUniqueKeyEntityLoaderStandard.load(SingleUniqueKeyEntityLoaderStandard.java:127)
+	at org.hibernate.persister.entity.AbstractEntityPersister.loadByUniqueKey(AbstractEntityPersister.java:2655)
+	at org.hibernate.persister.entity.AbstractEntityPersister.loadByUniqueKey(AbstractEntityPersister.java:2647)
+	at org.hibernate.sql.results.graph.entity.internal.EntitySelectFetchByUniqueKeyInitializer.initializeInstance(EntitySelectFetchByUniqueKeyInitializer.java:96)
+	at org.hibernate.sql.results.internal.InitializersList.initializeInstance(InitializersList.java:73)
+	at org.hibernate.sql.results.internal.StandardRowReader.coordinateInitializers(StandardRowReader.java:113)
+	at org.hibernate.sql.results.internal.StandardRowReader.readRow(StandardRowReader.java:87)
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:205)
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:33)
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.doExecuteQuery(JdbcSelectExecutorStandardImpl.java:211)
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.executeQuery(JdbcSelectExecutorStandardImpl.java:83)
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:76)
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:65)
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.lambda$new$2(ConcreteSqmSelectQueryPlan.java:139)
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.withCacheableSqmInterpretation(ConcreteSqmSelectQueryPlan.java:382)
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.performList(ConcreteSqmSelectQueryPlan.java:302)
+	at org.hibernate.query.sqm.internal.QuerySqmImpl.doList(QuerySqmImpl.java:526)
+	at org.hibernate.query.spi.AbstractSelectionQuery.list(AbstractSelectionQuery.java:423)
+	at org.hibernate.query.spi.AbstractSelectionQuery.getSingleResult(AbstractSelectionQuery.java:555)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.orm.jpa.SharedEntityManagerCreator$DeferredQueryInvocationHandler.invoke(SharedEntityManagerCreator.java:418)
+	at jdk.proxy2/jdk.proxy2.$Proxy204.getSingleResult(Unknown Source)
+	at org.springframework.data.jpa.repository.query.JpaQueryExecution$SingleEntityExecution.doExecute(JpaQueryExecution.java:223)
+	at org.springframework.data.jpa.repository.query.JpaQueryExecution.execute(JpaQueryExecution.java:92)
+	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.doExecute(AbstractJpaQuery.java:152)
+	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.execute(AbstractJpaQuery.java:140)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:170)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:169)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:148)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:70)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:379)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
+	... 28 common frames omitted
+Caused by: org.postgresql.util.PSQLException: ERROR: relation "uniclub.clubs" does not exist
+  Position: 381
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2733)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2420)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:372)
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:517)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:434)
+	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:194)
+	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:137)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeQuery(ProxyPreparedStatement.java:52)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java)
+	at org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.executeQuery(DeferredResultSetAccess.java:246)
+	... 77 common frames omitted
+2025-11-21 15:57:17.095 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-11-21 15:57:17.097 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-11-21 15:57:58.859 [trace:] [user:] [role:] [op:] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-11-21 15:57:58.894 [trace:] [user:] [role:] [op:] INFO  com.uniClub.UniClubApplication - Starting UniClubApplication using Java 21.0.8 with PID 13360 (C:\Users\VivaVeste\OneDrive\Desktop\uniClub\target\classes started by VivaVeste in C:\Users\VivaVeste\OneDrive\Desktop\uniClub)
+2025-11-21 15:57:58.895 [trace:] [user:] [role:] [op:] DEBUG com.uniClub.UniClubApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-11-21 15:57:58.895 [trace:] [user:] [role:] [op:] INFO  com.uniClub.UniClubApplication - No active profile set, falling back to 1 default profile: "default"
+2025-11-21 15:58:00.263 [trace:] [user:] [role:] [op:] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-11-21 15:58:00.265 [trace:] [user:] [role:] [op:] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-21 15:58:00.266 [trace:] [user:] [role:] [op:] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-11-21 15:58:00.311 [trace:] [user:] [role:] [op:] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-11-21 15:58:00.505 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-11-21 15:58:00.666 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5018b56b
+2025-11-21 15:58:00.667 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-11-21 15:58:00.685 [trace:] [user:] [role:] [op:] INFO  o.f.c.i.r.ResourceNameValidator - 1 SQL migrations were detected but not run because they did not follow the filename convention.
+2025-11-21 15:58:00.685 [trace:] [user:] [role:] [op:] INFO  o.f.c.i.r.ResourceNameValidator - Set 'validateMigrationNaming' to true to fail fast and see a list of the invalid file names.
+2025-11-21 15:58:00.690 [trace:] [user:] [role:] [op:] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 15.12)
+2025-11-21 15:58:00.735 [trace:] [user:] [role:] [op:] INFO  o.f.core.internal.command.DbValidate - Successfully validated 6 migrations (execution time 00:00.031s)
+2025-11-21 15:58:00.800 [trace:] [user:] [role:] [op:] INFO  o.f.core.internal.command.DbMigrate - Current version of schema "uniclub": 6
+2025-11-21 15:58:00.802 [trace:] [user:] [role:] [op:] INFO  o.f.core.internal.command.DbMigrate - Schema "uniclub" is up to date. No migration necessary.
+2025-11-21 15:58:00.872 [trace:] [user:] [role:] [op:] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-21 15:58:00.916 [trace:] [user:] [role:] [op:] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-11-21 15:58:00.951 [trace:] [user:] [role:] [op:] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-11-21 15:58:02.189 [trace:] [user:] [role:] [op:] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-21 15:58:02.834 [trace:] [user:] [role:] [op:] DEBUG c.u.security.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-11-21 15:58:02.835 [trace:] [user:] [role:] [op:] DEBUG c.uniClub.logging.MDCLoggingFilter - Filter 'MDCLoggingFilter' configured for use
+2025-11-21 15:58:02.994 [trace:] [user:] [role:] [op:] INFO  org.mongodb.driver.cluster - Exception in monitor thread while connecting to server localhost:27017
+com.mongodb.MongoSocketOpenException: Exception opening socket
+	at com.mongodb.internal.connection.SocketStream.lambda$open$0(SocketStream.java:86)
+	at java.base/java.util.Optional.orElseThrow(Optional.java:403)
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:86)
+	at com.mongodb.internal.connection.InternalStreamConnection.open(InternalStreamConnection.java:201)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.lookupServerDescription(DefaultServerMonitor.java:193)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:153)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.net.ConnectException: Connection refused: getsockopt
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:682)
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:542)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:592)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:751)
+	at com.mongodb.internal.connection.SocketStreamHelper.initialize(SocketStreamHelper.java:76)
+	at com.mongodb.internal.connection.SocketStream.initializeSocket(SocketStream.java:105)
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:80)
+	... 4 common frames omitted
+2025-11-21 15:58:03.002 [trace:] [user:] [role:] [op:] INFO  org.mongodb.driver.client - MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "5.0.1"}, "os": {"type": "Windows", "name": "Windows 11", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Eclipse Adoptium/21.0.8+9-LTS"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=MongoCredential{mechanism=null, userName='root', source='admin', password=<hidden>, mechanismProperties=<hidden>}, transportSettings=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@6e52877d, com.mongodb.Jep395RecordCodecProvider@57b4967e, com.mongodb.KotlinCodecProvider@7ba8b91c]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='15 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, dnsClient=null, inetAddressResolver=null, contextProvider=null}
+2025-11-21 15:58:03.274 [trace:] [user:] [role:] [op:] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2025-11-21 15:58:03.357 [trace:] [user:] [role:] [op:] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-11-21 15:58:03.896 [trace:] [user:] [role:] [op:] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-11-21 15:58:03.923 [trace:] [user:] [role:] [op:] INFO  com.uniClub.UniClubApplication - Started UniClubApplication in 5.747 seconds (process running for 6.628)
+2025-11-21 15:58:04.012 [trace:] [user:] [role:] [op:] DEBUG org.hibernate.SQL - 
+    select
+        ue1_0.id,
+        ue1_0.created_at,
+        ue1_0.created_by,
+        ue1_0.email,
+        ue1_0.password,
+        ue1_0.role,
+        ue1_0.updated_at,
+        ue1_0.updated_by,
+        ue1_0.username,
+        ue1_0.version 
+    from
+        uniclub.users ue1_0 
+    where
+        ue1_0.username=?
+2025-11-21 15:58:04.022 [trace:] [user:] [role:] [op:] DEBUG org.hibernate.SQL - 
+    select
+        ce1_0.id,
+        ce1_0.approved,
+        ce1_0.club_name,
+        ce1_0.created_at,
+        ce1_0.created_by,
+        ce1_0.description,
+        ce1_0.email,
+        ce1_0.foundation_date,
+        ce1_0.instagram,
+        ce1_0.logo_url,
+        ce1_0.phone,
+        p1_0.id,
+        p1_0.created_at,
+        p1_0.created_by,
+        p1_0.email,
+        p1_0.password,
+        p1_0.role,
+        p1_0.updated_at,
+        p1_0.updated_by,
+        p1_0.username,
+        p1_0.version,
+        ce1_0.short_name,
+        ce1_0.updated_at,
+        ce1_0.updated_by,
+        ce1_0.version 
+    from
+        uniclub.clubs ce1_0 
+    left join
+        uniclub.users p1_0 
+            on p1_0.id=ce1_0.president_id 
+    where
+        ce1_0.president_id=?
+2025-11-21 15:58:04.027 [trace:] [user:] [role:] [op:] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 0, SQLState: 42P01
+2025-11-21 15:58:04.028 [trace:] [user:] [role:] [op:] ERROR o.h.e.jdbc.spi.SqlExceptionHelper - ERROR: relation "uniclub.clubs" does not exist
+  Position: 381
+2025-11-21 15:58:04.046 [trace:] [user:] [role:] [op:] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.dao.InvalidDataAccessResourceUsageException: JDBC exception executing SQL [select ce1_0.id,ce1_0.approved,ce1_0.club_name,ce1_0.created_at,ce1_0.created_by,ce1_0.description,ce1_0.email,ce1_0.foundation_date,ce1_0.instagram,ce1_0.logo_url,ce1_0.phone,p1_0.id,p1_0.created_at,p1_0.created_by,p1_0.email,p1_0.password,p1_0.role,p1_0.updated_at,p1_0.updated_by,p1_0.username,p1_0.version,ce1_0.short_name,ce1_0.updated_at,ce1_0.updated_by,ce1_0.version from uniclub.clubs ce1_0 left join uniclub.users p1_0 on p1_0.id=ce1_0.president_id where ce1_0.president_id=?] [ERROR: relation "uniclub.clubs" does not exist
+  Position: 381] [n/a]; SQL [n/a]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:277)
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:241)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:550)
+	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61)
+	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:335)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:160)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:136)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:223)
+	at jdk.proxy2/jdk.proxy2.$Proxy174.findByUsername(Unknown Source)
+	at com.uniClub.config.AppConfig.lambda$init$0(AppConfig.java:30)
+	at org.springframework.boot.SpringApplication.lambda$callRunner$5(SpringApplication.java:790)
+	at org.springframework.util.function.ThrowingConsumer$1.acceptWithException(ThrowingConsumer.java:83)
+	at org.springframework.util.function.ThrowingConsumer.accept(ThrowingConsumer.java:60)
+	at org.springframework.util.function.ThrowingConsumer$1.accept(ThrowingConsumer.java:88)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:798)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:789)
+	at org.springframework.boot.SpringApplication.lambda$callRunners$3(SpringApplication.java:774)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.base/java.util.stream.SortedOps$SizedRefSortingSink.end(SortedOps.java:357)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:510)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:774)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:342)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at com.uniClub.UniClubApplication.main(UniClubApplication.java:16)
+Caused by: org.hibernate.exception.SQLGrammarException: JDBC exception executing SQL [select ce1_0.id,ce1_0.approved,ce1_0.club_name,ce1_0.created_at,ce1_0.created_by,ce1_0.description,ce1_0.email,ce1_0.foundation_date,ce1_0.instagram,ce1_0.logo_url,ce1_0.phone,p1_0.id,p1_0.created_at,p1_0.created_by,p1_0.email,p1_0.password,p1_0.role,p1_0.updated_at,p1_0.updated_by,p1_0.username,p1_0.version,ce1_0.short_name,ce1_0.updated_at,ce1_0.updated_by,ce1_0.version from uniclub.clubs ce1_0 left join uniclub.users p1_0 on p1_0.id=ce1_0.president_id where ce1_0.president_id=?] [ERROR: relation "uniclub.clubs" does not exist
+  Position: 381] [n/a]
+	at org.hibernate.exception.internal.SQLStateConversionDelegate.convert(SQLStateConversionDelegate.java:91)
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:58)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:108)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:94)
+	at org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.executeQuery(DeferredResultSetAccess.java:264)
+	at org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.getResultSet(DeferredResultSetAccess.java:167)
+	at org.hibernate.sql.results.jdbc.internal.JdbcValuesResultSetImpl.advanceNext(JdbcValuesResultSetImpl.java:265)
+	at org.hibernate.sql.results.jdbc.internal.JdbcValuesResultSetImpl.processNext(JdbcValuesResultSetImpl.java:145)
+	at org.hibernate.sql.results.jdbc.internal.AbstractJdbcValues.next(AbstractJdbcValues.java:19)
+	at org.hibernate.sql.results.internal.RowProcessingStateStandardImpl.next(RowProcessingStateStandardImpl.java:67)
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:182)
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:33)
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.doExecuteQuery(JdbcSelectExecutorStandardImpl.java:211)
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.executeQuery(JdbcSelectExecutorStandardImpl.java:83)
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:76)
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:65)
+	at org.hibernate.loader.ast.internal.SingleUniqueKeyEntityLoaderStandard.load(SingleUniqueKeyEntityLoaderStandard.java:127)
+	at org.hibernate.persister.entity.AbstractEntityPersister.loadByUniqueKey(AbstractEntityPersister.java:2655)
+	at org.hibernate.persister.entity.AbstractEntityPersister.loadByUniqueKey(AbstractEntityPersister.java:2647)
+	at org.hibernate.sql.results.graph.entity.internal.EntitySelectFetchByUniqueKeyInitializer.initializeInstance(EntitySelectFetchByUniqueKeyInitializer.java:96)
+	at org.hibernate.sql.results.internal.InitializersList.initializeInstance(InitializersList.java:73)
+	at org.hibernate.sql.results.internal.StandardRowReader.coordinateInitializers(StandardRowReader.java:113)
+	at org.hibernate.sql.results.internal.StandardRowReader.readRow(StandardRowReader.java:87)
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:205)
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:33)
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.doExecuteQuery(JdbcSelectExecutorStandardImpl.java:211)
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.executeQuery(JdbcSelectExecutorStandardImpl.java:83)
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:76)
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:65)
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.lambda$new$2(ConcreteSqmSelectQueryPlan.java:139)
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.withCacheableSqmInterpretation(ConcreteSqmSelectQueryPlan.java:382)
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.performList(ConcreteSqmSelectQueryPlan.java:302)
+	at org.hibernate.query.sqm.internal.QuerySqmImpl.doList(QuerySqmImpl.java:526)
+	at org.hibernate.query.spi.AbstractSelectionQuery.list(AbstractSelectionQuery.java:423)
+	at org.hibernate.query.spi.AbstractSelectionQuery.getSingleResult(AbstractSelectionQuery.java:555)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.orm.jpa.SharedEntityManagerCreator$DeferredQueryInvocationHandler.invoke(SharedEntityManagerCreator.java:418)
+	at jdk.proxy2/jdk.proxy2.$Proxy204.getSingleResult(Unknown Source)
+	at org.springframework.data.jpa.repository.query.JpaQueryExecution$SingleEntityExecution.doExecute(JpaQueryExecution.java:223)
+	at org.springframework.data.jpa.repository.query.JpaQueryExecution.execute(JpaQueryExecution.java:92)
+	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.doExecute(AbstractJpaQuery.java:152)
+	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.execute(AbstractJpaQuery.java:140)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:170)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:169)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:148)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:70)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:379)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
+	... 28 common frames omitted
+Caused by: org.postgresql.util.PSQLException: ERROR: relation "uniclub.clubs" does not exist
+  Position: 381
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2733)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2420)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:372)
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:517)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:434)
+	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:194)
+	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:137)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeQuery(ProxyPreparedStatement.java:52)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java)
+	at org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.executeQuery(DeferredResultSetAccess.java:246)
+	... 77 common frames omitted
+2025-11-21 15:58:04.060 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-11-21 15:58:04.062 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-11-21 15:59:06.793 [trace:] [user:] [role:] [op:] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-11-21 15:59:06.827 [trace:] [user:] [role:] [op:] INFO  com.uniClub.UniClubApplication - Starting UniClubApplication using Java 21.0.8 with PID 10552 (C:\Users\VivaVeste\OneDrive\Desktop\uniClub\target\classes started by VivaVeste in C:\Users\VivaVeste\OneDrive\Desktop\uniClub)
+2025-11-21 15:59:06.829 [trace:] [user:] [role:] [op:] DEBUG com.uniClub.UniClubApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-11-21 15:59:06.829 [trace:] [user:] [role:] [op:] INFO  com.uniClub.UniClubApplication - No active profile set, falling back to 1 default profile: "default"
+2025-11-21 15:59:08.173 [trace:] [user:] [role:] [op:] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-11-21 15:59:08.176 [trace:] [user:] [role:] [op:] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-21 15:59:08.176 [trace:] [user:] [role:] [op:] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-11-21 15:59:08.231 [trace:] [user:] [role:] [op:] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-11-21 15:59:08.425 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-11-21 15:59:08.559 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@601d9f3a
+2025-11-21 15:59:08.560 [trace:] [user:] [role:] [op:] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-11-21 15:59:08.584 [trace:] [user:] [role:] [op:] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 15.12)
+2025-11-21 15:59:08.621 [trace:] [user:] [role:] [op:] INFO  o.f.core.internal.command.DbValidate - Successfully validated 7 migrations (execution time 00:00.024s)
+2025-11-21 15:59:08.681 [trace:] [user:] [role:] [op:] INFO  o.f.core.internal.command.DbMigrate - Current version of schema "uniclub": 6
+2025-11-21 15:59:08.694 [trace:] [user:] [role:] [op:] INFO  o.f.core.internal.command.DbMigrate - Migrating schema "uniclub" to version "7 - add club entity and relations"
+2025-11-21 15:59:08.703 [trace:] [user:] [role:] [op:] WARN  o.f.c.i.s.DefaultSqlScriptExecutor - DB: schema "uniclub" already exists, skipping (SQL State: 42P06 - Error Code: 0)
+2025-11-21 15:59:08.811 [trace:] [user:] [role:] [op:] INFO  o.f.core.internal.command.DbMigrate - Successfully applied 1 migration to schema "uniclub", now at version v7 (execution time 00:00.102s)
+2025-11-21 15:59:08.885 [trace:] [user:] [role:] [op:] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-21 15:59:08.952 [trace:] [user:] [role:] [op:] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-11-21 15:59:08.982 [trace:] [user:] [role:] [op:] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-11-21 15:59:10.191 [trace:] [user:] [role:] [op:] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-21 15:59:10.833 [trace:] [user:] [role:] [op:] DEBUG c.u.security.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-11-21 15:59:10.833 [trace:] [user:] [role:] [op:] DEBUG c.uniClub.logging.MDCLoggingFilter - Filter 'MDCLoggingFilter' configured for use
+2025-11-21 15:59:10.996 [trace:] [user:] [role:] [op:] INFO  org.mongodb.driver.cluster - Exception in monitor thread while connecting to server localhost:27017
+com.mongodb.MongoSocketOpenException: Exception opening socket
+	at com.mongodb.internal.connection.SocketStream.lambda$open$0(SocketStream.java:86)
+	at java.base/java.util.Optional.orElseThrow(Optional.java:403)
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:86)
+	at com.mongodb.internal.connection.InternalStreamConnection.open(InternalStreamConnection.java:201)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.lookupServerDescription(DefaultServerMonitor.java:193)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:153)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.net.ConnectException: Connection refused: getsockopt
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:682)
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:542)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:592)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:751)
+	at com.mongodb.internal.connection.SocketStreamHelper.initialize(SocketStreamHelper.java:76)
+	at com.mongodb.internal.connection.SocketStream.initializeSocket(SocketStream.java:105)
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:80)
+	... 4 common frames omitted
+2025-11-21 15:59:11.003 [trace:] [user:] [role:] [op:] INFO  org.mongodb.driver.client - MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "5.0.1"}, "os": {"type": "Windows", "name": "Windows 11", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Eclipse Adoptium/21.0.8+9-LTS"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=MongoCredential{mechanism=null, userName='root', source='admin', password=<hidden>, mechanismProperties=<hidden>}, transportSettings=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@716d4283, com.mongodb.Jep395RecordCodecProvider@1c1082d9, com.mongodb.KotlinCodecProvider@48187168]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='15 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, dnsClient=null, inetAddressResolver=null, contextProvider=null}
+2025-11-21 15:59:11.277 [trace:] [user:] [role:] [op:] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2025-11-21 15:59:11.360 [trace:] [user:] [role:] [op:] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-11-21 15:59:11.917 [trace:] [user:] [role:] [op:] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-11-21 15:59:11.948 [trace:] [user:] [role:] [op:] INFO  com.uniClub.UniClubApplication - Started UniClubApplication in 5.844 seconds (process running for 6.715)
+2025-11-21 15:59:12.043 [trace:] [user:] [role:] [op:] DEBUG org.hibernate.SQL - 
+    select
+        ue1_0.id,
+        ue1_0.created_at,
+        ue1_0.created_by,
+        ue1_0.email,
+        ue1_0.password,
+        ue1_0.role,
+        ue1_0.updated_at,
+        ue1_0.updated_by,
+        ue1_0.username,
+        ue1_0.version 
+    from
+        uniclub.users ue1_0 
+    where
+        ue1_0.username=?
+2025-11-21 15:59:12.053 [trace:] [user:] [role:] [op:] DEBUG org.hibernate.SQL - 
+    select
+        ce1_0.id,
+        ce1_0.approved,
+        ce1_0.club_name,
+        ce1_0.created_at,
+        ce1_0.created_by,
+        ce1_0.description,
+        ce1_0.email,
+        ce1_0.foundation_date,
+        ce1_0.instagram,
+        ce1_0.logo_url,
+        ce1_0.phone,
+        p1_0.id,
+        p1_0.created_at,
+        p1_0.created_by,
+        p1_0.email,
+        p1_0.password,
+        p1_0.role,
+        p1_0.updated_at,
+        p1_0.updated_by,
+        p1_0.username,
+        p1_0.version,
+        ce1_0.short_name,
+        ce1_0.updated_at,
+        ce1_0.updated_by,
+        ce1_0.version 
+    from
+        uniclub.clubs ce1_0 
+    left join
+        uniclub.users p1_0 
+            on p1_0.id=ce1_0.president_id 
+    where
+        ce1_0.president_id=?
+2025-11-21 17:55:29.072 [trace:] [user:] [role:] [op:] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h39m49s45ms573µs400ns).
+2025-11-21 21:33:04.557 [trace:] [user:] [role:] [op:] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2h56m34s879ms422µs800ns).

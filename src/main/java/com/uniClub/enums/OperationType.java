@@ -17,16 +17,17 @@ public enum OperationType {
     ACCOUNT_LOCKED("Hesap kilitlendi"),
     ACCOUNT_UNLOCKED("Hesap kilidi kaldırıldı"),
 
-    // 🔹 Business Domain Operasyonları (Kulüp sistemi için)
+    // 🔹 Event Operasyonları
     CREATE_EVENT("Yeni etkinlik oluşturma"),
-    FIND_ALL_EVENTS("Tüm Etkinlikler listelendi"),
+    FIND_ALL_EVENTS("Tüm etkinlikler listelendi"),
     FIND_EVENT("Etkinlik bulma"),
     UPDATE_EVENT("Etkinlik güncelleme"),
     DELETE_EVENT("Etkinlik silme"),
     JOIN_EVENT("Etkinliğe katılma"),
     LEAVE_EVENT("Etkinlikten ayrılma"),
-    APPROVE_EVENT("Etkinliği onaylama"),
-    REJECT_EVENT("Etkinliği reddetme"),
+    APPROVE_EVENT("Etkinlik onaylama"),
+    REJECT_EVENT("Etkinlik reddetme"),
+    GET_UPCOMING_EVENTS_PAGED("Yaklaşan etkinlikler"),
 
     // 🔹 Kullanıcı İşlemleri
     UPDATE_PROFILE("Profil güncelleme"),
@@ -45,7 +46,34 @@ public enum OperationType {
     SEND_EMAIL("E-posta gönderme"),
     SEND_NOTIFICATION("Bildirim gönderme"),
     MESSAGE_SENT("Mesaj gönderme"),
-    MESSAGE_RECEIVED("Mesaj alma");
+    MESSAGE_RECEIVED("Mesaj alma"),
+
+
+    // 🔥 🔥 🔥 KULÜP OPERASYONLARI (YENİ EKLENENLER) 🔥 🔥 🔥
+
+    CREATE_CLUB("Yeni kulüp oluşturma"),
+    FIND_CLUB("Kulüp bulma"),
+    FIND_ALL_CLUBS("Tüm kulüpleri listeleme"),
+    UPDATE_CLUB("Kulüp güncelleme"),
+    DELETE_CLUB("Kulüp silme"),
+    APPROVE_CLUB("Kulüp onaylama"),
+    REJECT_CLUB("Kulüp reddetme"),
+    FIND_ACTIVE_CLUB("Aktif Kulüp"),
+    DEACTIVATE_CLUB("Kulüp Deactive"),
+    ACTIVATE_CLUB("KULÜP AKTİF ETME"),
+
+    // Başkan atama / kaldırma
+    ASSIGN_PRESIDENT("Kulübe başkan atama"),
+    REMOVE_PRESIDENT("Kulüp başkanını kaldırma"),
+
+    // Üyelik
+    ADD_MEMBER("Kulübe üye ekleme"),
+    REMOVE_MEMBER("Kulüpten üye çıkarma"),
+    LIST_MEMBERS("Kulüp üyelerini listeleme"),
+
+    // Event bağlantıları
+    LINK_EVENT_TO_CLUB("Etkinliği kulübe bağlama"),
+    UNLINK_EVENT_FROM_CLUB("Etkinliği kulüpten kaldırma");
 
     private final String description;
 
