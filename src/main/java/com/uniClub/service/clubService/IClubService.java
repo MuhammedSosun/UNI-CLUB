@@ -4,6 +4,7 @@ import com.uniClub.dto.clubDto.ClubMemberStatsResponse;
 import com.uniClub.dto.clubDto.ClubRequestDto;
 import com.uniClub.dto.clubDto.ClubResponseDTO;
 import com.uniClub.entity.clubEntity.ClubEntity;
+import com.uniClub.util.pageable.PageableEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -26,4 +27,5 @@ public interface IClubService {
     Long totalClubs();
     Page<ClubResponseDTO> getAllPaged(Pageable pageable, String filter);
     List<ClubMemberStatsResponse> getTopClubsByMemberCount();
+    PageableEntity<ClubResponseDTO> searchClubsByName(String name, Pageable pageable);
 }

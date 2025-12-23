@@ -16,6 +16,8 @@ public interface UserRepository extends JpaRepository<UserEntity, UUID> {
 
     Optional<UserEntity> findByUsername(String username);
 
+    Optional<UserEntity> findByEmail(String email);
+
     @Query("SELECT u FROM UserEntity u WHERE LOWER(u.username) LIKE LOWER(CONCAT('%', :filter, '%')) " +
             "OR LOWER(u.email) LIKE LOWER(CONCAT('%', :filter, '%'))")
     List<UserEntity> searchUsers(@Param("filter") String filter);

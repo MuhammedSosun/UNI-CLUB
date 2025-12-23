@@ -8,6 +8,8 @@ import com.uniClub.controller.userController.IRestAuthenticationController;
 import com.uniClub.service.userService.IAuthenticateService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,7 +39,7 @@ public class RestAuthenticationControllerImpl extends RestBaseController impleme
 
     @PostMapping("/refreshToken")
     @Override
-    public RootEntity<AuthResponse> refreshToken(RefreshTokenRequest refreshTokenRequest) {
+    public RootEntity<AuthResponse> refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest) {
         return ok(authenticateService.refreshToken(refreshTokenRequest));
     }
     @PutMapping("/users/{userId}/role")
@@ -58,8 +60,12 @@ public class RestAuthenticationControllerImpl extends RestBaseController impleme
 
     @PostMapping("/logout")
     @Override
-    public ResponseEntity<Void> logout() {
-        authenticateService.logout();
+    public ResponseEntity<Void> logout(Authentication authentication) {
+        if (authentication != null || !authentication.isAuthenticated()) {
+            return ResponseEntity.ok().build();
+        }
+        authenticateService.logout(authentication.getName());
+        SecurityContextHolder.clearContext();
         return ResponseEntity.ok().build();
 
     }

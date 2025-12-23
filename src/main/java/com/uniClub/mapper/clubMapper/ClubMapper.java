@@ -12,7 +12,7 @@ public interface ClubMapper {
 
     // CREATE işlemi için map
     @Mapping(target = "president", ignore = true)  // foreign key elle set edilecek
-    @Mapping(target = "members", ignore = true)
+    @Mapping(target = "memberships", ignore = true)
     @Mapping(target = "events", ignore = true)
     ClubEntity toEntity(ClubRequestDto dto);
 
@@ -23,7 +23,7 @@ public interface ClubMapper {
 
     // UPDATE işlemi incremental olarak
     @Mapping(target = "president", ignore = true) // update’te de foreign key elle set edilecek
-    @Mapping(target = "members", ignore = true)
+    @Mapping(target = "memberships", ignore = true)
     @Mapping(target = "events", ignore = true)
     void updateEntity(@MappingTarget ClubEntity entity, ClubRequestDto dto);
 }

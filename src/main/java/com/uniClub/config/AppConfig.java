@@ -34,6 +34,7 @@ public class AppConfig {
                 admin.setEmail("admin@yalova.edu.tr");
                 admin.setRole(Role.ADMIN);
                 admin.setCreatedAt(LocalDateTime.now());
+                admin.setActive(true);
                 userRepository.save(admin);
                 System.out.println(admin.getUsername());
             }

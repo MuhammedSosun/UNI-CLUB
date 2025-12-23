@@ -14,8 +14,8 @@ public interface IEventService {
     List<EventResponse> searchEvents(String filter);
     EventResponse findEventById(Long id);
     EventResponse updateEvent(EventRequest eventRequest, Long id);
-    EventResponse joinEvent(Long eventId);
-    EventResponse leaveEvent(Long eventId);
+    //EventResponse joinEvent(Long eventId);
+    //EventResponse leaveEvent(Long eventId);
     String deleteEvent(Long id);
     Long totalEvents();
     Page<EventResponse> getUpcomingEventsPaged(Pageable pageable);

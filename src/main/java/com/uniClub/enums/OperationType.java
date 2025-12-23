@@ -44,6 +44,7 @@ public enum OperationType {
 
     // 🔹 İletişim / Bildirim
     SEND_EMAIL("E-posta gönderme"),
+    SEND_CODE("KOD GÖNDERİLDİ"),
     SEND_NOTIFICATION("Bildirim gönderme"),
     MESSAGE_SENT("Mesaj gönderme"),
     MESSAGE_RECEIVED("Mesaj alma"),

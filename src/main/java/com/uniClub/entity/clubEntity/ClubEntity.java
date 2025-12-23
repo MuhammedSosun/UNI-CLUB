@@ -2,6 +2,7 @@ package com.uniClub.entity.clubEntity;
 
 import com.uniClub.entity.baseEntity.BaseEntity;
 import com.uniClub.entity.eventEntity.Event;
+import com.uniClub.entity.memberEntity.ClubMembership;
 import com.uniClub.entity.userEntity.UserEntity;
 import com.uniClub.enums.StatusEnum;
 import jakarta.persistence.*;
@@ -50,16 +51,22 @@ public class ClubEntity extends BaseEntity {
     @JoinColumn(name = "president_id")
     private UserEntity president;
 
+    /*
     @ManyToMany
     @JoinTable(
             name = "club_members",
             joinColumns =  @JoinColumn(name = "club_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    private Set<UserEntity> members = new HashSet<>();
+    private Set<UserEntity> members = new HashSet<>(); // bu düzeltilecek
+*/
+    @OneToMany(mappedBy = "club", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ClubMembership> memberships = new ArrayList<>();
+
 
     @ManyToMany(mappedBy = "clubs", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<Event>  events = new ArrayList<>();
+
     @Column(name = "approved")
     private boolean approved;
 

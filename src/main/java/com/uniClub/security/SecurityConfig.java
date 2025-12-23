@@ -54,19 +54,27 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // ✅ CORS aktif edildi
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(allUsersApi).permitAll()
                         .requestMatchers(
-                                "/api/auth/**",
+                                "/api/auth/register",
+                                "/api/auth/verify",
+                                "/api/auth/authenticate",
+                                "/api/auth/refreshToken"
+                        ).permitAll()
+
+                        .requestMatchers(SWAGGER_PATHS).permitAll()
+
+                        .requestMatchers(
                                 "/api/event/list",
+                                "/api/mail/**",
                                 "/api/event/get/**",
                                 "/api/event/filter",
                                 "/api/event/*/join",
                                 "/api/event/*/leave"
                         ).permitAll()
-                        .requestMatchers(SWAGGER_PATHS).permitAll()
+
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(authEntryPoint))
@@ -76,6 +84,7 @@ public class SecurityConfig {
 
         return http.build();
     }
+
 
 
     @Bean

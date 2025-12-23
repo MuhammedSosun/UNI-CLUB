@@ -98,7 +98,7 @@ public class NotificationServiceImpl implements INotificationService {
     public void deleteByUsername() {
         String username = getUsername();
         List<Notification> notifications = notificationRepository.findByCreatedBy(username);
-        notifications.forEach(n -> n.setStatus(StatusEnum.Terminated));
+        notifications.forEach(n -> n.setStatus(StatusEnum.TERMINATED));
         notificationRepository.saveAll(notifications);
     }
 
@@ -108,7 +108,7 @@ public class NotificationServiceImpl implements INotificationService {
     Notification notification = notificationRepository.findById(notificationId).orElseThrow(
             () -> new BaseException(new ErrorMessage(MessageType.NOTIFICATION_NOT_FOUND, notificationId))
     );
-    notification.setStatus(StatusEnum.Terminated);
+    notification.setStatus(StatusEnum.TERMINATED);
     notificationRepository.save(notification);
     }
     /**

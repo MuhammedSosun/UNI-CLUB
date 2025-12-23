@@ -1,11 +1,18 @@
 package com.uniClub.service.userService.impl;
 
+import com.uniClub.dto.mailDto.VerifyCodeRequest;
+import com.uniClub.entity.mailEntity.Verification;
+import com.uniClub.entity.memberEntity.Member;
+import com.uniClub.enums.MemberStatus;
+import com.uniClub.enums.StatusEnum;
 import com.uniClub.exceptions.exception.BaseException;
 import com.uniClub.exceptions.exception.ErrorMessage;
 import com.uniClub.exceptions.exception.MessageType;
 import com.uniClub.logging.LoggableOperation;
 import com.uniClub.enums.OperationType;
 import com.uniClub.dto.userDto.*;
+import com.uniClub.repository.mailRepository.VerificationRepository;
+import com.uniClub.repository.memberRepository.MemberRepository;
 import com.uniClub.security.JwtService;
 import com.uniClub.enums.Role;
 import com.uniClub.entity.userEntity.RefreshToken;
@@ -14,6 +21,8 @@ import com.uniClub.mapper.userMapper.RefreshTokenMapper;
 import com.uniClub.mapper.userMapper.UserMapper;
 import com.uniClub.repository.userRepository.RefreshTokenRepository;
 import com.uniClub.repository.userRepository.UserRepository;
+import com.uniClub.service.mailService.IPasswordResetService;
+import com.uniClub.service.mailService.IVerificationAccount;
 import com.uniClub.service.userService.IAuthenticateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -24,6 +33,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -36,13 +46,21 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
     private final AuthenticationProvider authenticationProvider;
     private final JwtService jwtService;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final IPasswordResetService resetService;
+    private final IVerificationAccount verificationAccount;
+    private final VerificationRepository verificationRepository;
+    private final MemberRepository memberRepository;
 
-    public AuthenticateServiceImpl(BCryptPasswordEncoder bCryptPasswordEncoder, UserRepository userRepository, AuthenticationProvider authenticationProvider, JwtService jwtService, RefreshTokenRepository refreshTokenRepository) {
+    public AuthenticateServiceImpl(BCryptPasswordEncoder bCryptPasswordEncoder, UserRepository userRepository, AuthenticationProvider authenticationProvider, JwtService jwtService, RefreshTokenRepository refreshTokenRepository, IPasswordResetService resetService, IVerificationAccount verificationAccount, VerificationRepository verificationRepository, MemberRepository memberRepository) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userRepository = userRepository;
         this.authenticationProvider = authenticationProvider;
         this.jwtService = jwtService;
         this.refreshTokenRepository = refreshTokenRepository;
+        this.resetService = resetService;
+        this.verificationAccount = verificationAccount;
+        this.verificationRepository = verificationRepository;
+        this.memberRepository = memberRepository;
     }
     private RefreshToken createRefreshToken(UserEntity user) {
         RefreshToken refreshToken = new RefreshToken();
@@ -55,24 +73,68 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
     @Transactional
     @LoggableOperation(OperationType.REGISTER)
     @Override
-    public AuthResponse register(RegisterRequest request) {
+    public String register(RegisterRequest request) {
         String email = request.getEmail().trim();
         String username = email.split("@")[0];
+
+        UserEntity existingUser = userRepository.findByEmail(request.getEmail()).orElse(null);
+
+        if (existingUser != null) {
+
+            if (!existingUser.isActive()) {
+                verificationAccount.sendVerificationCode(email);
+                return "Bu e-posta ile daha önce kayıt olunmuş fakat doğrulanmamış. Yeni doğrulama kodu gönderildi.";
+            }
+            throw new BaseException(
+                    new ErrorMessage(MessageType.USER_ALREADY_EXISTS,
+                            "Bu e-posta adresi zaten sistemde kayıtlı.")
+            );
+        }
 
         UserDto userDto = new UserDto();
         userDto.setEmail(email);
         userDto.setUsername(username);
-        userDto.setRole(Role.USER);
         userDto.setPassword(request.getPassword());
+        userDto.setRole(Role.USER);
 
         log.info("REGISTER REQUEST -> " + request.getEmail() + " / " + request.getPassword());
         UserEntity user = UserMapper.toEntity(userDto, bCryptPasswordEncoder);
-        UserEntity savedUser = userRepository.save(user);
+        userRepository.save(user);
 
-        String accessToken = jwtService.generateToken(savedUser);
-        RefreshToken refreshToken = refreshTokenRepository.save(RefreshTokenMapper.generate(savedUser));
+        Member member = new Member();
 
-        return new AuthResponse(accessToken, refreshToken.getRefreshToken());
+        member.setUser(user);
+        member.setStatus(StatusEnum.INCOMPLETED);
+        member.setUniversity("Yalova Üniversitesi");
+
+        memberRepository.save(member);
+        verificationAccount.sendVerificationCode(email);
+
+        return "Kayıt başarılı. Doğrulama kodu e-posta adresinize gönderildi.";
+    }
+
+    @Transactional
+    @Override
+    public String verifyCode(VerifyCodeRequest request) {
+        Verification verification = verificationRepository.findByEmail(request.getEmail()).orElseThrow(() -> new BaseException(
+                new ErrorMessage(MessageType.CODE_NOT_FOUND, "Kod bulunamadı!")
+        ));
+
+        if (!verification.getCode().equals(request.getCode())) {
+            throw new BaseException(new ErrorMessage(MessageType.CODE_IS_ERRORS,"Doğrulama Kodu Yanlış"));
+        }
+        if (verification.getExpireAt().isBefore(LocalDateTime.now())){
+            throw new BaseException(new ErrorMessage(MessageType.CODE_TIME_IS_EXPIRES_DATE,"KOD ZAMAN AŞIMINA UĞRADI"));
+        }
+
+        UserEntity user = userRepository.findByEmail(request.getEmail()).orElseThrow(
+                () -> new BaseException(new ErrorMessage(MessageType.USER_NOT_FOUND,"Kullanıcı Bulunamadı")));
+        user.setActive(true);
+        userRepository.save(user);
+
+        verificationRepository.deleteByEmail(request.getEmail());
+
+        return "Doğrulama başarılı. Artık giriş yapabilirsiniz.";
     }
 
     @Transactional
@@ -86,6 +148,10 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
             );
             UserEntity user = userRepository.findByUsername(authRequest.getUsername())
                     .orElseThrow(()-> new UsernameNotFoundException("Username not found"));
+            if (!user.isActive()) {
+                throw new BaseException(
+                        new ErrorMessage(MessageType.ACCOUNT_NOT_VERIFIED, "Hesabınız doğrulanmamış!"));
+            }
             String accessToken = jwtService.generateToken(user);
             RefreshToken refreshToken = refreshTokenRepository.save(RefreshTokenMapper.generate(user));
             return new AuthResponse(accessToken,refreshToken.getRefreshToken());
@@ -143,8 +209,7 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
 
     @Transactional
     @Override
-    public void logout() {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+    public void logout(String username) {
         UserEntity user = userRepository.findByUsername(username).orElseThrow(
                 ()-> new BaseException(new ErrorMessage(MessageType.USERNAME_NOT_FOUND, username)));
         refreshTokenRepository.deleteAllByUserId(user.getId());

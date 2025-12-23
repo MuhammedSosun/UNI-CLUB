@@ -9,9 +9,9 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface EventMapper {
 
-    @Mapping(target = "clubs", ignore = true)                     // servis set edecek
-    @Mapping(target = "participantCount", ignore = true)          // servis set edecek
-    @Mapping(target = "participantIds", source = "participantIds") // BUNU EKLEMEK ŞART
+    @Mapping(target = "clubs", ignore = true)              // servis set edecek
+    @Mapping(target = "participantCount", ignore = true)   // servis set edecek
+    @Mapping(target = "eventParticipations", ignore = true) // DTO'dan gelmiyor
     Event toEventEntity(EventRequest eventRequest);
 
     @Mapping(target = "clubIds",
