@@ -2,6 +2,7 @@ package com.uniClub.entity.userEntity;
 
 import com.uniClub.entity.baseEntity.BaseEntity;
 import com.uniClub.entity.clubEntity.ClubEntity;
+import com.uniClub.entity.memberEntity.Member;
 import com.uniClub.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -41,14 +42,21 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @Column(name = "role")
     private Role role;
 
+    private boolean active = false;
 
-    @OneToOne(mappedBy = "president")
-    private ClubEntity club;
+
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+    private Member member;
+
+
+
+    //@OneToOne(mappedBy = "president")
+    //private ClubEntity club;
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return List.of(() -> "ROLE_" + role.name());
     }
 
     @Override

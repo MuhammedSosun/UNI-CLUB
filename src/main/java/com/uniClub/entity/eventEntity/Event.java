@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Getter
 @Setter
@@ -36,11 +34,16 @@ public class Event extends BaseEntity {
     @Column(name = "location")
     private String location;
 
+    /*
     @ElementCollection
     @CollectionTable(name = "event_participants", joinColumns = @JoinColumn(name = "event_id"))
     @Column(name = "participant_id")
     private Set<UUID> participantIds = new HashSet<>();
 
+     */
+
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<EventParticipation> eventParticipations = new ArrayList<>();
     private int participantCount = 0;
 
 

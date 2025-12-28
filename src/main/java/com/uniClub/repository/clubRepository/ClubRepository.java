@@ -25,6 +25,4 @@ public interface ClubRepository extends JpaRepository<ClubEntity, Long> {
     Page<ClubEntity> searchByClubNameOrShortName(
             @Param("filter") String filter,
             Pageable pageable);
-
-
 }

@@ -4,6 +4,7 @@ import com.uniClub.controller.controller.RootEntity;
 import com.uniClub.dto.userDto.*;
 import com.uniClub.enums.Role;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 
 import java.util.List;
 import java.util.UUID;
@@ -16,5 +17,5 @@ public interface IRestAuthenticationController {
     RootEntity<UserDto> updateUserRole(UUID userId, Role newRole);
     RootEntity<List<UserDto>> allUsers();
     RootEntity<List<UserDto>> searchUsers(String filter);
-    ResponseEntity<Void> logout();
+    ResponseEntity<Void> logout(Authentication authentication);
 }

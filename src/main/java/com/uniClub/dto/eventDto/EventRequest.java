@@ -10,8 +10,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -34,7 +35,7 @@ public class EventRequest{
     @Size(max = 255, message = "Konum en fazla 255 karakter olabilir.")
     private String location;
     //katılımcılar
-    private Set<UUID> participantIds;
+    private List<UUID> participantIds;
 
     // etkinliği düzenleyen kulüpler (id listesi)
     private Set<Long> clubIds;

@@ -1,5 +1,6 @@
 package com.uniClub.controller.eventController.impl;
 
+import com.uniClub.controller.controller.RestBaseController;
 import com.uniClub.controller.controller.RootEntity;
 import com.uniClub.dto.clubDto.ActiveClubDTO;
 import com.uniClub.dto.eventDto.EventRequest;
@@ -19,7 +20,7 @@ import static com.uniClub.controller.controller.RootEntity.ok;
 
 @RestController
 @RequestMapping("/api/event")
-public class EventControllerImpl implements IEventController {
+public class EventControllerImpl extends RestBaseController implements IEventController {
     private final IEventService eventService;
 
     public EventControllerImpl(IEventService eventService) {
@@ -47,16 +48,17 @@ public class EventControllerImpl implements IEventController {
     public RootEntity<List<EventResponse>> searchEvents(@RequestParam String filter) {
         return ok(eventService.searchEvents(filter));
     }
+    /*
     @PostMapping("/{id}/join")
     public RootEntity<EventResponse> joinEvent(@PathVariable Long id) {
         return ok(eventService.joinEvent(id));
     }
-
+////////////////////////////////////////////
     @PostMapping("/{id}/leave")
     public RootEntity<EventResponse> leaveEvent(@PathVariable Long id) {
         return ok(eventService.leaveEvent(id));
     }
-
+*/
     @PutMapping("/update/{id}")
     @Override
     public RootEntity<EventResponse> updateEvent(@RequestBody EventRequest eventRequest,@PathVariable Long id) {

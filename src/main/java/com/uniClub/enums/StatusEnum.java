@@ -1,8 +1,13 @@
 package com.uniClub.enums;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
 public enum StatusEnum {
-    Active,
-    Suspended,
-    Terminated,
-    Private
+    ACTIVE,
+    SUSPENDED,
+    TERMINATED,
+    PRIVATE,
+    INCOMPLETED
 }

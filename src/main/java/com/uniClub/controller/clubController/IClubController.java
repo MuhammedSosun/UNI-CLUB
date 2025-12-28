@@ -38,4 +38,6 @@ public interface IClubController {
     RootEntity<Long> totalClubs();
 
     RootEntity<List<ClubMemberStatsResponse>> getTopByMembers();
+
+    RootEntity<PageableEntity<ClubResponseDTO>> searchClubsByName(String name, Pageable pageable);
 }

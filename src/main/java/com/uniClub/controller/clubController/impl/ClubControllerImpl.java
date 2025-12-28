@@ -13,6 +13,7 @@ import com.uniClub.util.pageable.PageableRequest;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,8 +43,8 @@ public class ClubControllerImpl extends RestBaseController implements IClubContr
         return ok(clubService.getClubById(id));
     }
 
-    // -------------------- PAGED GET ALL --------------------
-    @GetMapping("")
+    // bak filtreli bu istek gönderince filter için bir şey yazmak lazım örneğin spor**
+    @GetMapping
     public RootEntity<PageableEntity<ClubResponseDTO>> getAllPaged(@Valid PageableRequest pageableRequest) {
 
         Pageable pageable = PageUtil.toPageable(pageableRequest);
@@ -93,6 +94,14 @@ public class ClubControllerImpl extends RestBaseController implements IClubContr
     public RootEntity<List<ClubMemberStatsResponse>> getTopByMembers() {
         return ok(clubService.getTopClubsByMemberCount());
     }
+    @GetMapping("/search")
+    public RootEntity<PageableEntity<ClubResponseDTO>> searchClubsByName(
+            String name,
+            @PageableDefault(sort = {}) Pageable pageable
+    ) {
+        return ok(clubService.searchClubsByName(name, pageable));
+    }
+
 
 
     // -------------------- ACTIVE CLUBS --------------------

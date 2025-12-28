@@ -59,11 +59,7 @@ public class EventServiceImpl implements IEventService {
         event.setCreatedAt(LocalDateTime.now());
         event.setUpdatedAt(LocalDateTime.now());
 
-        // 🔥 participantCount düzeltme
-        if (eventRequest.getParticipantIds() != null) {
-            event.setParticipantIds(eventRequest.getParticipantIds());
-            event.setParticipantCount(eventRequest.getParticipantIds().size());
-        }
+
 
         // 🔥 clubIds -> clubs eşlemesi
         if (eventRequest.getClubIds() != null && !eventRequest.getClubIds().isEmpty()) {
@@ -138,6 +134,7 @@ public class EventServiceImpl implements IEventService {
         log.info("[EVENT_UPDATED] id={} user='{}'", id, username);
         return eventMapper.toEventResponse(existingEvent);
     }
+    /*
     @LoggableOperation(OperationType.JOIN_EVENT)
     @Override
     public EventResponse joinEvent(Long eventId) {
@@ -159,6 +156,8 @@ public class EventServiceImpl implements IEventService {
 
         return eventResponse;
     }
+     //////////////////////////////////////////////////////////////////////
+
     @LoggableOperation(OperationType.LEAVE_EVENT)
     @Override
     public EventResponse leaveEvent(Long eventId) {
@@ -176,7 +175,7 @@ public class EventServiceImpl implements IEventService {
         log.info("[EVENT_LEFT] user='{}' event='{}'", username, event.getTitle());
         return eventMapper.toEventResponse(event);
     }
-
+*/
     @LoggableOperation(OperationType.DELETE_EVENT)
     @Override
     public String deleteEvent(Long id) {

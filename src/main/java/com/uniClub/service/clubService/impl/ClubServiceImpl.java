@@ -15,6 +15,8 @@ import com.uniClub.mapper.clubMapper.ClubMapper;
 import com.uniClub.repository.clubRepository.ClubRepository;
 import com.uniClub.repository.userRepository.UserRepository;
 import com.uniClub.service.clubService.IClubService;
+import com.uniClub.util.pageable.PageUtil;
+import com.uniClub.util.pageable.PageableEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -70,7 +72,7 @@ public class ClubServiceImpl implements IClubService {
     @LoggableOperation(OperationType.FIND_ACTIVE_CLUB)
     @Override
     public List<ClubResponseDTO> getActiveClubs() {
-        return clubRepository.findAllByStatus(StatusEnum.Active)
+        return clubRepository.findAllByStatus(StatusEnum.ACTIVE)
                 .stream()
                 .map(clubMapper::toResponseDTO)
                 .toList();
@@ -86,7 +88,7 @@ public class ClubServiceImpl implements IClubService {
     @LoggableOperation(OperationType.FIND_ALL_CLUBS)
     @Override
     public Page<ClubResponseDTO> getActiveClubsPaged(Pageable pageable) {
-        return clubRepository.findAllByStatus(StatusEnum.Active, pageable)
+        return clubRepository.findAllByStatus(StatusEnum.ACTIVE, pageable)
                 .map(clubMapper::toResponseDTO);
     }
 
@@ -113,14 +115,14 @@ public class ClubServiceImpl implements IClubService {
     @Override
     public void deactivateClub(Long id) {
         ClubEntity entity = getClubWithId(id);
-        entity.setStatus(StatusEnum.Suspended);
+        entity.setStatus(StatusEnum.SUSPENDED);
         clubRepository.save(entity);
     }
 
     @LoggableOperation(OperationType.ACTIVATE_CLUB)
     public ClubResponseDTO activateClub(Long id) {
         ClubEntity entity = getClubWithId(id);
-        entity.setStatus(StatusEnum.Active);
+        entity.setStatus(StatusEnum.ACTIVE);
         return clubMapper.toResponseDTO(entity);
     }
 
@@ -129,7 +131,7 @@ public class ClubServiceImpl implements IClubService {
     @LoggableOperation(OperationType.DELETE_CLUB)
     public void deleteClubById(Long id) {
         ClubEntity existing = getClubWithId(id);
-        existing.setStatus(StatusEnum.Terminated);
+        existing.setStatus(StatusEnum.TERMINATED);
         clubRepository.save(existing);
     }
 
@@ -151,7 +153,8 @@ public class ClubServiceImpl implements IClubService {
     public Long totalClubs() {
         return clubRepository.count();
     }
-
+    @Transactional(readOnly = true)
+    @LoggableOperation(OperationType.FIND_ALL_CLUBS)
     @Override
     public Page<ClubResponseDTO> getAllPaged(Pageable pageable, String filter) {
 
@@ -164,6 +167,8 @@ public class ClubServiceImpl implements IClubService {
         return page.map(clubMapper::toResponseDTO);
     }
 
+
+
     @Override
     public List<ClubMemberStatsResponse> getTopClubsByMemberCount() {
         List<ClubEntity> clubs = clubRepository.findAll();
@@ -172,12 +177,28 @@ public class ClubServiceImpl implements IClubService {
                 .map(c -> new ClubMemberStatsResponse(
                         c.getId(),
                         c.getClubName(),
-                        c.getMembers() != null ? c.getMembers().size() : 0
+                        c.getMemberships() != null ? c.getMemberships().size() : 0
                 ))
                 .sorted((a,b) -> Integer.compare(b.getMemberCount(), a.getMemberCount()))
                 .limit(5)
                 .toList();
     }
+
+    @Override
+    public PageableEntity<ClubResponseDTO> searchClubsByName(String name, Pageable pageable) {
+
+        Page<ClubEntity> page = clubRepository.searchByClubNameOrShortName(name, pageable);
+
+
+        List<ClubResponseDTO> dtoList = page
+                .map(clubMapper::toResponseDTO)
+                .getContent();
+
+        // Page + DTO list → PageableEntity
+        return PageUtil.toPageableResponse(page, dtoList);
+    }
+
+
 
 
     private ClubEntity getClubWithId(Long id) {
