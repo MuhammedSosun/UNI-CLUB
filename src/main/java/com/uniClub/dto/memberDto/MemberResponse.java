@@ -1,6 +1,7 @@
 package com.uniClub.dto.memberDto;
 
 import com.uniClub.entity.baseEntity.BaseEntity;
+import com.uniClub.entity.baseEntity.DtoBase;
 import com.uniClub.entity.eventEntity.EventParticipation;
 import com.uniClub.entity.memberEntity.ClubMembership;
 import com.uniClub.enums.StatusEnum;
@@ -16,7 +17,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MemberResponse extends BaseEntity {
+public class MemberResponse extends DtoBase {
 
     private Long id;
     private StatusEnum status;
@@ -26,8 +27,8 @@ public class MemberResponse extends BaseEntity {
     private String studentNumber;
     private String faculty;
     private String department;
-    private String level; // Hazırlık, 1,2,3,4
-    private String university = "Yalova University";
+    private String level;
+    private String university;
     private String phone;
 
     private String profilePhotoPath;
@@ -38,16 +39,14 @@ public class MemberResponse extends BaseEntity {
     private String xAccount;
     private String github;
     private String websiteUrl;
-    private List<String> skills = new ArrayList<>();
 
-    private List<String> interests = new ArrayList<>();
-    private List<String> certificates = new ArrayList<>();
-    private List<String> languages = new ArrayList<>();
-    private List<String> projects = new ArrayList<>();
+    private List<String> skills;
+    private List<String> interests;
+    private List<String> certificates;
+    private List<String> languages;
+    private List<String> projects;
 
-    private List<ClubMembership> clubMemberships = new ArrayList<>();
-
-    private List<EventParticipation> eventParticipations = new ArrayList<>();
-
-
+    // 🔥 ENTITY YOK
+    private List<String> clubNames;
+    private List<String> participatedEventTitles;
 }
