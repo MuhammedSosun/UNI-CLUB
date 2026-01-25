@@ -1,0 +1,235 @@
+package com.uniClub.service.userService.impl;
+
+import com.uniClub.dto.mailDto.VerifyCodeRequest;
+import com.uniClub.dto.userDto.*;
+import com.uniClub.entity.mailEntity.Verification;
+import com.uniClub.entity.memberEntity.Member;
+import com.uniClub.entity.userEntity.RefreshToken;
+import com.uniClub.entity.userEntity.UserEntity;
+import com.uniClub.enums.OperationType;
+import com.uniClub.enums.Role;
+import com.uniClub.enums.StatusEnum;
+import com.uniClub.exceptions.exception.BaseException;
+import com.uniClub.exceptions.exception.ErrorMessage;
+import com.uniClub.exceptions.exception.MessageType;
+import com.uniClub.logging.LoggableOperation;
+import com.uniClub.mapper.userMapper.RefreshTokenMapper;
+import com.uniClub.mapper.userMapper.UserMapper;
+import com.uniClub.repository.mailRepository.VerificationRepository;
+import com.uniClub.repository.memberRepository.MemberRepository;
+import com.uniClub.repository.userRepository.RefreshTokenRepository;
+import com.uniClub.repository.userRepository.UserRepository;
+import com.uniClub.security.JwtService;
+import com.uniClub.service.mailService.IPasswordResetService;
+import com.uniClub.service.mailService.IVerificationAccount;
+import com.uniClub.service.userService.IAuthenticateService;
+import lombok.extern.slf4j.Slf4j;
+import com.uniClub.util.pageable.PageUtil;
+import com.uniClub.util.pageable.PageableEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
+@Slf4j
+@Service
+public class AuthenticateServiceImpl implements IAuthenticateService {
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UserRepository userRepository;
+    private final AuthenticationProvider authenticationProvider;
+    private final JwtService jwtService;
+    private final RefreshTokenRepository refreshTokenRepository;
+    private final IPasswordResetService resetService;
+    private final IVerificationAccount verificationAccount;
+    private final VerificationRepository verificationRepository;
+    private final MemberRepository memberRepository;
+
+    public AuthenticateServiceImpl(BCryptPasswordEncoder bCryptPasswordEncoder, UserRepository userRepository, AuthenticationProvider authenticationProvider, JwtService jwtService, RefreshTokenRepository refreshTokenRepository, IPasswordResetService resetService, IVerificationAccount verificationAccount, VerificationRepository verificationRepository, MemberRepository memberRepository) {
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.userRepository = userRepository;
+        this.authenticationProvider = authenticationProvider;
+        this.jwtService = jwtService;
+        this.refreshTokenRepository = refreshTokenRepository;
+        this.resetService = resetService;
+        this.verificationAccount = verificationAccount;
+        this.verificationRepository = verificationRepository;
+        this.memberRepository = memberRepository;
+    }
+    private RefreshToken createRefreshToken(UserEntity user) {
+        RefreshToken refreshToken = new RefreshToken();
+        refreshToken.setUser(user);
+        refreshToken.setExpiredDate(new Date(System.currentTimeMillis() + 1000 * 60 * 60 *4));
+        refreshToken.setRefreshToken(UUID.randomUUID().toString());
+
+        return refreshToken;
+    }
+    @Transactional
+    @LoggableOperation(OperationType.REGISTER)
+    @Override
+    public String register(RegisterRequest request) {
+        String email = request.getEmail().trim();
+        String username = email.split("@")[0];
+
+        UserEntity existingUser = userRepository.findByEmail(request.getEmail()).orElse(null);
+
+        if (existingUser != null) {
+
+            if (!existingUser.isActive()) {
+                verificationAccount.sendVerificationCode(email);
+                return "Bu e-posta ile daha önce kayıt olunmuş fakat doğrulanmamış. Yeni doğrulama kodu gönderildi.";
+            }
+            throw new BaseException(
+                    new ErrorMessage(MessageType.USER_ALREADY_EXISTS,
+                            "Bu e-posta adresi zaten sistemde kayıtlı.")
+            );
+        }
+
+        UserDto userDto = new UserDto();
+        userDto.setEmail(email);
+        userDto.setUsername(username);
+        userDto.setPassword(request.getPassword());
+        userDto.setRole(Role.USER);
+
+        log.info("REGISTER REQUEST -> " + request.getEmail() + " / " + request.getPassword());
+        UserEntity user = UserMapper.toEntity(userDto, bCryptPasswordEncoder);
+        userRepository.save(user);
+
+        Member member = new Member();
+
+        member.setUser(user);
+        member.setStatus(StatusEnum.INCOMPLETED);
+        member.setUniversity("Yalova Üniversitesi");
+
+        memberRepository.save(member);
+        verificationAccount.sendVerificationCode(email);
+
+        return "Kayıt başarılı. Doğrulama kodu e-posta adresinize gönderildi.";
+    }
+
+    @Transactional
+    @Override
+    public String verifyCode(VerifyCodeRequest request) {
+        Verification verification = verificationRepository.findByEmail(request.getEmail()).orElseThrow(() -> new BaseException(
+                new ErrorMessage(MessageType.CODE_NOT_FOUND, "Kod bulunamadı!")
+        ));
+
+        if (!verification.getCode().equals(request.getCode())) {
+            throw new BaseException(new ErrorMessage(MessageType.CODE_IS_ERRORS,"Doğrulama Kodu Yanlış"));
+        }
+        if (verification.getExpireAt().isBefore(LocalDateTime.now())){
+            throw new BaseException(new ErrorMessage(MessageType.CODE_TIME_IS_EXPIRES_DATE,"KOD ZAMAN AŞIMINA UĞRADI"));
+        }
+
+        UserEntity user = userRepository.findByEmail(request.getEmail()).orElseThrow(
+                () -> new BaseException(new ErrorMessage(MessageType.USER_NOT_FOUND,"Kullanıcı Bulunamadı")));
+        user.setActive(true);
+        userRepository.save(user);
+
+        verificationRepository.deleteByEmail(request.getEmail());
+
+        return "Doğrulama başarılı. Artık giriş yapabilirsiniz.";
+    }
+
+    @Transactional
+    @LoggableOperation(OperationType.LOGIN)
+    @Override
+    public AuthResponse authenticate(AuthRequest authRequest) {
+
+        try {
+            authenticationProvider.authenticate(
+                    new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
+            );
+            UserEntity user = userRepository.findByUsername(authRequest.getUsername())
+                    .orElseThrow(()-> new UsernameNotFoundException("Username not found"));
+            if (!user.isActive()) {
+                throw new BaseException(
+                        new ErrorMessage(MessageType.ACCOUNT_NOT_VERIFIED, "Hesabınız doğrulanmamış!"));
+            }
+            String accessToken = jwtService.generateToken(user);
+            RefreshToken refreshToken = refreshTokenRepository.save(RefreshTokenMapper.generate(user));
+            return new AuthResponse(accessToken,refreshToken.getRefreshToken());
+        }catch (Exception e) {
+            throw new UsernameNotFoundException("Invalid username or password");
+        }
+
+    }
+    @Transactional
+    @LoggableOperation(OperationType.REFRESH_TOKEN)
+    @Override
+    public AuthResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
+        RefreshToken refreshToken = refreshTokenRepository.findByRefreshToken(refreshTokenRequest.getRefreshToken())
+                .orElseThrow(()-> new UsernameNotFoundException("Refresh token not found"));
+        if (!isValid(refreshToken.getExpiredDate())){
+            throw new UsernameNotFoundException("Invalid refresh token");
+        }
+        UserEntity user = refreshToken.getUser();
+        String accessToken = jwtService.generateToken(user);
+        RefreshToken newRefreshToken = refreshTokenRepository.save(RefreshTokenMapper.generate(user));
+
+        return new AuthResponse(accessToken,newRefreshToken.getRefreshToken());
+    }
+
+    @Transactional
+    @Override
+    public UserDto updateUserRole(UUID userId, Role newRole) {
+        UserEntity user = userRepository.findById(userId).orElseThrow(
+                () -> new BaseException(new ErrorMessage(MessageType.USERNAME_NOT_FOUND, "Username not found"))
+        );
+        user.setRole(newRole);
+        userRepository.save(user);
+        return UserMapper.toDto(user);
+    }
+
+    @Override
+    public List<UserDto> allUsers() {
+        List<UserEntity> users = userRepository.findAll();
+        return users.stream().map(UserMapper::toDto).toList();
+    }
+
+    @Override
+    public Page<UserDto> getUsersPaged(Pageable pageable, String filter) {
+        Page<UserEntity> page;
+        if (filter == null || filter.isBlank()) {
+            page = userRepository.findAll(pageable);
+        } else {
+            page = userRepository.searchUsersPaged(filter, pageable);
+        }
+
+        return page.map(UserMapper::toDto);
+    }
+
+    @Override
+    public List<UserDto> searchUsers(String filter) {
+        if (filter == null || filter.isBlank()) {
+            return userRepository.findAll()
+                    .stream()
+                    .map(UserMapper::toDto)
+                    .toList();
+        }
+        List<UserEntity> users = userRepository.searchUsers(filter);
+        return users.stream()
+                .map(UserMapper::toDto)
+                .toList();
+    }
+
+    @Transactional
+    @Override
+    public void logout(String username) {
+        UserEntity user = userRepository.findByUsername(username).orElseThrow(
+                ()-> new BaseException(new ErrorMessage(MessageType.USERNAME_NOT_FOUND, username)));
+        refreshTokenRepository.deleteAllByUserId(user.getId());
+    }
+
+    private boolean isValid(Date expiredDate){
+        return expiredDate.after(new Date());
+    }
+}
