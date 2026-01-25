@@ -1,6 +1,6 @@
-package com.uniClub.entity.eventEntity;
+package com.uniClub.event.eventEntity;
 
-import com.uniClub.entity.memberEntity.Member;
+import com.uniClub.member.memberEntity.Member;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,8 +1,8 @@
-package com.uniClub.service.clubService;
+package com.uniClub.Club.clubService;
 
-import com.uniClub.dto.clubDto.ClubMemberStatsResponse;
-import com.uniClub.dto.clubDto.ClubRequestDto;
-import com.uniClub.dto.clubDto.ClubResponseDTO;
+import com.uniClub.Club.clubDto.ClubMemberStatsResponse;
+import com.uniClub.Club.clubDto.ClubRequestDto;
+import com.uniClub.Club.clubDto.ClubResponseDTO;
 import com.uniClub.util.pageable.PageableEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -1,16 +1,12 @@
-package com.uniClub.dto.memberDto;
+package com.uniClub.member.memberDto;
 
-import com.uniClub.entity.baseEntity.BaseEntity;
-import com.uniClub.entity.baseEntity.DtoBase;
-import com.uniClub.entity.eventEntity.EventParticipation;
-import com.uniClub.entity.memberEntity.ClubMembership;
+import com.uniClub.baseEntity.DtoBase;
 import com.uniClub.enums.StatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter

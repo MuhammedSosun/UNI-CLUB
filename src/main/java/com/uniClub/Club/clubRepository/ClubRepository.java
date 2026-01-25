@@ -1,4 +1,4 @@
-package com.uniClub.repository.clubRepository;
+package com.uniClub.Club.clubRepository;
 
 import com.uniClub.Club.clubEntity.ClubEntity;
 import com.uniClub.enums.StatusEnum;

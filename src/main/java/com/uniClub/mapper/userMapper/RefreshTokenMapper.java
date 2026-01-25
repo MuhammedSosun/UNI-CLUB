@@ -1,7 +1,7 @@
 package com.uniClub.mapper.userMapper;
 
-import com.uniClub.entity.userEntity.RefreshToken;
-import com.uniClub.entity.userEntity.UserEntity;
+import com.uniClub.user.userEntity.RefreshToken;
+import com.uniClub.user.userEntity.UserEntity;
 
 import java.util.Date;
 import java.util.UUID;

@@ -1,19 +1,19 @@
-package com.uniClub.service.memberService.impl;
+package com.uniClub.member.memberService.impl;
 
-import com.uniClub.dto.memberDto.ClubMemberDto;
-import com.uniClub.dto.memberDto.JoinRequestDto;
+import com.uniClub.member.memberDto.ClubMemberDto;
+import com.uniClub.member.memberDto.JoinRequestDto;
 import com.uniClub.Club.clubEntity.ClubEntity;
-import com.uniClub.entity.memberEntity.ClubMembership;
-import com.uniClub.entity.memberEntity.Member;
+import com.uniClub.member.memberEntity.ClubMembership;
+import com.uniClub.member.memberEntity.Member;
 import com.uniClub.enums.ClubMembershipStatus;
 import com.uniClub.enums.ClubRole;
 import com.uniClub.exceptions.exception.BaseException;
 import com.uniClub.exceptions.exception.ErrorMessage;
 import com.uniClub.exceptions.exception.MessageType;
-import com.uniClub.repository.clubRepository.ClubRepository;
-import com.uniClub.repository.memberRepository.ClubMemberShipRepository;
-import com.uniClub.repository.memberRepository.MemberRepository;
-import com.uniClub.service.memberService.IClubMembershipService;
+import com.uniClub.Club.clubRepository.ClubRepository;
+import com.uniClub.member.memberRepository.ClubMemberShipRepository;
+import com.uniClub.member.memberRepository.MemberRepository;
+import com.uniClub.member.memberService.IClubMembershipService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -317,11 +317,4 @@ public class ClubMembershipServiceImpl implements IClubMembershipService {
                 ))
                 .toList();
     }
-
-
-
-
-
-
-
 }

@@ -1,6 +1,6 @@
-package com.uniClub.repository.mailRepository;
+package com.uniClub.mail.mailRepository;
 
-import com.uniClub.entity.mailEntity.PasswordResetCode;
+import com.uniClub.mail.mailEntity.PasswordResetCode;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

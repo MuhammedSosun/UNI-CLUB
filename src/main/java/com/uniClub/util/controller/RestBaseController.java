@@ -1,4 +1,4 @@
-package com.uniClub.controller.controller;
+package com.uniClub.util.controller;
 
 public class RestBaseController {
 

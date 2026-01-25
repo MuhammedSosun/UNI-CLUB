@@ -1,7 +1,7 @@
 package com.uniClub.mapper.userMapper;
 
-import com.uniClub.dto.userDto.UserDto;
-import com.uniClub.entity.userEntity.UserEntity;
+import com.uniClub.user.userDto.UserDto;
+import com.uniClub.user.userEntity.UserEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class UserMapper {

@@ -1,8 +1,7 @@
-package com.uniClub.service.memberService;
+package com.uniClub.member.memberService;
 
-import com.uniClub.dto.memberDto.ClubMemberDto;
-import com.uniClub.dto.memberDto.JoinRequestDto;
-import com.uniClub.entity.memberEntity.ClubMembership;
+import com.uniClub.member.memberDto.ClubMemberDto;
+import com.uniClub.member.memberDto.JoinRequestDto;
 import com.uniClub.enums.ClubMembershipStatus;
 import com.uniClub.enums.ClubRole;
 

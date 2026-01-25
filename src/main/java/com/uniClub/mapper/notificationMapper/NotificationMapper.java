@@ -1,8 +1,8 @@
 package com.uniClub.mapper.notificationMapper;
 
-import com.uniClub.dto.notificationDto.NotificationDtoRequest;
-import com.uniClub.dto.notificationDto.NotificationDtoResponse;
-import com.uniClub.entity.notificationEntity.Notification;
+import com.uniClub.notification.notificationDto.NotificationDtoRequest;
+import com.uniClub.notification.notificationDto.NotificationDtoResponse;
+import com.uniClub.notification.notificationEntity.Notification;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

@@ -1,7 +1,7 @@
-package com.uniClub.repository.memberRepository;
+package com.uniClub.member.memberRepository;
 
-import com.uniClub.entity.memberEntity.Member;
-import com.uniClub.entity.userEntity.UserEntity;
+import com.uniClub.member.memberEntity.Member;
+import com.uniClub.user.userEntity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,7 @@
-package com.uniClub.entity.userEntity;
+package com.uniClub.user.userEntity;
 
-import com.uniClub.entity.baseEntity.BaseEntity;
-import com.uniClub.entity.memberEntity.Member;
+import com.uniClub.baseEntity.BaseEntity;
+import com.uniClub.member.memberEntity.Member;
 import com.uniClub.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -1,8 +1,8 @@
 package com.uniClub.mapper.memberMapper;
 
-import com.uniClub.dto.memberDto.MemberRequest;
-import com.uniClub.dto.memberDto.MemberResponse;
-import com.uniClub.entity.memberEntity.Member;
+import com.uniClub.member.memberDto.MemberRequest;
+import com.uniClub.member.memberDto.MemberResponse;
+import com.uniClub.member.memberEntity.Member;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

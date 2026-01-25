@@ -1,9 +1,9 @@
-package com.uniClub.controller.eventController;
+package com.uniClub.event.eventController;
 
-import com.uniClub.controller.controller.RootEntity;
-import com.uniClub.dto.clubDto.ActiveClubDTO;
-import com.uniClub.dto.eventDto.EventRequest;
-import com.uniClub.dto.eventDto.EventResponse;
+import com.uniClub.util.controller.RootEntity;
+import com.uniClub.Club.clubDto.ActiveClubDTO;
+import com.uniClub.event.eventDto.EventRequest;
+import com.uniClub.event.eventDto.EventResponse;
 import com.uniClub.util.pageable.PageableEntity;
 import com.uniClub.util.pageable.PageableRequest;
 

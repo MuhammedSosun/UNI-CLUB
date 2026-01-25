@@ -1,4 +1,4 @@
-package com.uniClub.entity.baseEntity;
+package com.uniClub.baseEntity;
 
 import lombok.Getter;
 import lombok.Setter;

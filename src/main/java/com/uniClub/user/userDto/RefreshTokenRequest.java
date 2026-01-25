@@ -1,4 +1,4 @@
-package com.uniClub.dto.userDto;
+package com.uniClub.user.userDto;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;

@@ -1,16 +1,16 @@
-package com.uniClub.controller.clubController.impl;
+package com.uniClub.Club.clubController.impl;
 
-import com.uniClub.controller.clubController.IClubController;
-import com.uniClub.controller.controller.RestBaseController;
-import com.uniClub.controller.controller.RootEntity;
-import com.uniClub.dto.clubDto.ClubLogoUploadRequest;
-import com.uniClub.dto.clubDto.ClubMemberStatsResponse;
-import com.uniClub.dto.clubDto.ClubRequestDto;
-import com.uniClub.dto.clubDto.ClubResponseDTO;
+import com.uniClub.Club.clubController.IClubController;
+import com.uniClub.util.controller.RestBaseController;
+import com.uniClub.util.controller.RootEntity;
+import com.uniClub.Club.clubDto.ClubLogoUploadRequest;
+import com.uniClub.Club.clubDto.ClubMemberStatsResponse;
+import com.uniClub.Club.clubDto.ClubRequestDto;
+import com.uniClub.Club.clubDto.ClubResponseDTO;
 import com.uniClub.exceptions.exception.BaseException;
 import com.uniClub.exceptions.exception.ErrorMessage;
 import com.uniClub.exceptions.exception.MessageType;
-import com.uniClub.service.clubService.IClubService;
+import com.uniClub.Club.clubService.IClubService;
 import com.uniClub.util.pageable.PageUtil;
 import com.uniClub.util.pageable.PageableEntity;
 import com.uniClub.util.pageable.PageableRequest;
@@ -19,7 +19,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.UUID;

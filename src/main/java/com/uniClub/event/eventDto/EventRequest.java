@@ -1,4 +1,4 @@
-package com.uniClub.dto.eventDto;
+package com.uniClub.event.eventDto;
 
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;

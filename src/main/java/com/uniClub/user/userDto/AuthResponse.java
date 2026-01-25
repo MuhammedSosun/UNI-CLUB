@@ -1,4 +1,4 @@
-package com.uniClub.dto.userDto;
+package com.uniClub.user.userDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

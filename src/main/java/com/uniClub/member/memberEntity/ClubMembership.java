@@ -1,6 +1,6 @@
-package com.uniClub.entity.memberEntity;
+package com.uniClub.member.memberEntity;
 
-import com.uniClub.entity.baseEntity.BaseEntity;
+import com.uniClub.baseEntity.BaseEntity;
 import com.uniClub.Club.clubEntity.ClubEntity;
 import com.uniClub.enums.ClubMembershipStatus;
 import com.uniClub.enums.ClubRole;

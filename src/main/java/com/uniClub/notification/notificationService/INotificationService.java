@@ -1,7 +1,7 @@
-package com.uniClub.service.notificationService;
+package com.uniClub.notification.notificationService;
 
-import com.uniClub.dto.notificationDto.NotificationDtoRequest;
-import com.uniClub.dto.notificationDto.NotificationDtoResponse;
+import com.uniClub.notification.notificationDto.NotificationDtoRequest;
+import com.uniClub.notification.notificationDto.NotificationDtoResponse;
 import com.uniClub.enums.NotificationType;
 
 import java.util.List;

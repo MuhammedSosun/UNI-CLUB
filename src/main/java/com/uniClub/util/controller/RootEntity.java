@@ -1,4 +1,4 @@
-package com.uniClub.controller.controller;
+package com.uniClub.util.controller;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;

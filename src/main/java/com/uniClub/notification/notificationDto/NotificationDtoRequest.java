@@ -1,4 +1,4 @@
-package com.uniClub.dto.notificationDto;
+package com.uniClub.notification.notificationDto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.uniClub.enums.NotificationType;

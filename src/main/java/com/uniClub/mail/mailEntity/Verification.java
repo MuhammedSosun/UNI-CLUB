@@ -1,4 +1,4 @@
-package com.uniClub.entity.mailEntity;
+package com.uniClub.mail.mailEntity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

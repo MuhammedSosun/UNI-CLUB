@@ -1,4 +1,4 @@
-package com.uniClub.dto.memberDto;
+package com.uniClub.member.memberDto;
 
 import com.uniClub.enums.ClubMembershipStatus;
 

@@ -1,6 +1,6 @@
-package com.uniClub.repository.userRepository;
+package com.uniClub.user.userRepository;
 
-import com.uniClub.entity.userEntity.RefreshToken;
+import com.uniClub.user.userEntity.RefreshToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

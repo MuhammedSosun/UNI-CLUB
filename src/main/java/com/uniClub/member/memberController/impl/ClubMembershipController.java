@@ -1,12 +1,12 @@
-package com.uniClub.controller.memberController.impl;
+package com.uniClub.member.memberController.impl;
 
-import com.uniClub.controller.controller.RestBaseController;
-import com.uniClub.controller.controller.RootEntity;
-import com.uniClub.dto.memberDto.ClubMemberDto;
-import com.uniClub.dto.memberDto.JoinRequestDto;
-import com.uniClub.dto.memberDto.UpdateMemberRoleRequest;
-import com.uniClub.dto.memberDto.UpdateMemberStatusRequest;
-import com.uniClub.service.memberService.IClubMembershipService;
+import com.uniClub.util.controller.RestBaseController;
+import com.uniClub.util.controller.RootEntity;
+import com.uniClub.member.memberDto.ClubMemberDto;
+import com.uniClub.member.memberDto.JoinRequestDto;
+import com.uniClub.member.memberDto.UpdateMemberRoleRequest;
+import com.uniClub.member.memberDto.UpdateMemberStatusRequest;
+import com.uniClub.member.memberService.IClubMembershipService;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 

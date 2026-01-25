@@ -1,8 +1,8 @@
 package com.uniClub.mapper.eventMapper;
 
-import com.uniClub.dto.eventDto.EventRequest;
-import com.uniClub.dto.eventDto.EventResponse;
-import com.uniClub.entity.eventEntity.Event;
+import com.uniClub.event.eventDto.EventRequest;
+import com.uniClub.event.eventDto.EventResponse;
+import com.uniClub.event.eventEntity.Event;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

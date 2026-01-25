@@ -1,4 +1,4 @@
-package com.uniClub.dto.clubDto;
+package com.uniClub.Club.clubDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

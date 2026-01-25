@@ -1,11 +1,11 @@
-package com.uniClub.controller.userController.impl;
+package com.uniClub.user.userController.impl;
 
-import com.uniClub.controller.controller.RestBaseController;
-import com.uniClub.controller.controller.RootEntity;
-import com.uniClub.dto.userDto.*;
+import com.uniClub.util.controller.RestBaseController;
+import com.uniClub.util.controller.RootEntity;
 import com.uniClub.enums.Role;
-import com.uniClub.controller.userController.IRestAuthenticationController;
-import com.uniClub.service.userService.IAuthenticateService;
+import com.uniClub.user.userController.IRestAuthenticationController;
+import com.uniClub.user.userDto.*;
+import com.uniClub.user.userService.IAuthenticateService;
 import com.uniClub.util.pageable.PageUtil;
 import com.uniClub.util.pageable.PageableEntity;
 import com.uniClub.util.pageable.PageableRequest;

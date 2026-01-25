@@ -1,9 +1,9 @@
-package com.uniClub.entity.clubEntity;
+package com.uniClub.Club.clubEntity;
 
-import com.uniClub.entity.baseEntity.BaseEntity;
-import com.uniClub.entity.eventEntity.Event;
-import com.uniClub.entity.memberEntity.ClubMembership;
-import com.uniClub.entity.userEntity.UserEntity;
+import com.uniClub.baseEntity.BaseEntity;
+import com.uniClub.event.eventEntity.Event;
+import com.uniClub.member.memberEntity.ClubMembership;
+import com.uniClub.user.userEntity.UserEntity;
 import com.uniClub.enums.StatusEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -13,9 +13,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 
 @Getter

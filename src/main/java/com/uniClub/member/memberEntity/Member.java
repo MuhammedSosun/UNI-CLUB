@@ -1,9 +1,8 @@
-package com.uniClub.entity.memberEntity;
+package com.uniClub.member.memberEntity;
 
-import com.uniClub.entity.baseEntity.BaseEntity;
-import com.uniClub.entity.eventEntity.EventParticipation;
-import com.uniClub.entity.userEntity.UserEntity;
-import com.uniClub.enums.MemberStatus;
+import com.uniClub.baseEntity.BaseEntity;
+import com.uniClub.event.eventEntity.EventParticipation;
+import com.uniClub.user.userEntity.UserEntity;
 import com.uniClub.enums.StatusEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

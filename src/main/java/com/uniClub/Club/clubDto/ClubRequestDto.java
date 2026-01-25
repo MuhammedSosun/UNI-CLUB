@@ -1,4 +1,4 @@
-package com.uniClub.dto.clubDto;
+package com.uniClub.Club.clubDto;
 
 import com.uniClub.enums.StatusEnum;
 import jakarta.validation.constraints.*;

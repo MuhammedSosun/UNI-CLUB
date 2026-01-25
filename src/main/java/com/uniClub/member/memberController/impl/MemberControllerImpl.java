@@ -1,17 +1,15 @@
-package com.uniClub.controller.memberController.impl;
+package com.uniClub.member.memberController.impl;
 
-import com.uniClub.controller.controller.RestBaseController;
-import com.uniClub.controller.controller.RootEntity;
-import com.uniClub.controller.memberController.IMemberController;
-import com.uniClub.dto.memberDto.MemberRequest;
-import com.uniClub.dto.memberDto.MemberResponse;
-import com.uniClub.entity.userEntity.UserEntity;
-import com.uniClub.service.memberService.IMemberService;
+import com.uniClub.util.controller.RestBaseController;
+import com.uniClub.util.controller.RootEntity;
+import com.uniClub.member.memberController.IMemberController;
+import com.uniClub.member.memberDto.MemberRequest;
+import com.uniClub.member.memberDto.MemberResponse;
+import com.uniClub.user.userEntity.UserEntity;
+import com.uniClub.member.memberService.IMemberService;
 import jakarta.validation.Valid;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/member")

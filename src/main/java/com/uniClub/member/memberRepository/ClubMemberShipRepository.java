@@ -1,6 +1,6 @@
-package com.uniClub.repository.memberRepository;
+package com.uniClub.member.memberRepository;
 
-import com.uniClub.entity.memberEntity.ClubMembership;
+import com.uniClub.member.memberEntity.ClubMembership;
 import com.uniClub.enums.ClubMembershipStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 

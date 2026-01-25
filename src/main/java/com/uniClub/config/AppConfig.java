@@ -1,8 +1,8 @@
 package com.uniClub.config;
 
 import com.uniClub.enums.Role;
-import com.uniClub.entity.userEntity.UserEntity;
-import com.uniClub.repository.userRepository.UserRepository;
+import com.uniClub.user.userEntity.UserEntity;
+import com.uniClub.user.userRepository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,19 +1,22 @@
-package com.uniClub.service.mailService.impl;
+package com.uniClub.mail.mailService.impl;
 
-import com.uniClub.entity.mailEntity.Verification;
+import com.uniClub.mail.mailEntity.Verification;
 import com.uniClub.exceptions.exception.BaseException;
 import com.uniClub.exceptions.exception.ErrorMessage;
 import com.uniClub.exceptions.exception.MessageType;
-import com.uniClub.repository.mailRepository.VerificationRepository;
-import com.uniClub.service.mailService.IVerificationAccount;
+import com.uniClub.mail.mailRepository.VerificationRepository;
+import com.uniClub.mail.mailService.IVerificationAccount;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Random;
 
 @Service
+@Log4j2
 public class VerificationAccountImpl implements IVerificationAccount {
 
     private final JavaMailSender javaMailSender;
@@ -28,34 +31,38 @@ public class VerificationAccountImpl implements IVerificationAccount {
     private String generateCode() {
         return String.valueOf(new Random().nextInt(900000) + 100000);
     }
-
+    @Transactional
     @Override
     public void sendVerificationCode(String email) {
 
-        try {
+        log.info("MAIL START -> {}", email);
 
-            String code = generateCode();
-            verificationRepository.deleteByEmail(email);
+        String code = generateCode();
+        verificationRepository.deleteByEmail(email);
 
-            Verification verification = new Verification();
+        Verification verification = new Verification();
+        verification.setEmail(email);
+        verification.setCode(code);
+        verification.setExpireAt(LocalDateTime.now().plusMinutes(5));
+        verificationRepository.save(verification);
 
-            verification.setEmail(email);
-            verification.setCode(code);
-            verification.setExpireAt(LocalDateTime.now().plusMinutes(5));
-            verificationRepository.save(verification);
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("UniClub <vestvivallc77@gmail.com>");
+        message.setTo(email);
+        message.setSubject("UniClub | Doğrulama Kodu");
+        message.setText("""
+            Merhaba,
 
+            UniClub hesabınızı doğrulamak için kodunuz:
 
+            """ + code + """
 
-            SimpleMailMessage message = new SimpleMailMessage();
-            message.setTo(email);
-            message.setSubject("UniClub Doğrulama Kodu");
-            message.setText("Doğrulama Kodunuz: " + code);
+           Bu kod 5 dakika geçerlidir.
 
+           UniClub Ekibi
+           """);
 
-            javaMailSender.send(message);
-
-        }catch (Exception e) {
-            throw new BaseException(new ErrorMessage(MessageType.CODE_IS_ERRORS, e.getMessage()));
-        }
+        javaMailSender.send(message);
     }
+
 }

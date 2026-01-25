@@ -43,6 +43,7 @@ public enum     MessageType {
     CODE_NOT_FOUND("3014","CODE_NOT_FOUND"),
     ACCOUNT_NOT_VERIFIED("3015", "ACCOUNT_NOT_VERIFIED"),
     PASSWORD_IS_NOT_SAME("3016", "PASSWORD_IS_NOT_SAME"),
+    FILE_NOT_FOUND("3017", "FILE_NOT_FOUND"),
 
 
     /* ---------- USER OPERATIONS ---------- */

@@ -1,6 +1,6 @@
-package com.uniClub.dto.eventDto;
+package com.uniClub.event.eventDto;
 
-import com.uniClub.entity.baseEntity.BaseEntity;
+import com.uniClub.baseEntity.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

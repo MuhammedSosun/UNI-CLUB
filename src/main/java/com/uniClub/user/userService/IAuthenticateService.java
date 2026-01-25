@@ -1,8 +1,8 @@
-package com.uniClub.service.userService;
+package com.uniClub.user.userService;
 
-import com.uniClub.dto.mailDto.VerifyCodeRequest;
-import com.uniClub.dto.userDto.*;
+import com.uniClub.mail.mailDto.VerifyCodeRequest;
 import com.uniClub.enums.Role;
+import com.uniClub.user.userDto.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

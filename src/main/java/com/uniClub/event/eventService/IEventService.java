@@ -1,8 +1,8 @@
-package com.uniClub.service.eventService;
+package com.uniClub.event.eventService;
 
-import com.uniClub.dto.clubDto.ActiveClubDTO;
-import com.uniClub.dto.eventDto.EventRequest;
-import com.uniClub.dto.eventDto.EventResponse;
+import com.uniClub.Club.clubDto.ActiveClubDTO;
+import com.uniClub.event.eventDto.EventRequest;
+import com.uniClub.event.eventDto.EventResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

@@ -1,16 +1,16 @@
-package com.uniClub.service.memberService.impl;
+package com.uniClub.member.memberService.impl;
 
-import com.uniClub.dto.memberDto.MemberRequest;
-import com.uniClub.dto.memberDto.MemberResponse;
-import com.uniClub.entity.memberEntity.Member;
-import com.uniClub.entity.userEntity.UserEntity;
+import com.uniClub.member.memberDto.MemberRequest;
+import com.uniClub.member.memberDto.MemberResponse;
+import com.uniClub.member.memberEntity.Member;
+import com.uniClub.user.userEntity.UserEntity;
 import com.uniClub.enums.StatusEnum;
 import com.uniClub.exceptions.exception.BaseException;
 import com.uniClub.exceptions.exception.ErrorMessage;
 import com.uniClub.exceptions.exception.MessageType;
 import com.uniClub.mapper.memberMapper.MemberMapper;
-import com.uniClub.repository.memberRepository.MemberRepository;
-import com.uniClub.service.memberService.IMemberService;
+import com.uniClub.member.memberRepository.MemberRepository;
+import com.uniClub.member.memberService.IMemberService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 

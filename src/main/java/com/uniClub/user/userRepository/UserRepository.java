@@ -1,6 +1,6 @@
-package com.uniClub.repository.userRepository;
+package com.uniClub.user.userRepository;
 
-import com.uniClub.entity.userEntity.UserEntity;
+import com.uniClub.user.userEntity.UserEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

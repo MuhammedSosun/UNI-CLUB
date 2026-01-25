@@ -1,12 +1,9 @@
-package com.uniClub.controller.memberController;
+package com.uniClub.member.memberController;
 
-import com.uniClub.controller.controller.RootEntity;
-import com.uniClub.dto.memberDto.MemberRequest;
-import com.uniClub.dto.memberDto.MemberResponse;
-import com.uniClub.entity.userEntity.UserEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-
-import java.util.List;
+import com.uniClub.util.controller.RootEntity;
+import com.uniClub.member.memberDto.MemberRequest;
+import com.uniClub.member.memberDto.MemberResponse;
+import com.uniClub.user.userEntity.UserEntity;
 
 public interface IMemberController {
     RootEntity<MemberResponse> getMyProfile(UserEntity user);

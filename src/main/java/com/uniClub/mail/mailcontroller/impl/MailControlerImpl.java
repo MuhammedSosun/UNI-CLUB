@@ -1,12 +1,12 @@
-package com.uniClub.controller.mailcontroller.impl;
+package com.uniClub.mail.mailcontroller.impl;
 
-import com.uniClub.controller.controller.RootEntity;
-import com.uniClub.controller.mailcontroller.IMailController;
-import com.uniClub.dto.mailDto.ForgotPasswordRequest;
-import com.uniClub.dto.mailDto.PasswordResetCodeRequest;
-import com.uniClub.dto.mailDto.VerifyCodeRequest;
-import com.uniClub.service.mailService.IPasswordResetService;
-import com.uniClub.service.userService.IAuthenticateService;
+import com.uniClub.util.controller.RootEntity;
+import com.uniClub.mail.mailcontroller.IMailController;
+import com.uniClub.mail.mailDto.ForgotPasswordRequest;
+import com.uniClub.mail.mailDto.PasswordResetCodeRequest;
+import com.uniClub.mail.mailDto.VerifyCodeRequest;
+import com.uniClub.mail.mailService.IPasswordResetService;
+import com.uniClub.user.userService.IAuthenticateService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

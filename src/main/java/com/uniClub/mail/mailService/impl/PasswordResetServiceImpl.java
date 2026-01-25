@@ -1,16 +1,16 @@
-package com.uniClub.service.mailService.impl;
+package com.uniClub.mail.mailService.impl;
 
-import com.uniClub.dto.mailDto.PasswordResetCodeRequest;
-import com.uniClub.entity.mailEntity.PasswordResetCode;
-import com.uniClub.entity.userEntity.UserEntity;
+import com.uniClub.mail.mailDto.PasswordResetCodeRequest;
+import com.uniClub.mail.mailEntity.PasswordResetCode;
+import com.uniClub.user.userEntity.UserEntity;
 import com.uniClub.enums.OperationType;
 import com.uniClub.exceptions.exception.BaseException;
 import com.uniClub.exceptions.exception.ErrorMessage;
 import com.uniClub.exceptions.exception.MessageType;
 import com.uniClub.logging.LoggableOperation;
-import com.uniClub.repository.mailRepository.PasswordResetCodeRepository;
-import com.uniClub.repository.userRepository.UserRepository;
-import com.uniClub.service.mailService.IPasswordResetService;
+import com.uniClub.mail.mailRepository.PasswordResetCodeRepository;
+import com.uniClub.user.userRepository.UserRepository;
+import com.uniClub.mail.mailService.IPasswordResetService;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;

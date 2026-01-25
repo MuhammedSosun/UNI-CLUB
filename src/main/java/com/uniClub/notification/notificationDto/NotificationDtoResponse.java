@@ -1,7 +1,7 @@
-package com.uniClub.dto.notificationDto;
+package com.uniClub.notification.notificationDto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.uniClub.entity.baseEntity.DtoBase;
+import com.uniClub.baseEntity.DtoBase;
 import com.uniClub.enums.NotificationType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

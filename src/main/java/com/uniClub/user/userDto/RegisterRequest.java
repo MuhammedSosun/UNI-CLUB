@@ -1,6 +1,6 @@
-package com.uniClub.dto.userDto;
+package com.uniClub.user.userDto;
 
-import com.uniClub.entity.baseEntity.DtoBase;
+import com.uniClub.baseEntity.DtoBase;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

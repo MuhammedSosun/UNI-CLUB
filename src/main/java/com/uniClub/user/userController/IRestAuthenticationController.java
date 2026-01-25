@@ -1,8 +1,8 @@
-package com.uniClub.controller.userController;
+package com.uniClub.user.userController;
 
-import com.uniClub.controller.controller.RootEntity;
-import com.uniClub.dto.userDto.*;
+import com.uniClub.util.controller.RootEntity;
 import com.uniClub.enums.Role;
+import com.uniClub.user.userDto.*;
 import com.uniClub.util.pageable.PageableEntity;
 import com.uniClub.util.pageable.PageableRequest;
 import org.springframework.http.ResponseEntity;

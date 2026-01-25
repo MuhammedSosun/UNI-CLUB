@@ -1,7 +1,7 @@
-package com.uniClub.entity.notificationEntity;
+package com.uniClub.notification.notificationEntity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.uniClub.entity.baseEntity.MongoBaseEntity;
+import com.uniClub.baseEntity.MongoBaseEntity;
 import com.uniClub.enums.StatusEnum;
 import com.uniClub.enums.NotificationType;
 import jakarta.persistence.Id;

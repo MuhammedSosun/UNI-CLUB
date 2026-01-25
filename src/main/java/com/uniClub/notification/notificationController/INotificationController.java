@@ -1,7 +1,7 @@
-package com.uniClub.controller.notificationController;
+package com.uniClub.notification.notificationController;
 
-import com.uniClub.dto.notificationDto.NotificationDtoRequest;
-import com.uniClub.dto.notificationDto.NotificationDtoResponse;
+import com.uniClub.notification.notificationDto.NotificationDtoRequest;
+import com.uniClub.notification.notificationDto.NotificationDtoResponse;
 import com.uniClub.enums.NotificationType;
 import org.springframework.http.ResponseEntity;
 

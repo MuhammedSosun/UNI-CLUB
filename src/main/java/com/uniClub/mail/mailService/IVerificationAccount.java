@@ -1,4 +1,4 @@
-package com.uniClub.service.mailService;
+package com.uniClub.mail.mailService;
 
 public interface IVerificationAccount {
 

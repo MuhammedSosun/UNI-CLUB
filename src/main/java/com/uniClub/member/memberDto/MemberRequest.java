@@ -1,4 +1,4 @@
-package com.uniClub.dto.memberDto;
+package com.uniClub.member.memberDto;
 
 import jakarta.validation.constraints.*;
 import lombok.Getter;

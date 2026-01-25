@@ -1,4 +1,4 @@
-package com.uniClub.dto.mailDto;
+package com.uniClub.mail.mailDto;
 
 import lombok.Getter;
 import lombok.Setter;

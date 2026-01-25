@@ -1,6 +1,6 @@
-package com.uniClub.repository.mailRepository;
+package com.uniClub.mail.mailRepository;
 
-import com.uniClub.entity.mailEntity.Verification;
+import com.uniClub.mail.mailEntity.Verification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

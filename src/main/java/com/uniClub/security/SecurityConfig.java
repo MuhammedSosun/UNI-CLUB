@@ -3,7 +3,6 @@ package com.uniClub.security;
 import com.uniClub.exceptions.handle.AuthEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -29,7 +28,6 @@ public class SecurityConfig {
     public static final String GET_ALL_USERS = "/api/auth/all/users";
 
 
-    private final AuthenticationProvider authenticationProvider;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final AuthEntryPoint authEntryPoint;
 
@@ -42,11 +40,11 @@ public class SecurityConfig {
     };
 
     public SecurityConfig(
-            AuthenticationProvider authenticationProvider,
+
             JwtAuthenticationFilter jwtAuthenticationFilter,
             AuthEntryPoint authEntryPoint
     ) {
-        this.authenticationProvider = authenticationProvider;
+
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.authEntryPoint = authEntryPoint;
     }
@@ -57,6 +55,8 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+
+                        // AUTH
                         .requestMatchers(
                                 "/api/auth/register",
                                 "/api/auth/verify",
@@ -64,22 +64,29 @@ public class SecurityConfig {
                                 "/api/auth/refreshToken"
                         ).permitAll()
 
+                        // SWAGGER
                         .requestMatchers(SWAGGER_PATHS).permitAll()
 
-                        .requestMatchers(
-                                "/api/event/list",
-                                "/api/mail/**",
-                                "/api/event/get/**",
-                                "/api/event/filter",
-                                "/api/event/*/join",
-                                "/api/event/*/leave"
-                        ).permitAll()
+                        // CLUB PUBLIC
+                        .requestMatchers("/api/clubs/**").permitAll()
 
+                        // EVENT PUBLIC
+                        .requestMatchers(
+                                "/api/event/**",
+                                "/api/mail/**"
+                        ).permitAll()
+                        .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
+
+
+                        // 🔥 CLUB MEMBERSHIP (LOGIN ŞART)
+                        .requestMatchers("/api/member-ship-clubs/**").authenticated()
+
+                        // OTHERS
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(authEntryPoint))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(authenticationProvider)
+
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

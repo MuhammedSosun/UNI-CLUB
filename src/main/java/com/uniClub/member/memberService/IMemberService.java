@@ -1,8 +1,8 @@
-package com.uniClub.service.memberService;
+package com.uniClub.member.memberService;
 
-import com.uniClub.dto.memberDto.MemberRequest;
-import com.uniClub.dto.memberDto.MemberResponse;
-import com.uniClub.entity.userEntity.UserEntity;
+import com.uniClub.member.memberDto.MemberRequest;
+import com.uniClub.member.memberDto.MemberResponse;
+import com.uniClub.user.userEntity.UserEntity;
 
 public interface IMemberService {
     MemberResponse getMyProfile(UserEntity user);

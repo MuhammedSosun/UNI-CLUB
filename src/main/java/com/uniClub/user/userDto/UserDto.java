@@ -1,6 +1,6 @@
-package com.uniClub.dto.userDto;
+package com.uniClub.user.userDto;
 
-import com.uniClub.entity.baseEntity.DtoBase;
+import com.uniClub.baseEntity.DtoBase;
 import com.uniClub.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

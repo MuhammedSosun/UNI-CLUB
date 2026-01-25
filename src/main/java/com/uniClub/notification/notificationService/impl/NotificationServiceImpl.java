@@ -1,16 +1,16 @@
-package com.uniClub.service.notificationService.impl;
+package com.uniClub.notification.notificationService.impl;
 
 import com.uniClub.enums.StatusEnum;
 import com.uniClub.exceptions.exception.BaseException;
 import com.uniClub.exceptions.exception.ErrorMessage;
 import com.uniClub.exceptions.exception.MessageType;
-import com.uniClub.dto.notificationDto.NotificationDtoRequest;
-import com.uniClub.dto.notificationDto.NotificationDtoResponse;
+import com.uniClub.notification.notificationDto.NotificationDtoRequest;
+import com.uniClub.notification.notificationDto.NotificationDtoResponse;
 import com.uniClub.enums.NotificationType;
-import com.uniClub.entity.notificationEntity.Notification;
+import com.uniClub.notification.notificationEntity.Notification;
 import com.uniClub.mapper.notificationMapper.NotificationMapper;
-import com.uniClub.repository.notificationRepository.NotificationRepository;
-import com.uniClub.service.notificationService.INotificationService;
+import com.uniClub.notification.notificationRepository.NotificationRepository;
+import com.uniClub.notification.notificationService.INotificationService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 

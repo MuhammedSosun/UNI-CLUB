@@ -1,7 +1,7 @@
-package com.uniClub.repository.notificationRepository;
+package com.uniClub.notification.notificationRepository;
 
 import com.uniClub.enums.NotificationType;
-import com.uniClub.entity.notificationEntity.Notification;
+import com.uniClub.notification.notificationEntity.Notification;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 

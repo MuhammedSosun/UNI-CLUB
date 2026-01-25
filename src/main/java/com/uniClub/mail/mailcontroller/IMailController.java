@@ -1,9 +1,9 @@
-package com.uniClub.controller.mailcontroller;
+package com.uniClub.mail.mailcontroller;
 
-import com.uniClub.controller.controller.RootEntity;
-import com.uniClub.dto.mailDto.ForgotPasswordRequest;
-import com.uniClub.dto.mailDto.PasswordResetCodeRequest;
-import com.uniClub.dto.mailDto.VerifyCodeRequest;
+import com.uniClub.util.controller.RootEntity;
+import com.uniClub.mail.mailDto.ForgotPasswordRequest;
+import com.uniClub.mail.mailDto.PasswordResetCodeRequest;
+import com.uniClub.mail.mailDto.VerifyCodeRequest;
 
 public interface IMailController {
     RootEntity<?> forgotPassword(ForgotPasswordRequest request);

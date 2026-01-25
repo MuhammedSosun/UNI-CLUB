@@ -1,11 +1,11 @@
-package com.uniClub.service.userService.impl;
+package com.uniClub.user.userService.impl;
 
-import com.uniClub.dto.mailDto.VerifyCodeRequest;
-import com.uniClub.dto.userDto.*;
-import com.uniClub.entity.mailEntity.Verification;
-import com.uniClub.entity.memberEntity.Member;
-import com.uniClub.entity.userEntity.RefreshToken;
-import com.uniClub.entity.userEntity.UserEntity;
+import com.uniClub.user.event.UserRegisteredEvent;
+import com.uniClub.mail.mailDto.VerifyCodeRequest;
+import com.uniClub.mail.mailEntity.Verification;
+import com.uniClub.member.memberEntity.Member;
+import com.uniClub.user.userEntity.RefreshToken;
+import com.uniClub.user.userEntity.UserEntity;
 import com.uniClub.enums.OperationType;
 import com.uniClub.enums.Role;
 import com.uniClub.enums.StatusEnum;
@@ -15,17 +15,17 @@ import com.uniClub.exceptions.exception.MessageType;
 import com.uniClub.logging.LoggableOperation;
 import com.uniClub.mapper.userMapper.RefreshTokenMapper;
 import com.uniClub.mapper.userMapper.UserMapper;
-import com.uniClub.repository.mailRepository.VerificationRepository;
-import com.uniClub.repository.memberRepository.MemberRepository;
-import com.uniClub.repository.userRepository.RefreshTokenRepository;
-import com.uniClub.repository.userRepository.UserRepository;
+import com.uniClub.mail.mailRepository.VerificationRepository;
+import com.uniClub.member.memberRepository.MemberRepository;
+import com.uniClub.user.userDto.*;
+import com.uniClub.user.userRepository.RefreshTokenRepository;
+import com.uniClub.user.userRepository.UserRepository;
 import com.uniClub.security.JwtService;
-import com.uniClub.service.mailService.IPasswordResetService;
-import com.uniClub.service.mailService.IVerificationAccount;
-import com.uniClub.service.userService.IAuthenticateService;
+import com.uniClub.mail.mailService.IPasswordResetService;
+import com.uniClub.mail.mailService.IVerificationAccount;
+import com.uniClub.user.userService.IAuthenticateService;
 import lombok.extern.slf4j.Slf4j;
-import com.uniClub.util.pageable.PageUtil;
-import com.uniClub.util.pageable.PageableEntity;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -52,8 +52,9 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
     private final IVerificationAccount verificationAccount;
     private final VerificationRepository verificationRepository;
     private final MemberRepository memberRepository;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
-    public AuthenticateServiceImpl(BCryptPasswordEncoder bCryptPasswordEncoder, UserRepository userRepository, AuthenticationProvider authenticationProvider, JwtService jwtService, RefreshTokenRepository refreshTokenRepository, IPasswordResetService resetService, IVerificationAccount verificationAccount, VerificationRepository verificationRepository, MemberRepository memberRepository) {
+    public AuthenticateServiceImpl(BCryptPasswordEncoder bCryptPasswordEncoder, UserRepository userRepository, AuthenticationProvider authenticationProvider, JwtService jwtService, RefreshTokenRepository refreshTokenRepository, IPasswordResetService resetService, IVerificationAccount verificationAccount, VerificationRepository verificationRepository, MemberRepository memberRepository, ApplicationEventPublisher applicationEventPublisher) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userRepository = userRepository;
         this.authenticationProvider = authenticationProvider;
@@ -63,6 +64,7 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
         this.verificationAccount = verificationAccount;
         this.verificationRepository = verificationRepository;
         this.memberRepository = memberRepository;
+        this.applicationEventPublisher = applicationEventPublisher;
     }
     private RefreshToken createRefreshToken(UserEntity user) {
         RefreshToken refreshToken = new RefreshToken();
@@ -110,7 +112,10 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
         member.setUniversity("Yalova Üniversitesi");
 
         memberRepository.save(member);
-        verificationAccount.sendVerificationCode(email);
+        applicationEventPublisher.publishEvent(
+                new UserRegisteredEvent(email)
+        );
+       // verificationAccount.sendVerificationCode(email);
 
         return "Kayıt başarılı. Doğrulama kodu e-posta adresinize gönderildi.";
     }
@@ -118,26 +123,45 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
     @Transactional
     @Override
     public String verifyCode(VerifyCodeRequest request) {
-        Verification verification = verificationRepository.findByEmail(request.getEmail()).orElseThrow(() -> new BaseException(
-                new ErrorMessage(MessageType.CODE_NOT_FOUND, "Kod bulunamadı!")
-        ));
+
+        Verification verification = verificationRepository
+                .findByEmail(request.getEmail())
+                .orElseThrow(() -> new BaseException(
+                        new ErrorMessage(MessageType.CODE_NOT_FOUND, "Kod bulunamadı!")
+                ));
+
+        if (verification.getExpireAt().isBefore(LocalDateTime.now())) {
+            throw new BaseException(
+                    new ErrorMessage(MessageType.CODE_TIME_IS_EXPIRES_DATE, "Kod zaman aşımına uğradı")
+            );
+        }
 
         if (!verification.getCode().equals(request.getCode())) {
-            throw new BaseException(new ErrorMessage(MessageType.CODE_IS_ERRORS,"Doğrulama Kodu Yanlış"));
-        }
-        if (verification.getExpireAt().isBefore(LocalDateTime.now())){
-            throw new BaseException(new ErrorMessage(MessageType.CODE_TIME_IS_EXPIRES_DATE,"KOD ZAMAN AŞIMINA UĞRADI"));
+            throw new BaseException(
+                    new ErrorMessage(MessageType.CODE_IS_ERRORS, "Doğrulama kodu yanlış")
+            );
         }
 
-        UserEntity user = userRepository.findByEmail(request.getEmail()).orElseThrow(
-                () -> new BaseException(new ErrorMessage(MessageType.USER_NOT_FOUND,"Kullanıcı Bulunamadı")));
+        UserEntity user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new BaseException(
+                        new ErrorMessage(MessageType.USER_NOT_FOUND, "Kullanıcı bulunamadı")
+                ));
+
+        // ✅ USER AKTİF
         user.setActive(true);
-        userRepository.save(user);
 
-        verificationRepository.deleteByEmail(request.getEmail());
+        // ✅ MEMBER COMPLETED
+        Member member = memberRepository.findByUser(user).orElseThrow(
+                () -> new BaseException(new ErrorMessage(MessageType.MEMBER_NOT_FOUND, user.getUsername()))
+        );
+        member.setStatus(StatusEnum.ACTIVE);
+
+        // ✅ VERIFICATION TEMİZLE
+        verificationRepository.delete(verification);
 
         return "Doğrulama başarılı. Artık giriş yapabilirsiniz.";
     }
+
 
     @Transactional
     @LoggableOperation(OperationType.LOGIN)
@@ -146,8 +170,11 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
 
         try {
             authenticationProvider.authenticate(
+
                     new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
             );
+
+
             UserEntity user = userRepository.findByUsername(authRequest.getUsername())
                     .orElseThrow(()-> new UsernameNotFoundException("Username not found"));
             if (!user.isActive()) {
@@ -157,9 +184,11 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
             String accessToken = jwtService.generateToken(user);
             RefreshToken refreshToken = refreshTokenRepository.save(RefreshTokenMapper.generate(user));
             return new AuthResponse(accessToken,refreshToken.getRefreshToken());
-        }catch (Exception e) {
+        } catch (Exception e) {
+            log.error("LOGIN FAILED username={}, reason={}", authRequest.getUsername(), e.getMessage(), e);
             throw new UsernameNotFoundException("Invalid username or password");
         }
+
 
     }
     @Transactional

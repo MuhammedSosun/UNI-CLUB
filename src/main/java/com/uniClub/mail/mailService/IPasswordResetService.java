@@ -1,6 +1,6 @@
-package com.uniClub.service.mailService;
+package com.uniClub.mail.mailService;
 
-import com.uniClub.dto.mailDto.PasswordResetCodeRequest;
+import com.uniClub.mail.mailDto.PasswordResetCodeRequest;
 
 public interface IPasswordResetService {
 
