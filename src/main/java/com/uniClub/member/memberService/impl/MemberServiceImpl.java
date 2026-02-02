@@ -11,6 +11,8 @@ import com.uniClub.exceptions.exception.MessageType;
 import com.uniClub.member.memberMapper.MemberMapper;
 import com.uniClub.member.memberRepository.MemberRepository;
 import com.uniClub.member.memberService.IMemberService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -73,6 +75,22 @@ public class MemberServiceImpl implements IMemberService {
     public String getUsername(){
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
+    @Override
+    public Page<MemberResponse> getAllMembers(Pageable pageable, String filter) {
 
+        Page<Member> page = memberRepository.searchMembers(filter, pageable);
+
+        return page.map(memberMapper::toDto);
+    }
+
+    @Override
+    public MemberResponse getMemberById(Long id) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new BaseException(
+                        new ErrorMessage(MessageType.MEMBER_NOT_FOUND, String.valueOf(id))
+                ));
+
+        return memberMapper.toDto(member);
+    }
 
 }

@@ -26,7 +26,8 @@ public class MemberResponse extends DtoBase {
     private String level;
     private String university;
     private String phone;
-
+    private String email;
+    private String username;
     private String profilePhotoPath;
     private String about;
 
@@ -41,8 +42,9 @@ public class MemberResponse extends DtoBase {
     private List<String> certificates;
     private List<String> languages;
     private List<String> projects;
-
-    // 🔥 ENTITY YOK
+    //  YENİ ALAN: Bu kişi herhangi bir kulüpte yönetici mi?
+    private boolean canCreateEvent;
+    //  ENTITY YOK
     private List<String> clubNames;
     private List<String> participatedEventTitles;
 }

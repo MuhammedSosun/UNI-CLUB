@@ -221,13 +221,35 @@ public class ClubServiceImpl implements IClubService {
     @Override
     public Page<ClubResponseDTO> getAllPaged(Pageable pageable, String filter) {
 
+
         Page<ClubEntity> page;
         if (filter == null || filter.isBlank()) {
             page = clubRepository.findAll(pageable);
-        }else{
+        } else {
             page = clubRepository.searchByClubNameOrShortName(filter, pageable);
         }
-        return page.map(clubMapper::toResponseDTO);
+
+
+        String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        Member currentMember = memberRepository.findByUserUsername(currentUsername).orElse(null);
+
+        return page.map(club -> {
+            ClubResponseDTO dto = clubMapper.toResponseDTO(club);
+
+            dto.setMembershipStatus(MembershipViewStatus.NOT_MEMBER);
+
+            if (currentMember != null) {
+                Optional<ClubMembership> membership = clubMemberShipRepository
+                        .findByClubIdAndMemberId(club.getId(), currentMember.getId());
+
+                membership.ifPresent(clubMembership ->
+                        dto.setMembershipStatus(MembershipViewStatus.valueOf(clubMembership.getStatus().name()))
+                );
+            }
+
+            return dto;
+        });
     }
 
 

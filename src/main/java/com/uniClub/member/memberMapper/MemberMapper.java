@@ -1,5 +1,6 @@
 package com.uniClub.member.memberMapper;
 
+import com.uniClub.enums.ClubRole;
 import com.uniClub.member.memberDto.MemberRequest;
 import com.uniClub.member.memberDto.MemberResponse;
 import com.uniClub.member.memberEntity.Member;
@@ -23,6 +24,11 @@ public interface MemberMapper {
             @MappingTarget Member member
     );
 
+    @Mapping(source = "user.email", target = "email")
+    @Mapping(source = "user.username", target = "username")
+
+    @Mapping(target = "canCreateEvent", expression = "java(checkAuthority(member))")
+
     @Mapping(target = "clubNames", expression = "java(mapClubNames(member))")
     @Mapping(target = "participatedEventTitles", expression = "java(mapEventTitles(member))")
     MemberResponse toDto(Member member);
@@ -43,5 +49,15 @@ public interface MemberMapper {
                 .toList();
     }
 
+    default boolean checkAuthority(Member member) {
+        if (member.getClubMemberships() == null) {
+            return false;
+        }
 
+        return member.getClubMemberships().stream()
+                .anyMatch(membership ->
+                        membership.getRole() == ClubRole.PRESIDENT ||
+                                membership.getRole() == ClubRole.VICE_PRESIDENT
+                );
+    }
 }

@@ -1,5 +1,7 @@
 package com.uniClub.event.eventController.impl;
 
+import com.uniClub.event.eventDto.EventParticipantDto;
+import com.uniClub.event.eventDto.ParticipationStatusRequest;
 import com.uniClub.util.controller.RestBaseController;
 import com.uniClub.util.controller.RootEntity;
 import com.uniClub.Club.clubDto.ActiveClubDTO;
@@ -12,6 +14,7 @@ import com.uniClub.util.pageable.PageableEntity;
 import com.uniClub.util.pageable.PageableRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,43 +39,71 @@ public class EventControllerImpl extends RestBaseController implements IEventCon
     public RootEntity<List<EventResponse>> findAllEvents() {
         return ok(eventService.findAllEvents());
     }
+
     @GetMapping("/get/{id}")
     @Override
     public RootEntity<EventResponse> findEventById(@PathVariable Long id) {
         return ok(eventService.findEventById(id));
     }
+
     @GetMapping("/filter")
     @Override
     public RootEntity<List<EventResponse>> searchEvents(@RequestParam String filter) {
         return ok(eventService.searchEvents(filter));
     }
-    /*
+
+
     @PostMapping("/{id}/join")
+    @Override
     public RootEntity<EventResponse> joinEvent(@PathVariable Long id) {
         return ok(eventService.joinEvent(id));
     }
-////////////////////////////////////////////
+    @PostMapping("/{eventId}/participation-status")
+    @Override
+    public RootEntity<String> changeParticipationStatus(
+            @PathVariable Long eventId,
+            @RequestBody ParticipationStatusRequest request) {
+
+        eventService.changeParticipationStatus(eventId, request);
+        return ok("Başvuru durumu başarıyla güncellendi: " + request.getStatus());
+    }
+    @GetMapping("/{id}/participants")
+    public RootEntity<Page<EventParticipantDto>> getParticipantsPaged(
+            @PathVariable Long id,
+            @RequestParam(required = false) String filter,
+            @PageableDefault(size = 10) Pageable pageable // Varsayılan 10 kişi getir
+    ) {
+        return ok(eventService.getParticipantsPaged(id, filter, pageable));
+    }
+
+    // (leaveEvent metodunu servis tarafında güncellemediğimiz için şimdilik kapalı kalabilir
+    // veya aynı mantıkla EventParticipationRepository üzerinden silme işlemi yaparak açabilirsin)
+    /*
     @PostMapping("/{id}/leave")
     public RootEntity<EventResponse> leaveEvent(@PathVariable Long id) {
         return ok(eventService.leaveEvent(id));
     }
-*/
+    */
+
     @PutMapping("/update/{id}")
     @Override
-    public RootEntity<EventResponse> updateEvent(@RequestBody EventRequest eventRequest,@PathVariable Long id) {
+    public RootEntity<EventResponse> updateEvent(@RequestBody EventRequest eventRequest, @PathVariable Long id) {
         return ok(eventService.updateEvent(eventRequest, id));
     }
+
     @DeleteMapping("/delete/{id}")
     @Override
     public RootEntity<String> deleteEvent(@PathVariable Long id) {
-        ok(eventService.deleteEvent(id));
+        eventService.deleteEvent(id); // Buradaki ok() silindi, void döndüğü için direkt çağırıyoruz
         return ok("Event deleted successfully");
     }
+
     @GetMapping("/total")
     @Override
     public RootEntity<Long> totalEvents() {
         return ok(eventService.totalEvents());
     }
+
     @PostMapping("/upcoming/paged")
     @Override
     public RootEntity<PageableEntity<EventResponse>> getUpcomingEventsPaged(
@@ -84,6 +115,7 @@ public class EventControllerImpl extends RestBaseController implements IEventCon
         Page<EventResponse> page = eventService.getUpcomingEventsPaged(pageable);
         return ok(PageUtil.toPageableResponse(page, page.getContent()));
     }
+
     @GetMapping("/stats/top-active-clubs")
     public RootEntity<List<ActiveClubDTO>> getTopActiveClubsLast3Months() {
         return ok(eventService.getTopActiveClubsLast3Months());
@@ -94,6 +126,4 @@ public class EventControllerImpl extends RestBaseController implements IEventCon
     public RootEntity<List<EventResponse>> getTopEventsThisMonth() {
         return ok(eventService.getTopEventsThisMonth());
     }
-
-
 }

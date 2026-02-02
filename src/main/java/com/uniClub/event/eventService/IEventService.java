@@ -1,8 +1,10 @@
 package com.uniClub.event.eventService;
 
 import com.uniClub.Club.clubDto.ActiveClubDTO;
+import com.uniClub.event.eventDto.EventParticipantDto;
 import com.uniClub.event.eventDto.EventRequest;
 import com.uniClub.event.eventDto.EventResponse;
+import com.uniClub.event.eventDto.ParticipationStatusRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -21,5 +23,8 @@ public interface IEventService {
     Page<EventResponse> getUpcomingEventsPaged(Pageable pageable);
     List<ActiveClubDTO> getTopActiveClubsLast3Months();
     List<EventResponse> getTopEventsThisMonth();
+    EventResponse joinEvent(Long eventId);
+    void changeParticipationStatus(Long eventId, ParticipationStatusRequest request);
+    Page<EventParticipantDto> getParticipantsPaged(Long eventId, String filter, Pageable pageable);
 
 }

@@ -1,5 +1,7 @@
 package com.uniClub.event.eventEntity;
 
+import com.uniClub.baseEntity.BaseEntity;
+import com.uniClub.enums.ParticipationStatus;
 import com.uniClub.member.memberEntity.Member;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,7 +17,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EventParticipation {
+public class EventParticipation extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +31,9 @@ public class EventParticipation {
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
-    private boolean attended = false;  // etkinliğe gerçekten geldi mi
-    private LocalDateTime joinedAt;    // kayıt zamanı
+    private boolean attended = false;
+    private LocalDateTime joinedAt;
+
+    @Enumerated(EnumType.STRING)
+    private ParticipationStatus status = ParticipationStatus.PENDING;
 }
