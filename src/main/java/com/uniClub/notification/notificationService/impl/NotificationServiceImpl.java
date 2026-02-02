@@ -8,7 +8,7 @@ import com.uniClub.notification.notificationDto.NotificationDtoRequest;
 import com.uniClub.notification.notificationDto.NotificationDtoResponse;
 import com.uniClub.enums.NotificationType;
 import com.uniClub.notification.notificationEntity.Notification;
-import com.uniClub.mapper.notificationMapper.NotificationMapper;
+import com.uniClub.notification.notificationMapper.NotificationMapper;
 import com.uniClub.notification.notificationRepository.NotificationRepository;
 import com.uniClub.notification.notificationService.INotificationService;
 import org.springframework.security.core.context.SecurityContextHolder;

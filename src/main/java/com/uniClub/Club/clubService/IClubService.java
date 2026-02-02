@@ -28,4 +28,6 @@ public interface IClubService {
     List<ClubMemberStatsResponse> getTopClubsByMemberCount();
     PageableEntity<ClubResponseDTO> searchClubsByName(String name, Pageable pageable);
     String saveBase64Logo(Long clubId, String fileName, String base64Content);
+    public Long activeClubCount();
+    ClubResponseDTO getMyClub();
 }

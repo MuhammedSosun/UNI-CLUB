@@ -1,5 +1,6 @@
 package com.uniClub.Club.clubDto;
 
+import com.uniClub.enums.MembershipViewStatus;
 import com.uniClub.enums.StatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +24,9 @@ public class ClubResponseDTO {
     private String phone;
     private String instagram;
     private boolean approved;
+
+    private MembershipViewStatus membershipStatus;
+
 
     private UUID presidentId;
 

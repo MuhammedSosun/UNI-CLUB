@@ -1,5 +1,6 @@
 package com.uniClub.member.memberController.impl;
 
+import com.uniClub.Club.clubDto.ClubResponseDTO; // 1. IMPORT EKLENDİ
 import com.uniClub.util.controller.RestBaseController;
 import com.uniClub.util.controller.RootEntity;
 import com.uniClub.member.memberDto.ClubMemberDto;
@@ -37,8 +38,8 @@ public class ClubMembershipController extends RestBaseController {
     // 3) Admin -> approve
     @PostMapping("/{clubId}/join-requests/{memberId}/approve")
     public RootEntity<Void> approve(@PathVariable Long clubId,
-                                        @PathVariable Long memberId,
-                                        Authentication auth) {
+                                    @PathVariable Long memberId,
+                                    Authentication auth) {
         membershipService.approveRequest(clubId, memberId, auth.getName());
         return ok(null);
     }
@@ -46,11 +47,12 @@ public class ClubMembershipController extends RestBaseController {
     // 4) Admin -> reject
     @PostMapping("/{clubId}/join-requests/{memberId}/reject")
     public RootEntity<Void> reject(@PathVariable Long clubId,
-                                       @PathVariable Long memberId,
-                                       Authentication auth) {
+                                   @PathVariable Long memberId,
+                                   Authentication auth) {
         membershipService.rejectRequest(clubId, memberId, auth.getName());
         return ok(null);
     }
+
     // 5) Member -> leave club
     @PostMapping("/{clubId}/leave")
     public RootEntity<Void> leaveClub(@PathVariable Long clubId, Authentication auth) {
@@ -104,7 +106,6 @@ public class ClubMembershipController extends RestBaseController {
     // =========================
     // 🔹 ROLE GÜNCELLEME
     // =========================
-    // Örn: STANDARD_MEMBER, BOARD_MEMBER, VICE_PRESIDENT
     @PutMapping("/{clubId}/members/{memberId}/role")
     public RootEntity<Void> updateMemberRole(
             @PathVariable Long clubId,
@@ -121,5 +122,11 @@ public class ClubMembershipController extends RestBaseController {
         return ok(null);
     }
 
+    // 🔥🔥🔥 YENİ EKLENEN ENDPOINT 🔥🔥🔥
+    // Frontend buradan "Benim başkan olduğum kulübü getir" diyecek.
+    @GetMapping("/my-club")
+    public RootEntity<ClubResponseDTO> getMyClub() {
+        return ok(membershipService.getMyClub());
+    }
 
 }

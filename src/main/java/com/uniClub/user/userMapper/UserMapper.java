@@ -1,4 +1,4 @@
-package com.uniClub.mapper.userMapper;
+package com.uniClub.user.userMapper;
 
 import com.uniClub.user.userDto.UserDto;
 import com.uniClub.user.userEntity.UserEntity;

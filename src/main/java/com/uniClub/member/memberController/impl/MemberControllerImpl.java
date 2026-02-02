@@ -32,4 +32,9 @@ public class MemberControllerImpl extends RestBaseController implements IMemberC
                                                       @AuthenticationPrincipal UserEntity user) {
         return ok(memberService.updateMyProfile(request,user));
     }
+    @GetMapping("/count")
+    @Override
+    public RootEntity<Long> activeMember() {
+        return ok(memberService.activeMemberCount());
+    }
 }

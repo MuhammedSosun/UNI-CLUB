@@ -4,19 +4,16 @@ import com.uniClub.Club.clubDto.ClubMemberStatsResponse;
 import com.uniClub.Club.clubDto.ClubRequestDto;
 import com.uniClub.Club.clubDto.ClubResponseDTO;
 import com.uniClub.Club.clubEntity.ClubEntity;
+import com.uniClub.enums.*;
 import com.uniClub.member.memberEntity.ClubMembership;
 import com.uniClub.member.memberEntity.Member;
 import com.uniClub.user.userEntity.UserEntity;
-import com.uniClub.enums.ClubMembershipStatus;
-import com.uniClub.enums.ClubRole;
-import com.uniClub.enums.OperationType;
-import com.uniClub.enums.StatusEnum;
 import com.uniClub.exceptions.exception.BaseException;
 import com.uniClub.exceptions.exception.ErrorMessage;
 import com.uniClub.exceptions.exception.FileStorageException;
 import com.uniClub.exceptions.exception.MessageType;
 import com.uniClub.logging.LoggableOperation;
-import com.uniClub.mapper.clubMapper.ClubMapper;
+import com.uniClub.Club.clubMapper.ClubMapper;
 import com.uniClub.Club.clubRepository.ClubRepository;
 import com.uniClub.member.memberRepository.ClubMemberShipRepository;
 import com.uniClub.member.memberRepository.MemberRepository;
@@ -26,6 +23,7 @@ import com.uniClub.util.pageable.PageUtil;
 import com.uniClub.util.pageable.PageableEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +33,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.Base64;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -98,7 +97,12 @@ public class ClubServiceImpl implements IClubService {
     @Transactional(readOnly = true)
     @LoggableOperation(OperationType.FIND_CLUB)
     public ClubResponseDTO getClubById(Long id) {
-        return clubMapper.toResponseDTO(getClubWithId(id));
+        Member currentMember = getCurrentMember();
+
+        ClubEntity club = getClubWithId(id);
+        ClubResponseDTO dto = clubMapper.toResponseDTO(club);
+        dto.setMembershipStatus(resolveMembershipStatus(club, currentMember));
+        return dto;
     }
     @Override
     @Transactional(readOnly = true)
@@ -112,10 +116,17 @@ public class ClubServiceImpl implements IClubService {
     @LoggableOperation(OperationType.FIND_ACTIVE_CLUB)
     @Override
     public List<ClubResponseDTO> getActiveClubs() {
+        Member currentMember = getCurrentMember();
+
         return clubRepository.findAllByStatus(StatusEnum.ACTIVE)
                 .stream()
-                .map(clubMapper::toResponseDTO)
+                .map(club -> {
+                    ClubResponseDTO dto = clubMapper.toResponseDTO(club);
+                    dto.setMembershipStatus(resolveMembershipStatus(club, currentMember));
+                    return dto;
+                })
                 .toList();
+
     }
 
     @Transactional(readOnly = true)
@@ -123,7 +134,16 @@ public class ClubServiceImpl implements IClubService {
     @LoggableOperation(OperationType.FIND_ALL_CLUBS)
     public Page<ClubResponseDTO> getAllPaged(Pageable pageable) {
         Page<ClubEntity> page = clubRepository.findAll(pageable);
-        return page.map(clubMapper::toResponseDTO);
+        Member currentMember = getCurrentMember();
+
+        return page.map(club -> {
+            ClubResponseDTO dto = clubMapper.toResponseDTO(club);
+            dto.setMembershipStatus(
+                    resolveMembershipStatus(club, currentMember)
+            );
+            return dto;
+        });
+
     }
     @LoggableOperation(OperationType.FIND_ALL_CLUBS)
     @Override
@@ -232,14 +252,20 @@ public class ClubServiceImpl implements IClubService {
 
         Page<ClubEntity> page = clubRepository.searchByClubNameOrShortName(name, pageable);
 
+        Member currentMember = getCurrentMember();
 
-        List<ClubResponseDTO> dtoList = page
-                .map(clubMapper::toResponseDTO)
-                .getContent();
+        List<ClubResponseDTO> dtoList = page.getContent().stream()
+                .map(club -> {
+                    ClubResponseDTO dto = clubMapper.toResponseDTO(club);
+                    dto.setMembershipStatus(resolveMembershipStatus(club, currentMember));
+                    return dto;
+                })
+                .toList();
 
-        // Page + DTO list → PageableEntity
+
         return PageUtil.toPageableResponse(page, dtoList);
     }
+
 
 
 
@@ -288,6 +314,55 @@ public class ClubServiceImpl implements IClubService {
         }
     }
 
+    @Override
+    public Long activeClubCount() {
+        return clubRepository.countByStatus(StatusEnum.ACTIVE);
+    }
 
+    @Override
+    @Transactional(readOnly = true)
+    public ClubResponseDTO getMyClub() {
+        // 1. Giriş yapan kullanıcıyı (UserEntity) alalım
+        UserEntity currentUser = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        // 2. Bu kullanıcının başkan olduğu kulübü arayalım
+        return clubRepository.findByPresidentId(currentUser.getId())
+                .map(club -> {
+                    ClubResponseDTO dto = clubMapper.toResponseDTO(club);
+                    // Başkan olduğu için statüsü zaten APPROVED'dır ama yine de set edelim
+                    dto.setMembershipStatus(MembershipViewStatus.APPROVED);
+                    return dto;
+                })
+                .orElse(null); // Eğer başkan olduğu kulüp yoksa null döner
+    }
+
+
+    private MembershipViewStatus resolveMembershipStatus(
+            ClubEntity club,
+            Member member
+    ) {
+        Optional<ClubMembership> membership =
+                clubMemberShipRepository.findByClubAndMember(club, member);
+
+        return membership.map(clubMembership -> switch (clubMembership.getStatus()) {
+            case PENDING -> MembershipViewStatus.PENDING;
+            case APPROVED -> MembershipViewStatus.APPROVED;
+            case REJECTED -> MembershipViewStatus.REJECTED;
+            case LEFT -> MembershipViewStatus.NOT_MEMBER;
+        }).orElse(MembershipViewStatus.NOT_MEMBER);
+
+    }
+
+    private Member getCurrentMember() {
+        UserEntity user = (UserEntity) org.springframework.security.core.context.SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
+
+        return memberRepository.findByUser(user)
+                .orElseThrow(() -> new BaseException(
+                        new ErrorMessage(MessageType.MEMBER_NOT_FOUND, "Member bulunamadı")
+                ));
+    }
 
 }

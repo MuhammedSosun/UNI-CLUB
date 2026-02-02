@@ -1,4 +1,4 @@
-package com.uniClub.mapper.clubMapper;
+package com.uniClub.Club.clubMapper;
 
 import com.uniClub.Club.clubDto.ClubRequestDto;
 import com.uniClub.Club.clubDto.ClubResponseDTO;

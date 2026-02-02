@@ -7,5 +7,5 @@ import com.uniClub.user.userEntity.UserEntity;
 public interface IMemberService {
     MemberResponse getMyProfile(UserEntity user);
     MemberResponse updateMyProfile(MemberRequest memberRequest,UserEntity user);
-
+    public Long activeMemberCount();
 }

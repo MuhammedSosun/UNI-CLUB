@@ -1,5 +1,6 @@
 package com.uniClub.member.memberService;
 
+import com.uniClub.Club.clubDto.ClubResponseDTO;
 import com.uniClub.member.memberDto.ClubMemberDto;
 import com.uniClub.member.memberDto.JoinRequestDto;
 import com.uniClub.enums.ClubMembershipStatus;
@@ -28,6 +29,7 @@ public interface IClubMembershipService {
             ClubMembershipStatus status,
             String adminUsername
     );
+    ClubResponseDTO getMyClub();
 
 
 

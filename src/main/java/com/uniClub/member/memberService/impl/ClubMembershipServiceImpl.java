@@ -1,5 +1,8 @@
 package com.uniClub.member.memberService.impl;
 
+import com.uniClub.Club.clubDto.ClubResponseDTO;
+import com.uniClub.Club.clubMapper.ClubMapper;
+import com.uniClub.enums.MembershipViewStatus;
 import com.uniClub.member.memberDto.ClubMemberDto;
 import com.uniClub.member.memberDto.JoinRequestDto;
 import com.uniClub.Club.clubEntity.ClubEntity;
@@ -14,6 +17,7 @@ import com.uniClub.Club.clubRepository.ClubRepository;
 import com.uniClub.member.memberRepository.ClubMemberShipRepository;
 import com.uniClub.member.memberRepository.MemberRepository;
 import com.uniClub.member.memberService.IClubMembershipService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,11 +31,15 @@ public class ClubMembershipServiceImpl implements IClubMembershipService {
     private final ClubMemberShipRepository membershipRepo;
     private final ClubRepository clubRepo;
     private final MemberRepository memberRepo;
+    private final ClubMemberShipRepository clubMemberShipRepository;
+    private final ClubMapper clubMapper;
 
-    public ClubMembershipServiceImpl(ClubMemberShipRepository membershipRepo, ClubRepository clubRepo, MemberRepository memberRepo) {
+    public ClubMembershipServiceImpl(ClubMemberShipRepository membershipRepo, ClubRepository clubRepo, MemberRepository memberRepo, ClubMemberShipRepository clubMemberShipRepository, ClubMapper clubMapper) {
         this.membershipRepo = membershipRepo;
         this.clubRepo = clubRepo;
         this.memberRepo = memberRepo;
+        this.clubMemberShipRepository = clubMemberShipRepository;
+        this.clubMapper = clubMapper;
     }
 
     @Transactional
@@ -92,6 +100,8 @@ public class ClubMembershipServiceImpl implements IClubMembershipService {
         Member admin = memberRepo.findByUserUsername(adminUsername)
                 .orElseThrow(() -> new BaseException(new ErrorMessage(MessageType.MEMBER_NOT_FOUND, adminUsername + "is not found")));
         assertClubAdmin(clubId,admin.getId());
+        List<ClubMembership> pendingList = membershipRepo.findAllByClubIdAndStatus(clubId, ClubMembershipStatus.PENDING);
+        System.out.println("🛑 [DEBUG] ClubId: " + clubId + " için bulunan Pending sayısı: " + pendingList.size());
         return membershipRepo.findAllByClubIdAndStatus(clubId, ClubMembershipStatus.PENDING)
                 .stream()
                 .map(m -> new JoinRequestDto(
@@ -267,6 +277,8 @@ public class ClubMembershipServiceImpl implements IClubMembershipService {
     }
 
 
+
+
     @Override
     @Transactional(readOnly = true)
     public List<ClubMemberDto> listClubMembers(Long clubId, String adminUsername) {
@@ -316,5 +328,31 @@ public class ClubMembershipServiceImpl implements IClubMembershipService {
                         cm.getJoinedAt()
                 ))
                 .toList();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ClubResponseDTO getMyClub() {
+        // 1. Giriş yapan User'ı bul
+        Member currentMember = getCurrentMember();
+
+        // 2. ClubMembership tablosundan bu üyenin PRESIDENT olduğu kaydı bul
+        return membershipRepo.findByMemberIdAndRole(currentMember.getId(), ClubRole.PRESIDENT)
+                .map(membership -> {
+                    ClubEntity club = membership.getClub();
+                    ClubResponseDTO dto = clubMapper.toResponseDTO(club);
+                    dto.setMembershipStatus(MembershipViewStatus.APPROVED);
+                    return dto;
+                })
+                .orElse(null);
+    }
+
+    // 👇 EKSİK OLAN YARDIMCI METOD EKLENDİ
+    private Member getCurrentMember() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return memberRepo.findByUserUsername(username)
+                .orElseThrow(() -> new BaseException(
+                        new ErrorMessage(MessageType.MEMBER_NOT_FOUND, "Current member not found")
+                ));
     }
 }

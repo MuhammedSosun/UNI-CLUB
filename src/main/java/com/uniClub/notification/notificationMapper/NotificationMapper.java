@@ -1,4 +1,4 @@
-package com.uniClub.mapper.notificationMapper;
+package com.uniClub.notification.notificationMapper;
 
 import com.uniClub.notification.notificationDto.NotificationDtoRequest;
 import com.uniClub.notification.notificationDto.NotificationDtoResponse;

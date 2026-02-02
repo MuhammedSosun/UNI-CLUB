@@ -1,4 +1,4 @@
-package com.uniClub.mapper.eventMapper;
+package com.uniClub.event.eventMapper;
 
 import com.uniClub.event.eventDto.EventRequest;
 import com.uniClub.event.eventDto.EventResponse;

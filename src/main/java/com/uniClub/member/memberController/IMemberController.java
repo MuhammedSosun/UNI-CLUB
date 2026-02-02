@@ -8,5 +8,5 @@ import com.uniClub.user.userEntity.UserEntity;
 public interface IMemberController {
     RootEntity<MemberResponse> getMyProfile(UserEntity user);
     RootEntity<MemberResponse> updateMyProfile(MemberRequest member, UserEntity user);
-
+    RootEntity<Long> activeMember();
 }

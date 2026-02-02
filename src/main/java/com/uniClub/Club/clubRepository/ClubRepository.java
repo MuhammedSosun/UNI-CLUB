@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 public interface ClubRepository extends JpaRepository<ClubEntity, Long> {
     Boolean existsByClubName(String clubName);
@@ -25,4 +27,7 @@ public interface ClubRepository extends JpaRepository<ClubEntity, Long> {
     Page<ClubEntity> searchByClubNameOrShortName(
             @Param("filter") String filter,
             Pageable pageable);
+
+    long countByStatus(StatusEnum status);
+    Optional<ClubEntity> findByPresidentId(UUID presidentId);
 }

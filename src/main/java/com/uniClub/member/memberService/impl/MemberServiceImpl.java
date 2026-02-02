@@ -8,7 +8,7 @@ import com.uniClub.enums.StatusEnum;
 import com.uniClub.exceptions.exception.BaseException;
 import com.uniClub.exceptions.exception.ErrorMessage;
 import com.uniClub.exceptions.exception.MessageType;
-import com.uniClub.mapper.memberMapper.MemberMapper;
+import com.uniClub.member.memberMapper.MemberMapper;
 import com.uniClub.member.memberRepository.MemberRepository;
 import com.uniClub.member.memberService.IMemberService;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -63,6 +63,11 @@ public class MemberServiceImpl implements IMemberService {
         memberRepository.save(member);
 
         return memberMapper.toDto(member);
+    }
+
+    @Override
+    public Long activeMemberCount() {
+        return memberRepository.count();
     }
 
     public String getUsername(){

@@ -105,6 +105,13 @@ public class ClubControllerImpl extends RestBaseController implements IClubContr
     ) {
         return ok(clubService.searchClubsByName(name, pageable));
     }
+    @GetMapping("/count")
+    @Override
+    public RootEntity<Long> activeClubCount() {
+        return ok(clubService.activeClubCount());
+    }
+
+
     // -------------------- ACTIVE CLUBS --------------------
     @GetMapping("/active")
     public RootEntity<List<ClubResponseDTO>> getActiveClubs() {
@@ -151,6 +158,13 @@ public class ClubControllerImpl extends RestBaseController implements IClubContr
         );
 
         return ok(logoUrl);
+    }
+    // ClubControllerImpl.java içine:
+
+    @GetMapping("/my-club")
+    public RootEntity<ClubResponseDTO> getMyClub() {
+        // Servis null dönerse frontend'de "null" olarak işleriz, hata fırlatmaya gerek yok
+        return ok(clubService.getMyClub());
     }
 
 }

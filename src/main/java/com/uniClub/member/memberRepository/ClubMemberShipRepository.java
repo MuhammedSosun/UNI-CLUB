@@ -1,7 +1,10 @@
 package com.uniClub.member.memberRepository;
 
+import com.uniClub.Club.clubEntity.ClubEntity;
+import com.uniClub.enums.ClubRole;
 import com.uniClub.member.memberEntity.ClubMembership;
 import com.uniClub.enums.ClubMembershipStatus;
+import com.uniClub.member.memberEntity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -19,4 +22,8 @@ public interface ClubMemberShipRepository extends JpaRepository<ClubMembership,L
     List<ClubMembership> findAllByClubId(Long clubId);
 
     boolean existsByClubIdAndMemberId(Long clubId,Long memberId);
+
+    Optional<ClubMembership> findByClubAndMember(ClubEntity club, Member member);
+
+    Optional<ClubMembership> findByMemberIdAndRole(Long memberId, ClubRole role);
 }

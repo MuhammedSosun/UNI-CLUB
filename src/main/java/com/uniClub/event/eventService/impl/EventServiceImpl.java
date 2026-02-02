@@ -10,7 +10,7 @@ import com.uniClub.enums.OperationType;
 import com.uniClub.event.eventDto.EventRequest;
 import com.uniClub.event.eventDto.EventResponse;
 import com.uniClub.event.eventEntity.Event;
-import com.uniClub.mapper.eventMapper.EventMapper;
+import com.uniClub.event.eventMapper.EventMapper;
 import com.uniClub.Club.clubRepository.ClubRepository;
 import com.uniClub.event.eventRepository.EventRepository;
 import com.uniClub.user.userRepository.UserRepository;

@@ -13,8 +13,8 @@ import com.uniClub.exceptions.exception.BaseException;
 import com.uniClub.exceptions.exception.ErrorMessage;
 import com.uniClub.exceptions.exception.MessageType;
 import com.uniClub.logging.LoggableOperation;
-import com.uniClub.mapper.userMapper.RefreshTokenMapper;
-import com.uniClub.mapper.userMapper.UserMapper;
+import com.uniClub.user.userMapper.RefreshTokenMapper;
+import com.uniClub.user.userMapper.UserMapper;
 import com.uniClub.mail.mailRepository.VerificationRepository;
 import com.uniClub.member.memberRepository.MemberRepository;
 import com.uniClub.user.userDto.*;
@@ -170,26 +170,33 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
 
         try {
             authenticationProvider.authenticate(
-
                     new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
             );
 
-
             UserEntity user = userRepository.findByUsername(authRequest.getUsername())
                     .orElseThrow(()-> new UsernameNotFoundException("Username not found"));
+
             if (!user.isActive()) {
                 throw new BaseException(
                         new ErrorMessage(MessageType.ACCOUNT_NOT_VERIFIED, "Hesabınız doğrulanmamış!"));
             }
+
             String accessToken = jwtService.generateToken(user);
             RefreshToken refreshToken = refreshTokenRepository.save(RefreshTokenMapper.generate(user));
-            return new AuthResponse(accessToken,refreshToken.getRefreshToken());
+
+            // 👇 GÜNCELLENEN KISIM: ID, Username ve Role bilgisini de gönderiyoruz
+            return new AuthResponse(
+                    accessToken,
+                    refreshToken.getRefreshToken(),
+                    user.getId(),       // userId
+                    user.getUsername(), // username
+                    user.getRole()      // role
+            );
+
         } catch (Exception e) {
             log.error("LOGIN FAILED username={}, reason={}", authRequest.getUsername(), e.getMessage(), e);
             throw new UsernameNotFoundException("Invalid username or password");
         }
-
-
     }
     @Transactional
     @LoggableOperation(OperationType.REFRESH_TOKEN)
@@ -197,14 +204,23 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
     public AuthResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
         RefreshToken refreshToken = refreshTokenRepository.findByRefreshToken(refreshTokenRequest.getRefreshToken())
                 .orElseThrow(()-> new UsernameNotFoundException("Refresh token not found"));
+
         if (!isValid(refreshToken.getExpiredDate())){
             throw new UsernameNotFoundException("Invalid refresh token");
         }
+
         UserEntity user = refreshToken.getUser();
         String accessToken = jwtService.generateToken(user);
         RefreshToken newRefreshToken = refreshTokenRepository.save(RefreshTokenMapper.generate(user));
 
-        return new AuthResponse(accessToken,newRefreshToken.getRefreshToken());
+        // 👇 GÜNCELLENEN KISIM
+        return new AuthResponse(
+                accessToken,
+                newRefreshToken.getRefreshToken(),
+                user.getId(),
+                user.getUsername(),
+                user.getRole()
+        );
     }
 
     @Transactional
