@@ -337,9 +337,7 @@ public class EventServiceImpl implements IEventService {
 
         eventParticipationRepository.save(participation);
 
-        // ⚠️ DİKKAT: Henüz onaylanmadığı için katılımcı sayısını artırmıyoruz!
-        // Onaylama işlemi (approveEventParticipation) yapıldığında artırılacak.
-        // event.setParticipantCount(...) -> BU SATIRI SİLİYORUZ veya YORUMA ALIYORUZ.
+
 
         log.info("[EVENT_JOIN_REQUEST] user='{}' event='{}'", username, event.getTitle());
 
