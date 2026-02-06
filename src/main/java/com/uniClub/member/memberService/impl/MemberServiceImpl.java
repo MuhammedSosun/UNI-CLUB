@@ -1,16 +1,17 @@
 package com.uniClub.member.memberService.impl;
 
-import com.uniClub.member.memberDto.MemberRequest;
-import com.uniClub.member.memberDto.MemberResponse;
-import com.uniClub.member.memberEntity.Member;
-import com.uniClub.user.userEntity.UserEntity;
+import com.uniClub.commonmethods.SecurityUtils;
 import com.uniClub.enums.StatusEnum;
 import com.uniClub.exceptions.exception.BaseException;
 import com.uniClub.exceptions.exception.ErrorMessage;
 import com.uniClub.exceptions.exception.MessageType;
+import com.uniClub.member.memberDto.MemberRequest;
+import com.uniClub.member.memberDto.MemberResponse;
+import com.uniClub.member.memberEntity.Member;
 import com.uniClub.member.memberMapper.MemberMapper;
 import com.uniClub.member.memberRepository.MemberRepository;
 import com.uniClub.member.memberService.IMemberService;
+import com.uniClub.user.userEntity.UserEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -75,6 +76,7 @@ public class MemberServiceImpl implements IMemberService {
     public String getUsername(){
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
+    String username =  SecurityUtils.Common.getUsername();
     @Override
     public Page<MemberResponse> getAllMembers(Pageable pageable, String filter) {
 
