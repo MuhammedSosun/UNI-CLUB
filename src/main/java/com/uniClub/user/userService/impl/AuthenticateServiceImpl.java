@@ -147,16 +147,16 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
                         new ErrorMessage(MessageType.USER_NOT_FOUND, "Kullanıcı bulunamadı")
                 ));
 
-        // ✅ USER AKTİF
+        //  USER AKTİF
         user.setActive(true);
 
-        // ✅ MEMBER COMPLETED
+        //  MEMBER COMPLETED
         Member member = memberRepository.findByUser(user).orElseThrow(
                 () -> new BaseException(new ErrorMessage(MessageType.MEMBER_NOT_FOUND, user.getUsername()))
         );
         member.setStatus(StatusEnum.ACTIVE);
 
-        // ✅ VERIFICATION TEMİZLE
+        //  VERIFICATION TEMİZLE
         verificationRepository.delete(verification);
 
         return "Doğrulama başarılı. Artık giriş yapabilirsiniz.";

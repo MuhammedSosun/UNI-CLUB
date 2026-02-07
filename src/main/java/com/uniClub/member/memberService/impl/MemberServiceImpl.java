@@ -76,7 +76,6 @@ public class MemberServiceImpl implements IMemberService {
     public String getUsername(){
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
-    String username =  SecurityUtils.Common.getUsername();
     @Override
     public Page<MemberResponse> getAllMembers(Pageable pageable, String filter) {
 

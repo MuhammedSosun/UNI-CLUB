@@ -12,7 +12,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PasswordResetCodeRequest {
-
+    @NotBlank(message = "Email cannot be blank")
+    @Pattern(
+            regexp = "^[0-9]{9}@ogrenci\\.yalova\\.edu.tr$",
+            message = "Geçerli bir üniversite e-postası giriniz! (ör: 210101068@ogrenci.yalova.edu.tr)"
+    )
     private String email;
 
     private String code;
