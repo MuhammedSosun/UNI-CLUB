@@ -101,7 +101,7 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
         userDto.setPassword(request.getPassword());
         userDto.setRole(Role.USER);
 
-        log.info("REGISTER REQUEST -> " + request.getEmail() + " / " + request.getPassword());
+        log.info("REGISTER REQUEST -> " + request.getEmail());
         UserEntity user = UserMapper.toEntity(userDto, bCryptPasswordEncoder);
         userRepository.save(user);
 
@@ -115,7 +115,7 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
         applicationEventPublisher.publishEvent(
                 new UserRegisteredEvent(email)
         );
-       // verificationAccount.sendVerificationCode(email);
+       verificationAccount.sendVerificationCode(email);
 
         return "Kayıt başarılı. Doğrulama kodu e-posta adresinize gönderildi.";
     }
