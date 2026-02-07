@@ -1,6 +1,5 @@
 package com.uniClub.member.memberService.impl;
 
-import com.uniClub.commonmethods.SecurityUtils;
 import com.uniClub.enums.StatusEnum;
 import com.uniClub.exceptions.exception.BaseException;
 import com.uniClub.exceptions.exception.ErrorMessage;
@@ -14,7 +13,6 @@ import com.uniClub.member.memberService.IMemberService;
 import com.uniClub.user.userEntity.UserEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -38,9 +36,6 @@ public class MemberServiceImpl implements IMemberService {
                                 "Profil bulunamadı"
                         )
                 ));
-        String username = getUsername();
-        member.setCreatedBy(username);
-        member.setUpdatedBy(username);
 
         return memberMapper.toDto(member);
     }
@@ -59,9 +54,6 @@ public class MemberServiceImpl implements IMemberService {
 
         member.setStatus(StatusEnum.ACTIVE);
 
-        String username = getUsername();
-        member.setCreatedBy(username);
-        member.setUpdatedBy(username);
 
         memberRepository.save(member);
 
@@ -73,9 +65,6 @@ public class MemberServiceImpl implements IMemberService {
         return memberRepository.count();
     }
 
-    public String getUsername(){
-        return SecurityContextHolder.getContext().getAuthentication().getName();
-    }
     @Override
     public Page<MemberResponse> getAllMembers(Pageable pageable, String filter) {
 
