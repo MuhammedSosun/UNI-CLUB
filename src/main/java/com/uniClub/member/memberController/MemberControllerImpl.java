@@ -1,8 +1,7 @@
-package com.uniClub.member.memberController.impl;
+package com.uniClub.member.memberController;
 
 import com.uniClub.util.controller.RestBaseController;
 import com.uniClub.util.controller.RootEntity;
-import com.uniClub.member.memberController.IMemberController;
 import com.uniClub.member.memberDto.MemberRequest;
 import com.uniClub.member.memberDto.MemberResponse;
 import com.uniClub.user.userEntity.UserEntity;
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/member")
-public class MemberControllerImpl extends RestBaseController implements IMemberController {
+public class MemberControllerImpl extends RestBaseController{
 
     private final IMemberService memberService;
 
@@ -26,23 +25,23 @@ public class MemberControllerImpl extends RestBaseController implements IMemberC
     }
 
     @GetMapping("/me")
-    @Override
+    
     public RootEntity<MemberResponse> getMyProfile(@AuthenticationPrincipal UserEntity user) {
         return ok(memberService.getMyProfile(user));
     }
     @PutMapping("/me")
-    @Override
+    
     public RootEntity<MemberResponse> updateMyProfile(@Valid @RequestBody MemberRequest request,
                                                       @AuthenticationPrincipal UserEntity user) {
         return ok(memberService.updateMyProfile(request,user));
     }
     @GetMapping("/count")
-    @Override
+    
     public RootEntity<Long> activeMember() {
         return ok(memberService.activeMemberCount());
     }
     @GetMapping
-    @Override // Eğer IMemberController'a da eklediysen @Override kalabilir, yoksa sil
+     // Eğer IMemberController'a da eklediysen  kalabilir, yoksa sil
     public RootEntity<Page<MemberResponse>> getAllMembers(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
@@ -55,7 +54,7 @@ public class MemberControllerImpl extends RestBaseController implements IMemberC
     }
 
     @GetMapping("/{id}")
-    @Override
+    
     public RootEntity<MemberResponse> getMemberById(@PathVariable Long id) {
         return ok(memberService.getMemberById(id));
     }

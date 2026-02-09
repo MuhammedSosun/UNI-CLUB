@@ -1,4 +1,4 @@
-package com.uniClub.member.memberController.impl;
+package com.uniClub.member.memberController;
 
 import com.uniClub.Club.clubDto.ClubResponseDTO; // 1. IMPORT EKLENDİ
 import com.uniClub.util.controller.RestBaseController;

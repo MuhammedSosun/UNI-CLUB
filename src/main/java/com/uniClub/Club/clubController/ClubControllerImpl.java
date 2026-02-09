@@ -1,6 +1,5 @@
-package com.uniClub.Club.clubController.impl;
+package com.uniClub.Club.clubController;
 
-import com.uniClub.Club.clubController.IClubController;
 import com.uniClub.util.controller.RestBaseController;
 import com.uniClub.util.controller.RootEntity;
 import com.uniClub.Club.clubDto.ClubLogoUploadRequest;
@@ -25,7 +24,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/clubs")
-public class ClubControllerImpl extends RestBaseController implements IClubController {
+public class ClubControllerImpl extends RestBaseController {
 
     private final IClubService clubService;
 
@@ -35,14 +34,14 @@ public class ClubControllerImpl extends RestBaseController implements IClubContr
 
     // -------------------- CREATE --------------------
     @PostMapping
-    @Override
+    
     public RootEntity<ClubResponseDTO> createClub(@Valid @RequestBody ClubRequestDto requestDto) {
         return ok(clubService.createClub(requestDto));
     }
 
     // -------------------- GET BY ID --------------------
     @GetMapping("/{id}")
-    @Override
+    
     public RootEntity<ClubResponseDTO> getClubById(@PathVariable Long id) {
         return ok(clubService.getClubById(id));
     }
@@ -62,7 +61,7 @@ public class ClubControllerImpl extends RestBaseController implements IClubContr
 
     // -------------------- UPDATE --------------------
     @PutMapping("/{id}")
-    @Override
+    
     public RootEntity<ClubResponseDTO> updateClub(
             @PathVariable Long id,
             @Valid @RequestBody ClubRequestDto requestDto
@@ -72,7 +71,7 @@ public class ClubControllerImpl extends RestBaseController implements IClubContr
 
     // -------------------- DELETE (SOFT) --------------------
     @DeleteMapping("/{id}")
-    @Override
+    
     public RootEntity<Void> deleteClub(@PathVariable Long id) {
         clubService.deleteClubById(id);
         return ok(null);
@@ -80,7 +79,7 @@ public class ClubControllerImpl extends RestBaseController implements IClubContr
 
     // -------------------- ASSIGN PRESIDENT --------------------
     @PatchMapping("/{id}/assign-president/{userId}")
-    @Override
+    
     public RootEntity<ClubResponseDTO> assignPresident(
             @PathVariable Long id,
             @PathVariable UUID userId
@@ -88,12 +87,12 @@ public class ClubControllerImpl extends RestBaseController implements IClubContr
         return ok(clubService.assignPresident(id, userId));
     }
     @GetMapping("/total")
-    @Override
+    
     public RootEntity<Long> totalClubs() {
         return ok(clubService.totalClubs());
     }
 
-    @Override
+    
     @GetMapping("/stats/top-by-members")
     public RootEntity<List<ClubMemberStatsResponse>> getTopByMembers() {
         return ok(clubService.getTopClubsByMemberCount());
@@ -106,7 +105,7 @@ public class ClubControllerImpl extends RestBaseController implements IClubContr
         return ok(clubService.searchClubsByName(name, pageable));
     }
     @GetMapping("/count")
-    @Override
+    
     public RootEntity<Long> activeClubCount() {
         return ok(clubService.activeClubCount());
     }

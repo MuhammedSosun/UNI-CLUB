@@ -1,9 +1,8 @@
-package com.uniClub.notification.notificationController.impl;
+package com.uniClub.notification.notificationController;
 
 import com.uniClub.notification.notificationDto.NotificationDtoRequest;
 import com.uniClub.notification.notificationDto.NotificationDtoResponse;
 import com.uniClub.enums.NotificationType;
-import com.uniClub.notification.notificationController.INotificationController;
 import com.uniClub.notification.notificationService.INotificationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/notification")
-public class NotificationControllerImpl implements INotificationController {
+public class NotificationControllerImpl {
 
     private final INotificationService notificationService;
 
@@ -27,42 +26,42 @@ public class NotificationControllerImpl implements INotificationController {
     }
 
     @GetMapping("/list/by/username")
-    @Override
+   
     public List<NotificationDtoResponse> getNotificationByUsername() {
         return notificationService.getNotificationByUsername();
     }
     @GetMapping("/get/unread")
-    @Override
+   
     public List<NotificationDtoResponse> getUnreadNotifications() {
         return notificationService.getUnreadNotifications();
     }
     @GetMapping("/mark")
-    @Override
+   
     public void markAsRead(String notificationId) {
         notificationService.markAsRead(notificationId);
     }
     @GetMapping("/get/all")
-    @Override
+   
     public List<NotificationDtoResponse> getAllNotifications() {
         return notificationService.getAllNotifications();
     }
     @GetMapping("/get/{notificationId}")
-    @Override
+   
     public NotificationDtoResponse getNotificationById(@PathVariable String notificationId) {
         return notificationService.getNotificationById(notificationId);
     }
     @GetMapping("/get/type/{type}")
-    @Override
+   
     public List<NotificationDtoResponse> getNotificationsByType(@PathVariable NotificationType type) {
         return notificationService.getNotificationsByType(type);
     }
     @GetMapping("/delete")
-    @Override
+   
     public void deleteByUsername() {
         notificationService.deleteByUsername();
     }
     @GetMapping("/delete/{notificationId}")
-    @Override
+   
     public void deleteById(@PathVariable String notificationId) {
         notificationService.deleteById(notificationId);
     }

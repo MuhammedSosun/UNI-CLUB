@@ -1,4 +1,4 @@
-package com.uniClub.event.eventController.impl;
+package com.uniClub.event.eventController;
 
 import com.uniClub.event.eventDto.EventParticipantDto;
 import com.uniClub.event.eventDto.ParticipationStatusRequest;
@@ -7,7 +7,6 @@ import com.uniClub.util.controller.RootEntity;
 import com.uniClub.Club.clubDto.ActiveClubDTO;
 import com.uniClub.event.eventDto.EventRequest;
 import com.uniClub.event.eventDto.EventResponse;
-import com.uniClub.event.eventController.IEventController;
 import com.uniClub.event.eventService.IEventService;
 import com.uniClub.util.pageable.PageUtil;
 import com.uniClub.util.pageable.PageableEntity;
@@ -21,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/event")
-public class EventControllerImpl extends RestBaseController implements IEventController {
+public class EventControllerImpl extends RestBaseController{
     private final IEventService eventService;
 
     public EventControllerImpl(IEventService eventService) {
@@ -29,37 +28,37 @@ public class EventControllerImpl extends RestBaseController implements IEventCon
     }
 
     @PostMapping("/create")
-    @Override
+    
     public RootEntity<EventResponse> createEvent(@RequestBody EventRequest eventRequest) {
         return ok(eventService.createEvent(eventRequest));
     }
 
     @GetMapping("/list")
-    @Override
+    
     public RootEntity<List<EventResponse>> findAllEvents() {
         return ok(eventService.findAllEvents());
     }
 
     @GetMapping("/get/{id}")
-    @Override
+    
     public RootEntity<EventResponse> findEventById(@PathVariable Long id) {
         return ok(eventService.findEventById(id));
     }
 
     @GetMapping("/filter")
-    @Override
+    
     public RootEntity<List<EventResponse>> searchEvents(@RequestParam String filter) {
         return ok(eventService.searchEvents(filter));
     }
 
 
     @PostMapping("/{id}/join")
-    @Override
+    
     public RootEntity<EventResponse> joinEvent(@PathVariable Long id) {
         return ok(eventService.joinEvent(id));
     }
     @PostMapping("/{eventId}/participation-status")
-    @Override
+    
     public RootEntity<String> changeParticipationStatus(
             @PathVariable Long eventId,
             @RequestBody ParticipationStatusRequest request) {
@@ -86,26 +85,26 @@ public class EventControllerImpl extends RestBaseController implements IEventCon
     */
 
     @PutMapping("/update/{id}")
-    @Override
+    
     public RootEntity<EventResponse> updateEvent(@RequestBody EventRequest eventRequest, @PathVariable Long id) {
         return ok(eventService.updateEvent(eventRequest, id));
     }
 
     @DeleteMapping("/delete/{id}")
-    @Override
+    
     public RootEntity<String> deleteEvent(@PathVariable Long id) {
         eventService.deleteEvent(id); // Buradaki ok() silindi, void döndüğü için direkt çağırıyoruz
         return ok("Event deleted successfully");
     }
 
     @GetMapping("/total")
-    @Override
+    
     public RootEntity<Long> totalEvents() {
         return ok(eventService.totalEvents());
     }
 
     @PostMapping("/upcoming/paged")
-    @Override
+    
     public RootEntity<PageableEntity<EventResponse>> getUpcomingEventsPaged(
             @RequestBody PageableRequest request
     ) {
@@ -121,7 +120,7 @@ public class EventControllerImpl extends RestBaseController implements IEventCon
         return ok(eventService.getTopActiveClubsLast3Months());
     }
 
-    @Override
+    
     @GetMapping("/top/month")
     public RootEntity<List<EventResponse>> getTopEventsThisMonth() {
         return ok(eventService.getTopEventsThisMonth());
