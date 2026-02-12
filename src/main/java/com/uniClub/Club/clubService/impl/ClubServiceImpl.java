@@ -4,36 +4,30 @@ import com.uniClub.Club.clubDto.ClubMemberStatsResponse;
 import com.uniClub.Club.clubDto.ClubRequestDto;
 import com.uniClub.Club.clubDto.ClubResponseDTO;
 import com.uniClub.Club.clubEntity.ClubEntity;
-import com.uniClub.enums.*;
-import com.uniClub.member.memberEntity.ClubMembership;
-import com.uniClub.member.memberEntity.Member;
-import com.uniClub.user.userEntity.UserEntity;
-import com.uniClub.exceptions.exception.BaseException;
-import com.uniClub.exceptions.exception.ErrorMessage;
-import com.uniClub.exceptions.exception.FileStorageException;
-import com.uniClub.exceptions.exception.MessageType;
-import com.uniClub.logging.LoggableOperation;
 import com.uniClub.Club.clubMapper.ClubMapper;
 import com.uniClub.Club.clubRepository.ClubRepository;
+import com.uniClub.Club.clubService.IClubService;
+import com.uniClub.commonmethods.SecurityUtils;
+import com.uniClub.enums.*;
+import com.uniClub.exceptions.exception.BaseException;
+import com.uniClub.exceptions.exception.ErrorMessage;
+import com.uniClub.exceptions.exception.MessageType;
+import com.uniClub.logging.LoggableOperation;
+import com.uniClub.member.memberEntity.ClubMembership;
+import com.uniClub.member.memberEntity.Member;
 import com.uniClub.member.memberRepository.ClubMemberShipRepository;
 import com.uniClub.member.memberRepository.MemberRepository;
+import com.uniClub.user.userEntity.UserEntity;
 import com.uniClub.user.userRepository.UserRepository;
-import com.uniClub.Club.clubService.IClubService;
 import com.uniClub.util.pageable.PageUtil;
 import com.uniClub.util.pageable.PageableEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.Base64;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -45,53 +39,53 @@ public class ClubServiceImpl implements IClubService {
     private final UserRepository userRepository;
     private final MemberRepository memberRepository;
     private final ClubMemberShipRepository  clubMemberShipRepository;
+    private final ClubFileUploadService clubFileUploadService;
 
-    public ClubServiceImpl(ClubRepository clubRepository, ClubMapper clubMapper, UserRepository userRepository, MemberRepository memberRepository, ClubMemberShipRepository clubMemberShipRepository) {
+
+    public ClubServiceImpl(ClubRepository clubRepository, ClubMapper clubMapper, UserRepository userRepository, MemberRepository memberRepository, ClubMemberShipRepository clubMemberShipRepository, ClubFileUploadService clubFileUploadService) {
         this.clubRepository = clubRepository;
         this.clubMapper = clubMapper;
         this.userRepository = userRepository;
         this.memberRepository = memberRepository;
         this.clubMemberShipRepository = clubMemberShipRepository;
+        this.clubFileUploadService = clubFileUploadService;
     }
 
 
     @LoggableOperation(OperationType.CREATE_CLUB)
-    @Transactional
     @Override
     public ClubResponseDTO createClub(ClubRequestDto dto) {
-        ClubEntity entity = clubMapper.toEntity(dto);
-
         UserEntity presidentUser = null;
+        Member presidentMember = null;
+
+        // "Fail-Fast" -> Önce başkan kontrolü yap, sorun varsa kulüp hiç oluşmasın
         if (dto.getPresidentId() != null) {
             presidentUser = userRepository.findById(dto.getPresidentId())
-                    .orElseThrow(() -> new BaseException(
-                            new ErrorMessage(MessageType.USER_NOT_FOUND, "Başkan bulunamadı")
-                    ));
-            entity.setPresident(presidentUser);
+                    .orElseThrow(() -> new BaseException(new ErrorMessage(MessageType.USER_NOT_FOUND, "Başkan bulunamadı")));
+
+            presidentMember = memberRepository.findByUser(presidentUser)
+                    .orElseThrow(() -> new BaseException(new ErrorMessage(MessageType.MEMBER_NOT_FOUND, "Başkanın üyelik kaydı yok")));
         }
 
+        ClubEntity entity = clubMapper.toEntity(dto);
+        entity.setPresident(presidentUser);
         ClubEntity saved = clubRepository.save(entity);
 
-        // 🔥 KRİTİK KISIM
-        if (presidentUser != null) {
-            Member presidentMember = memberRepository.findByUser(presidentUser)
-                    .orElseThrow(() -> new BaseException(
-                            new ErrorMessage(MessageType.MEMBER_NOT_FOUND, "Başkanın member kaydı yok")
-                    ));
-
-            ClubMembership cm = new ClubMembership();
-            cm.setClub(saved);
-            cm.setMember(presidentMember);
-            cm.setRole(ClubRole.PRESIDENT);
-            cm.setStatus(ClubMembershipStatus.APPROVED);
-            cm.setJoinedAt(LocalDate.now());
-
-            clubMemberShipRepository.save(cm);
+        if (presidentMember != null) {
+            savePresidentMembership(saved, presidentMember);
         }
 
         return clubMapper.toResponseDTO(saved);
     }
-
+    private void savePresidentMembership(ClubEntity club, Member member) {
+        ClubMembership cm = new ClubMembership();
+        cm.setClub(club);
+        cm.setMember(member);
+        cm.setRole(ClubRole.PRESIDENT);
+        cm.setStatus(ClubMembershipStatus.APPROVED);
+        cm.setJoinedAt(LocalDate.now());
+        clubMemberShipRepository.save(cm);
+    }
 
     @Override
     @Transactional(readOnly = true)
@@ -220,38 +214,21 @@ public class ClubServiceImpl implements IClubService {
     @LoggableOperation(OperationType.FIND_ALL_CLUBS)
     @Override
     public Page<ClubResponseDTO> getAllPaged(Pageable pageable, String filter) {
+        Page<ClubEntity> page = (filter == null || filter.isBlank())
+                ? clubRepository.findAll(pageable)
+                : clubRepository.searchByClubNameOrShortName(filter, pageable);
 
-
-        Page<ClubEntity> page;
-        if (filter == null || filter.isBlank()) {
-            page = clubRepository.findAll(pageable);
-        } else {
-            page = clubRepository.searchByClubNameOrShortName(filter, pageable);
-        }
-
-
-        String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
-
-        Member currentMember = memberRepository.findByUserUsername(currentUsername).orElse(null);
+        Member currentMember = getCurrentMemberSafe();
 
         return page.map(club -> {
             ClubResponseDTO dto = clubMapper.toResponseDTO(club);
-
-            dto.setMembershipStatus(MembershipViewStatus.NOT_MEMBER);
-
-            if (currentMember != null) {
-                Optional<ClubMembership> membership = clubMemberShipRepository
-                        .findByClubIdAndMemberId(club.getId(), currentMember.getId());
-
-                membership.ifPresent(clubMembership ->
-                        dto.setMembershipStatus(MembershipViewStatus.valueOf(clubMembership.getStatus().name()))
-                );
-            }
-
+            dto.setMembershipStatus(resolveMembershipStatus(club, currentMember));
             return dto;
         });
     }
-
+    private Member getCurrentMemberSafe() {
+        try { return getCurrentMember(); } catch (Exception e) { return null; }
+    }
 
 
     @Override
@@ -293,60 +270,34 @@ public class ClubServiceImpl implements IClubService {
 
 
     private ClubEntity getClubWithId(Long id) {
-        return clubRepository.findById(id)
-                .orElseThrow(() ->
-                        new BaseException(new ErrorMessage(
-                                MessageType.CLUB_NOT_FOUND,
-                                "Kulüp bulunamadı. ID = " + id
-                        ))
-                );
+        return clubRepository.findById(id).orElseThrow(() ->
+                new BaseException(new ErrorMessage(MessageType.CLUB_NOT_FOUND, "ID: " + id)));
     }
+    @LoggableOperation(OperationType.UPDATE_PROFILE)
     public String saveBase64Logo(Long clubId, String fileName, String base64Content) {
+        ClubEntity club = getClubWithId(clubId);
 
-        try {
-            System.out.println("🟡 [LOGO-UPLOAD] clubId = " + clubId);
-            System.out.println("🟡 [LOGO-UPLOAD] fileName = " + fileName);
-            System.out.println("🟡 [LOGO-UPLOAD] base64 length = " + base64Content.length());
-            ClubEntity club = clubRepository.findById(clubId)
-                    .orElseThrow(() -> new BaseException(
-                            new ErrorMessage(MessageType.CLUB_NOT_FOUND, clubId.toString())
-                    ));
+        // Template method kullanımı: Tüm IO ve URL oluşturma mantığı içeride
+        String logoUrl = clubFileUploadService.uploadFile(base64Content, fileName, clubId);
 
-            byte[] decodedBytes = Base64.getDecoder().decode(base64Content);
-
-            Path uploadDir = Paths.get("uploads/clubs");
-            Files.createDirectories(uploadDir);
-
-            String newFileName = "club_" + clubId + "_" + fileName;
-            Path filePath = uploadDir.resolve(newFileName);
-
-            Files.write(filePath, decodedBytes);
-
-            String logoUrl = "http://localhost:8080/uploads/clubs/" + newFileName;
-
-            // 🔥 DB UPDATE – ASIL KRİTİK NOKTA
-            club.setLogoUrl(logoUrl);
-            clubRepository.save(club);
-            System.out.println("🟢 [LOGO-UPLOAD] DB AFTER logoUrl = " + club.getLogoUrl());
-
-            return logoUrl;
-
-        } catch (Exception e) {
-            throw new FileStorageException("Kulüp logosu yüklenemedi", e);
-        }
+        club.setLogoUrl(logoUrl);
+        clubRepository.save(club);
+        return logoUrl;
     }
 
     @Override
     public Long activeClubCount() {
         return clubRepository.countByStatus(StatusEnum.ACTIVE);
     }
-
+    @LoggableOperation(OperationType.READ)
     @Override
     @Transactional(readOnly = true)
     public ClubResponseDTO getMyClub() {
         // 1. Giriş yapan kullanıcıyı (UserEntity) alalım
-        UserEntity currentUser = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
+        UserEntity currentUser = SecurityUtils.getCurrentUser();
+        if (currentUser == null) {
+            throw new BaseException(new ErrorMessage(MessageType.UNAUTHORIZED_ACCESS, "Lütfen giriş yapın"));
+        }
         // 2. Bu kullanıcının başkan olduğu kulübü arayalım
         return clubRepository.findByPresidentId(currentUser.getId())
                 .map(club -> {
@@ -359,32 +310,35 @@ public class ClubServiceImpl implements IClubService {
     }
 
 
-    private MembershipViewStatus resolveMembershipStatus(
-            ClubEntity club,
-            Member member
-    ) {
-        Optional<ClubMembership> membership =
-                clubMemberShipRepository.findByClubAndMember(club, member);
+    private MembershipViewStatus resolveMembershipStatus(ClubEntity club, Member member) {
+        if (member == null) return MembershipViewStatus.NOT_MEMBER;
 
-        return membership.map(clubMembership -> switch (clubMembership.getStatus()) {
-            case PENDING -> MembershipViewStatus.PENDING;
-            case APPROVED -> MembershipViewStatus.APPROVED;
-            case REJECTED -> MembershipViewStatus.REJECTED;
-            case LEFT -> MembershipViewStatus.NOT_MEMBER;
-        }).orElse(MembershipViewStatus.NOT_MEMBER);
-
+        return clubMemberShipRepository.findByClubAndMember(club, member)
+                .map(membership -> switch (membership.getStatus()) {
+                    case PENDING -> MembershipViewStatus.PENDING;
+                    case APPROVED -> MembershipViewStatus.APPROVED;
+                    case REJECTED -> MembershipViewStatus.REJECTED;
+                    case LEFT -> MembershipViewStatus.NOT_MEMBER;
+                })
+                .orElse(MembershipViewStatus.NOT_MEMBER);
     }
 
     private Member getCurrentMember() {
-        UserEntity user = (UserEntity) org.springframework.security.core.context.SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getPrincipal();
 
-        return memberRepository.findByUser(user)
-                .orElseThrow(() -> new BaseException(
-                        new ErrorMessage(MessageType.MEMBER_NOT_FOUND, "Member bulunamadı")
-                ));
+        String username = SecurityUtils.getUsername();
+
+        if (username == null) {
+            throw new BaseException(
+                    new ErrorMessage(MessageType.UNAUTHORIZED_ACCESS, "Kullanıcı giriş yapmamış")
+            );
+        }
+
+        return memberRepository.findByUserUsername(username)
+                .orElseThrow(() ->
+                        new BaseException(
+                                new ErrorMessage(MessageType.MEMBER_NOT_FOUND, "Üye bulunamadı")
+                        ));
     }
+
 
 }
