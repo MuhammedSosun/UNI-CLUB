@@ -115,7 +115,6 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
         applicationEventPublisher.publishEvent(
                 new UserRegisteredEvent(email)
         );
-       verificationAccount.sendVerificationCode(email);
 
         return "Kayıt başarılı. Doğrulama kodu e-posta adresinize gönderildi.";
     }

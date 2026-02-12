@@ -31,7 +31,6 @@ public class RestAuthenticationControllerImpl extends RestBaseController{
     }
 
     @PostMapping("/register")
-    
     public RootEntity<?> register(@Valid @RequestBody RegisterRequest request) {
         return ok(authenticateService.register(request));
     }

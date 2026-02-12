@@ -12,11 +12,14 @@ import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 
 @Component
-@RequiredArgsConstructor
 @Log4j2
 public class UserRegisteredListener {
 
     private final IVerificationAccount verificationAccount;
+
+    public UserRegisteredListener(IVerificationAccount verificationAccount) {
+        this.verificationAccount = verificationAccount;
+    }
 
     @Async
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
