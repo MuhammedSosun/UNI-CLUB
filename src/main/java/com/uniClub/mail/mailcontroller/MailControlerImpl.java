@@ -24,7 +24,6 @@ public class MailControlerImpl extends RootEntity{
     }
 
     @PostMapping("/forgot-password")
-    
     public RootEntity<?> forgotPassword(@RequestBody ForgotPasswordRequest request) {
         passwordResetService.sendResetCode(request.getEmail());
         return ok("Kod email adresinize gönderildi.");

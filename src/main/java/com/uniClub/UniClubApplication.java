@@ -12,7 +12,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EntityScan(basePackages = "com.uniClub")
 @EnableJpaRepositories(basePackages = "com.uniClub")
 @EnableAsync
-
 public class UniClubApplication {
 
 	public static void main(String[] args) {

@@ -78,7 +78,10 @@ public class MemberRequest {
 
     private List<@Size(min = 1, max = 100) String> certificates = new ArrayList<>();
 
-    private List<@Size(min = 1, max = 30) String> languages = new ArrayList<>();
+    private List<
+            @NotBlank(message = "Language cannot be blank")
+            @Size(max = 30, message = "Language cannot exceed 30 characters")
+                    String> languages = new ArrayList<>();
 
     private List<@Size(min = 1, max = 100) String> projects = new ArrayList<>();
 }
