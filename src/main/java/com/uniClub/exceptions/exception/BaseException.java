@@ -9,10 +9,6 @@ public class BaseException extends RuntimeException {
         super(errorMessage.prepareErrorMessage());
         this.errorMessage = errorMessage;
     }
-
-
-
-
     public ErrorMessage getErrorMessage() {
         return errorMessage;
     }
