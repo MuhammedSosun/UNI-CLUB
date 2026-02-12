@@ -49,6 +49,7 @@ public class MDCLoggingFilter extends OncePerRequestFilter {
 
     private void logRequest(ContentCachingRequestWrapper request) {
         String requestBody = getRequestBody(request);
+        String maskedBody = maskJson(requestBody);
         StringBuilder headers = new StringBuilder();
 
         Enumeration<String> headerNames = request.getHeaderNames();
@@ -58,30 +59,31 @@ public class MDCLoggingFilter extends OncePerRequestFilter {
         }
 
         log.info("""
-                REQUEST
-                traceId={} | method={} | uri={} | ip={} 
-                headers=[{}]
-                body={}
-                """,
+            REQUEST
+            traceId={} | method={} | uri={} | ip={}
+            headers=[{}]
+            body={}
+            """,
                 MDCUtil.getTraceId(),
                 request.getMethod(),
                 request.getRequestURI(),
                 request.getRemoteAddr(),
                 headers,
-                requestBody);
+                maskedBody);
     }
 
     private void logResponse(ContentCachingResponseWrapper response, long durationMs) {
         String responseBody = getResponseBody(response);
+        String maskedBody = maskJson(responseBody);
         log.info("""
-                RESPONSE
-                traceId={} | status={} | duration={}ms 
-                body={}
-                """,
+            RESPONSE
+            traceId={} | status={} | duration={}ms
+            body={}
+            """,
                 MDCUtil.getTraceId(),
                 response.getStatus(),
                 durationMs,
-                responseBody);
+                maskedBody);
     }
 
     private String getRequestBody(ContentCachingRequestWrapper request) {
@@ -94,5 +96,14 @@ public class MDCLoggingFilter extends OncePerRequestFilter {
         byte[] buf = response.getContentAsByteArray();
         if (buf.length == 0) return "(empty)";
         return new String(buf, StandardCharsets.UTF_8);
+    }
+
+    // JSON içindeki hassas alanları bulup "****" ile değiştiren regex
+    private String maskJson(String json) {
+        if (json == null || json.equals("(empty)")) return json;
+
+        // password, passwordConfirm, token, cardNumber gibi alanları yakalar
+        return json.replaceAll("(\"(?:password|passwordConfirm|token|cardNumber|tckn)\"\\s*:\\s*\")[^\"]+(\")",
+                "$1****$2");
     }
 }
