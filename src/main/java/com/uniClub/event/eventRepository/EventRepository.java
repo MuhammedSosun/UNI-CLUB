@@ -18,28 +18,29 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
     List<Event> findByTitleContainingIgnoreCaseOrderByEventDateAsc(String filter);
 
+    List<Event> findByEventDateGreaterThanEqualOrderByEventDateAsc(LocalDateTime now);
+
     @Query("""
-SELECT e FROM Event e WHERE e.eventDate >= :now
-""")
+        SELECT e FROM Event e WHERE e.eventDate >= :now
+    """)
     Page<Event> findUpcomingEventsPaged(@Param("now") LocalDateTime now, Pageable pageable);
 
     @Query("""
-    SELECT c AS club, Count(e.id) AS eventCount
+        SELECT c AS club, Count(e.id) AS eventCount
         FROM Event e
-            JOIN e.clubs c
-                WHERE e.eventDate >= :startDate
-                    GROUP BY c
-                        ORDER BY COUNT(e.id) DESC 
+        JOIN e.clubs c
+        WHERE e.eventDate >= :startDate
+        GROUP BY c
+        ORDER BY COUNT(e.id) DESC
     """)
     List<Object[]> findTopActiveClubsLast3Months(LocalDateTime startDate);
 
     @Query("""
-    SELECT e FROM Event e
-    WHERE e.eventDate >= :startDate
-    AND e.eventDate < :endDate
-    ORDER BY e.participantCount DESC
-""")
+        SELECT e FROM Event e
+        WHERE e.eventDate >= :startDate
+        AND e.eventDate < :endDate
+        ORDER BY e.participantCount DESC
+    """)
     List<Event> findTopEventsThisMonth(@Param("startDate") LocalDateTime startDate,
                                        @Param("endDate") LocalDateTime endDate);
-
 }

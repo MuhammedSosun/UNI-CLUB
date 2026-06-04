@@ -264,11 +264,6 @@ public class ClubServiceImpl implements IClubService {
 
         return PageUtil.toPageableResponse(page, dtoList);
     }
-
-
-
-
-
     private ClubEntity getClubWithId(Long id) {
         return clubRepository.findById(id).orElseThrow(() ->
                 new BaseException(new ErrorMessage(MessageType.CLUB_NOT_FOUND, "ID: " + id)));
