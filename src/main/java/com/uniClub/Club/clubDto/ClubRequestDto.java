@@ -33,7 +33,7 @@ public class ClubRequestDto {
     @Pattern(regexp = "^\\+?[0-9]{10,15}$", message = "Telefon numarası 10-15 haneli olmalıdır")
     private String phone;
     @Pattern(
-            regexp = "^(https?://)?(www\\.)?instagram\\.com/.*$",
+            regexp = "^$|^(https?://)?(www\\.)?instagram\\.com/.*$",
             message = "Instagram linki geçersiz"
     )
     private String instagram;

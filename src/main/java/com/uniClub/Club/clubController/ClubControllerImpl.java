@@ -142,7 +142,7 @@ public class ClubControllerImpl extends RestBaseController {
 
 
     @PostMapping("/logo/upload")
-    public RootEntity<String> uploadLogo(@RequestBody ClubLogoUploadRequest request) {
+    public RootEntity<String> uploadLogo(@RequestBody ClubLogoUploadRequest request) throws BaseException {
 
         if (request.getBase64Content() == null || request.getBase64Content().isBlank()) {
             throw new BaseException(

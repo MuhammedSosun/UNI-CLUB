@@ -81,7 +81,7 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
         String email = request.getEmail().trim();
         String username = email.split("@")[0];
 
-        UserEntity existingUser = userRepository.findByEmail(request.getEmail()).orElse(null);
+        UserEntity existingUser = userRepository.findByEmail(email).orElse(null);
 
         if (existingUser != null) {
 
@@ -89,9 +89,12 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
                 verificationAccount.sendVerificationCode(email);
                 return "Bu e-posta ile daha önce kayıt olunmuş fakat doğrulanmamış. Yeni doğrulama kodu gönderildi.";
             }
+
             throw new BaseException(
-                    new ErrorMessage(MessageType.USER_ALREADY_EXISTS,
-                            "Bu e-posta adresi zaten sistemde kayıtlı.")
+                    new ErrorMessage(
+                            MessageType.USER_ALREADY_EXISTS,
+                            "Bu e-posta adresi zaten sistemde kayıtlı."
+                    )
             );
         }
 
@@ -101,17 +104,19 @@ public class AuthenticateServiceImpl implements IAuthenticateService {
         userDto.setPassword(request.getPassword());
         userDto.setRole(Role.USER);
 
-        log.info("REGISTER REQUEST -> " + request.getEmail());
+        log.info("REGISTER REQUEST -> {}", email);
+
         UserEntity user = UserMapper.toEntity(userDto, bCryptPasswordEncoder);
-        userRepository.save(user);
+
+        UserEntity savedUser = userRepository.save(user);
 
         Member member = new Member();
-
-        member.setUser(user);
+        member.setUser(savedUser);
         member.setStatus(StatusEnum.INCOMPLETED);
         member.setUniversity("Yalova Üniversitesi");
 
         memberRepository.save(member);
+
         applicationEventPublisher.publishEvent(
                 new UserRegisteredEvent(email)
         );
